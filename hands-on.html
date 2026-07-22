@@ -39,7 +39,7 @@ main>section[id]{scroll-margin-top:102px}.wrap{max-width:1100px;margin:auto;padd
 <section id="hero" class="hero"><div class="wrap">
   <span class="eyebrow">Aktiviti berkumpulan</span>
   <h1>Workshop Hands-On Menggunakan <em>ChatGPT</em></h1>
-  <p class="lede">Empat kumpulan, empat tugasan berbeza. Gunakan ChatGPT untuk mencipta, menyemak dan menambah baik output berasaskan data simulasi.</p>
+  <p class="lede">Empat kumpulan membina jenis mini web app yang sama menggunakan jadual, peraturan perhatian dan graf yang berbeza. Semua bahan latihan menggunakan data simulasi.</p>
   <div class="hero-badges"><div class="badge">⏱️ Anggaran keseluruhan: 75 minit</div><div class="badge">👥 45 minit kerja kumpulan</div><div class="badge">🎤 4 × 5 minit pembentangan</div><div class="badge">💬 Akaun ChatGPT</div></div>
   <div class="platform-note"><div class="icon">💡</div><div><p><strong>ChatGPT ialah platform utama demonstrasi.</strong> Akaun percuma boleh digunakan, tertakluk pada had semasa. Fasilitator menggunakan ChatGPT Plus; ciri yang tersedia mungkin berbeza mengikut akaun.</p><div class="platform-grid">
     <a class="platform-pill featured" href="https://chatgpt.com/" target="_blank" rel="noopener"><strong>ChatGPT</strong>OpenAI</a>
@@ -51,111 +51,277 @@ main>section[id]{scroll-margin-top:102px}.wrap{max-width:1100px;margin:auto;padd
 
 <section id="arahan"><div class="wrap"><div class="section-head"><span class="eyebrow">01 · Arahan umum</span><h2>Cara semua kumpulan bekerja</h2><p class="lede">Matlamatnya bukan mendapatkan jawapan pertama yang cantik, tetapi menghasilkan output yang boleh disemak dan dipertanggungjawabkan.</p></div>
   <div class="callout"><div class="icon">💬</div><p><strong>Mod Akaun Free — maksimum satu prompt utama dan satu prompt pembetulan.</strong> Gunakan satu prompt tambahan hanya jika benar-benar perlu.</p></div>
-  <div class="callout"><div class="icon">📋</div><p><strong>Jika muat naik tidak tersedia atau had telah dicapai, salin data simulasi daripada halaman ini dan tampal sebagai teks.</strong></p></div>
-  <div class="grid three" style="margin-top:24px"><div class="card"><div class="icon">⏱️</div><h3>Pembahagian masa</h3><ul><li>45 minit kerja kumpulan, termasuk ChatGPT dan NotebookLM</li><li>10 minit kemaskan hasil</li><li>5 minit pembentangan bagi setiap kumpulan</li><li>4 kumpulan = 20 minit pembentangan</li><li><strong>Anggaran keseluruhan: 75 minit</strong></li></ul></div><div class="card"><div class="icon">👤</div><h3>Agihkan peranan</h3><p>Ketua/penyelaras, penulis prompt, penyemak fakta, penyedia output dan pembentang.</p></div><div class="card"><div class="icon">🛡️</div><h3>Peraturan</h3><p>Maksimum satu fail untuk dimuat naik. Gunakan simulasi sahaja, jangan muat naik data sensitif, simpan prompt utama dan prompt pembetulan, serta semak output—jangan terima bulat-bulat. Elakkan imej, Deep Research, jana semula berulang kali dan banyak fail.</p></div></div>
+  <div class="callout"><div class="icon">📋</div><p><strong>Tiada muat naik fail diperlukan.</strong> Salin prompt lengkap kumpulan, tampal dalam satu chat ChatGPT dan hantar. Butang Salin Jadual digunakan untuk eksperimen data atau prompt pembetulan.</p></div>
+  <div class="grid three" style="margin-top:24px"><div class="card"><div class="icon">⏱️</div><h3>Pembahagian masa</h3><ul><li>45 minit kerja kumpulan, termasuk ChatGPT dan NotebookLM</li><li>10 minit kemaskan hasil</li><li>5 minit pembentangan bagi setiap kumpulan</li><li>4 kumpulan = 20 minit pembentangan</li><li><strong>Anggaran keseluruhan: 75 minit</strong></li></ul></div><div class="card"><div class="icon">👤</div><h3>Agihkan peranan</h3><p>Seorang operator ChatGPT bagi setiap kumpulan, bersama penyemak data, penguji web app dan pembentang.</p></div><div class="card"><div class="icon">🛡️</div><h3>Peraturan</h3><p>Gunakan data simulasi sahaja, satu prompt utama dan satu prompt pembetulan. Elakkan Deep Research dan jana semula berulang kali. Semak output—jangan terima bulat-bulat.</p></div></div>
   <div class="flow" aria-label="Aliran kerja"><span>Tugas</span><b>→</b><span>Bina prompt utama</span><b>→</b><span>Output pertama</span><b>→</b><span>Semak</span><b>→</b><span>Prompt pembetulan</span><b>→</b><span>Output akhir</span><b>→</b><span>Bentang</span></div>
 </div></section>
 
 <section id="tktf"><div class="wrap"><div class="section-head"><span class="eyebrow">02 · Kerangka mudah bengkel: T.K.T.F</span><h2>4 Elemen Prompt yang Jelas</h2><p class="lede">Prompt yang jelas membantu A.I memahami tugas, konteks, tujuan dan bentuk hasil yang diperlukan.</p></div>
   <div class="grid four"><div class="card tktf"><b>T</b><h3>Tugas</h3><p>Apa yang A.I perlu buat?</p></div><div class="card tktf"><b>K</b><h3>Konteks</h3><p>Apakah situasi dan maklumat berkaitan?</p></div><div class="card tktf"><b>T</b><h3>Tujuan</h3><p>Untuk siapa atau untuk apa hasil digunakan?</p></div><div class="card tktf"><b>F</b><h3>Format</h3><p>Mahu jawapan dalam bentuk apa?</p></div></div>
-<div class="prompt-grid" style="margin-top:24px"><article class="prompt-card"><div class="prompt-head"><h3>Prompt utama universal</h3><p>Salin sekali, kemudian sesuaikan dengan tugas kumpulan.</p></div><div class="prompt-body"><div class="prompt-box" id="prompt-universal">Tugas: Bantu saya menghasilkan [hasil yang diperlukan].
-Konteks: Saya bekerja dalam [situasi/peranan]. Gunakan hanya maklumat simulasi yang saya berikan.
-Tujuan: Hasil ini akan digunakan untuk [kegunaan].
-Format: Susun sebagai [jadual/senarai/laporan/kod]. Jangan reka fakta. Tandakan maklumat yang tidak lengkap atau tidak pasti.</div><button class="copy-btn" type="button" data-copy-target="prompt-universal">📋 Salin Prompt</button></div></article><article class="prompt-card"><div class="prompt-head"><h3>Prompt pembetulan universal</h3><p>Gunakan sekali selepas menyemak output pertama.</p></div><div class="prompt-body"><div class="prompt-box" id="prompt-pembetulan">Semak semula output tadi berdasarkan pembetulan ini: [nyatakan kesilapan atau kekurangan]. Kekalkan fakta yang tepat, betulkan hanya perkara yang dinyatakan, jangan tambah fakta baharu, dan hasilkan versi akhir dalam format yang sama.</div><button class="copy-btn" type="button" data-copy-target="prompt-pembetulan">📋 Salin Prompt</button></div></article></div>
 </div></section>
 
-<section id="kumpulan"><div class="wrap"><div class="section-head"><span class="eyebrow">03 · Kenali kumpulan</span><h2>Empat fokus kerja yang berbeza</h2><p class="lede">Label kumpulan menunjukkan fokus tugasan, bukan tahap kebolehan.</p></div><div class="grid four"><div class="card"><div class="icon">📝</div><h3>Kumpulan 1</h3><p>Nota mentah → laporan rasmi</p></div><div class="card"><div class="icon">📚</div><h3>Kumpulan 2</h3><p>SOP → bahan pembelajaran</p></div><div class="card"><div class="icon">📊</div><h3>Kumpulan 3</h3><p>CSV/Excel → analisis stok</p></div><div class="card"><div class="icon">⚙️</div><h3>Kumpulan 4</h3><p>Data → Google Apps Script penanda stok</p></div></div></div></section>
+<section id="kumpulan"><div class="wrap"><div class="section-head"><span class="eyebrow">03 · Kenali kumpulan</span><h2>Bina Mini Web App Interaktif daripada Jadual Data Simulasi</h2><p class="lede">Semua kumpulan mengikuti aliran yang sama. Perbezaannya ialah topik, jadual simulasi, syarat perhatian dan graf.</p></div><div class="grid four"><div class="card"><div class="icon">🧪</div><h3>Kumpulan 1</h3><p>Stok Bahan Makmal</p></div><div class="card"><div class="icon">🛠️</div><h3>Kumpulan 2</h3><p>Penyelenggaraan Peralatan</p></div><div class="card"><div class="icon">🧫</div><h3>Kumpulan 3</h3><p>Pemantauan Sampel</p></div><div class="card"><div class="icon">🧤</div><h3>Kumpulan 4</h3><p>Stok PPE</p></div></div>
+  <div class="callout"><div class="icon">🔄</div><p><strong>Ubah data sekali → Jadual, statistik dan graf berubah bersama.</strong> Setiap web app mesti menggunakan satu array JavaScript bernama <code>data</code> sebagai satu-satunya sumber data.</p></div>
+  <div class="card" style="margin-top:24px"><h3>Eksperimen: Ubah Data, Lihat Graf Berubah</h3><div class="step-list"><div class="step"><span class="num">1</span><p>Buka kod HTML yang dijana.</p></div><div class="step"><span class="num">2</span><p>Cari array JavaScript bernama <code>data</code>.</p></div><div class="step"><span class="num">3</span><p>Ubah satu nilai nombor dalam array sahaja.</p></div><div class="step"><span class="num">4</span><p>Simpan fail dan muat semula browser.</p></div><div class="step"><span class="num">5</span><p>Perhatikan jadual, jumlah perhatian, warna baris dan graf berubah bersama.</p></div></div><div class="callout"><div class="icon">🧤</div><p><strong>Contoh:</strong> Sarung Tangan M — ubah Kuantiti daripada 7 kepada 14. Selepas muat semula, rekod tersebut tidak lagi dianggap stok rendah dan nilai graf turut berubah.</p></div></div>
+</div></section>
 
-<section id="kumpulan-1"><div class="wrap"><div class="section-head"><span class="eyebrow">04 · Kumpulan 1</span><h2>Nota Mentah kepada Laporan Rasmi</h2><span class="sim-label">⚠ Nota simulasi — bukan rekod sebenar</span></div>
-  <div class="notebook"><div class="notebook-bar">NOTA KEJADIAN · 21 JULAI 2026</div><div class="notebook-content" id="nota-simulasi">Lokasi: Lab Diagnostik
-Peralatan: Inkubator 02
-Bacaan dipaparkan: 39°C; tetapan sepatutnya: 37°C
-Bunyi kipas lebih kuat daripada biasa. Pintu telah diperiksa dan ditutup rapat.
-Sampel dipindahkan ke inkubator lain. Penyelia dimaklumkan pada 10:15 pagi.
-Label “Jangan Guna” diletakkan. Pemeriksaan teknikal dan rekod penyelenggaraan diperlukan.</div></div>
-  <button class="copy-btn" type="button" data-copy-target="nota-simulasi" style="margin-bottom:24px">📋 Salin Nota Simulasi</button>
-  <div class="prompt-grid"><article class="prompt-card"><div class="prompt-head"><h3>Hasilkan laporan kejadian</h3><p>Format rasmi, padat dan berasaskan fakta.</p></div><div class="prompt-body"><div class="prompt-box" id="prompt-kumpulan-1">Tugas: Tukarkan nota simulasi ini kepada laporan kejadian rasmi.
-Konteks: Kejadian melibatkan Inkubator 02 di Lab Diagnostik pada 21 Julai 2026.
-Tujuan: Mendokumentasikan fakta, tindakan segera dan tindakan susulan.
-Format: Tajuk, tarikh/masa, lokasi, peralatan, pemerhatian, tindakan segera, tindakan susulan dan perkara yang perlu disahkan. Jangan cipta nama pegawai, nombor aset atau fakta baharu.</div><button class="copy-btn" type="button" data-copy-target="prompt-kumpulan-1">📋 Salin Prompt</button></div></article>
-  <div class="card deliverable"><h3>Hasil Kumpulan & semakan</h3><p>Sediakan laporan rasmi, prompt utama dan prompt pembetulan.</p><ul class="mini-list"><li>Tarikh, masa, suhu dan lokasi tepat</li><li>Tindakan segera tidak berubah</li><li>Tiada nama/nombor aset direka</li><li>Bahasa formal dan neutral</li></ul></div></div>
+<section id="kumpulan-1"><div class="wrap"><div class="section-head"><span class="eyebrow">04 · Kumpulan 1</span><h2>Mini Web App Stok Bahan Makmal</h2><p class="lede">Bina web app untuk memantau kuantiti bahan makmal berbanding paras minimum.</p><span class="sim-label">⚠ Data Simulasi untuk Latihan Sahaja</span></div>
+  <div class="data-preview-wrap"><div class="data-preview-bar">JADUAL SIMULASI · 8 REKOD</div><table class="data-table"><thead><tr><th>Nama Bahan</th><th>Kategori</th><th>Kuantiti</th><th>Unit</th><th>Paras Minimum</th></tr></thead><tbody><tr><td>Reagen Hematologi</td><td>Reagen</td><td>12</td><td>botol</td><td>5</td></tr><tr><td>Larutan Buffer</td><td>Larutan</td><td>3</td><td>botol</td><td>5</td></tr><tr><td>Tiub EDTA</td><td>Bahan Guna Habis</td><td>18</td><td>pek</td><td>10</td></tr><tr><td>Kit Ujian Rapid</td><td>Kit Diagnostik</td><td>4</td><td>kotak</td><td>6</td></tr><tr><td>Minyak Imersi</td><td>Reagen</td><td>2</td><td>botol</td><td>3</td></tr><tr><td>Slaid Kaca</td><td>Bahan Guna Habis</td><td>25</td><td>kotak</td><td>10</td></tr><tr><td>Pewarna Giemsa</td><td>Reagen</td><td>7</td><td>botol</td><td>4</td></tr><tr><td>Bekas Sampel</td><td>Bekas</td><td>6</td><td>pek</td><td>8</td></tr></tbody></table></div><p class="scroll-hint">↔ Leret jadual secara mendatar pada skrin kecil.</p>
+  <pre id="jadual-k1" hidden>| Nama Bahan | Kategori | Kuantiti | Unit | Paras Minimum |
+|---|---|---:|---|---:|
+| Reagen Hematologi | Reagen | 12 | botol | 5 |
+| Larutan Buffer | Larutan | 3 | botol | 5 |
+| Tiub EDTA | Bahan Guna Habis | 18 | pek | 10 |
+| Kit Ujian Rapid | Kit Diagnostik | 4 | kotak | 6 |
+| Minyak Imersi | Reagen | 2 | botol | 3 |
+| Slaid Kaca | Bahan Guna Habis | 25 | kotak | 10 |
+| Pewarna Giemsa | Reagen | 7 | botol | 4 |
+| Bekas Sampel | Bekas | 6 | pek | 8 |</pre>
+  <button class="copy-btn" type="button" data-copy-target="jadual-k1" style="margin-bottom:24px">📋 Salin Jadual</button>
+  <div class="callout"><div class="icon">⚠️</div><p><strong>Perlu perhatian:</strong> Kuantiti kurang daripada Paras Minimum. Rekod dijangka: Larutan Buffer, Kit Ujian Rapid, Minyak Imersi dan Bekas Sampel — jumlah 4.</p></div>
+  <div class="prompt-grid" style="margin-top:24px"><article class="prompt-card"><div class="prompt-head"><h3>Prompt utama lengkap</h3><p>Tampal terus dalam satu chat ChatGPT.</p></div><div class="prompt-body"><div class="prompt-box" id="prompt-k1">Hasilkan satu mini web app bertajuk “Mini Web App Stok Bahan Makmal” dalam satu fail HTML lengkap.
+
+Gunakan jadual data simulasi ini:
+| Nama Bahan | Kategori | Kuantiti | Unit | Paras Minimum |
+|---|---|---:|---|---:|
+| Reagen Hematologi | Reagen | 12 | botol | 5 |
+| Larutan Buffer | Larutan | 3 | botol | 5 |
+| Tiub EDTA | Bahan Guna Habis | 18 | pek | 10 |
+| Kit Ujian Rapid | Kit Diagnostik | 4 | kotak | 6 |
+| Minyak Imersi | Reagen | 2 | botol | 3 |
+| Slaid Kaca | Bahan Guna Habis | 25 | kotak | 10 |
+| Pewarna Giemsa | Reagen | 7 | botol | 4 |
+| Bekas Sampel | Bekas | 6 | pek | 8 |
+
+Peraturan perhatian: rekod perlu perhatian apabila Kuantiti kurang daripada Paras Minimum. Jumlah yang dijangka ialah 4.
+
+Keperluan:
+- Gunakan HTML, CSS dan JavaScript biasa dalam satu fail tanpa framework, API, server, database atau pemasangan.
+- Fail mesti boleh dibuka terus dalam browser dan mesra telefon.
+- Paparkan label “Data Simulasi untuk Latihan Sahaja”.
+- Simpan semua rekod dalam satu array JavaScript bernama const data = [...].
+- Jadual, kad statistik dan graf mesti dijana daripada array data JavaScript yang sama. Apabila data dalam array ditambah, dibuang atau diubah, jadual, kiraan, status perhatian dan graf mesti berubah secara automatik.
+- Paparkan kad jumlah keseluruhan dan jumlah perlu perhatian.
+- Paparkan jadual dan warnakan keseluruhan baris perhatian dengan merah lembut.
+- Sediakan butang “Semua Bahan” dan “Perlu Perhatian”.
+- Hasilkan graf bar dinamik Kuantiti berbanding Paras Minimum bagi setiap bahan menggunakan HTML/CSS/JavaScript biasa.
+- Jangan tulis nombor statistik atau graf secara statik.
+- Berikan arahan ringkas untuk menyimpan fail sebagai stok-bahan-makmal.html dan membukanya dalam browser.</div><button class="copy-btn" type="button" data-copy-target="prompt-k1">📋 Salin Prompt</button></div></article>
+    <article class="prompt-card"><div class="prompt-head"><h3>Prompt pembetulan</h3></div><div class="prompt-body"><div class="prompt-box" id="prompt-fix-k1">Semak semula kod HTML yang anda hasilkan.
+
+Pastikan:
+1. Jadual, kad statistik, tapisan dan graf membaca daripada array data JavaScript yang sama.
+2. Tiada nombor graf atau statistik yang ditulis secara statik.
+3. Apabila data dalam array berubah, semua paparan berubah secara automatik.
+4. Rekod yang perlu perhatian ditentukan menggunakan peraturan yang diberi.
+5. Semua butang tapisan berfungsi.
+6. Web app kekal dalam satu fail HTML.
+
+Berikan semula kod HTML lengkap yang telah diperbaiki.</div><button class="copy-btn" type="button" data-copy-target="prompt-fix-k1">📋 Salin Prompt Pembetulan</button></div></article></div>
+  <div class="grid two" style="margin-top:24px"><div class="card"><h3>Langkah kerja</h3><ol><li>Tekan Salin Prompt.</li><li>Tampal dalam ChatGPT dan hantar.</li><li>Simpan kod sebagai <strong>stok-bahan-makmal.html</strong>.</li><li>Buka fail dalam browser dan uji jadual, tapisan serta graf.</li><li>Gunakan prompt pembetulan sekali jika perlu.</li></ol></div><div class="card"><h3>Hasil Kumpulan</h3><ul><li>Satu fail HTML yang boleh dibuka terus</li><li>8 rekod daripada satu array data</li><li>Jadual, dua kad statistik dan graf dinamik</li><li>Dua butang tapisan berfungsi</li><li>Satu prompt utama dan satu prompt pembetulan</li></ul></div></div>
+  <div class="card" style="margin-top:18px"><h3>Checklist Ujian</h3><ul><li>Semua 8 bahan dipaparkan.</li><li>Empat rekod perhatian ditanda merah.</li><li>Jumlah perhatian ialah 4.</li><li>Butang Semua Bahan dan Perlu Perhatian berfungsi.</li><li>Graf membandingkan Kuantiti dengan Paras Minimum.</li><li>Ubah satu nilai dalam array: jadual, statistik dan graf berubah bersama.</li><li>Paparan sesuai pada telefon dan tiada data sebenar digunakan.</li></ul></div>
   <aside class="nlm-mini" aria-labelledby="nlm-k1-title"><div class="nlm-head"><div><span class="eyebrow">Perbandingan platform</span><h3 id="nlm-k1-title">Mini Hands-On NotebookLM</h3></div><a class="nlm-link" href="https://notebooklm.google.com" target="_blank" rel="noopener">Buka NotebookLM ↗</a></div>
-    <div class="nlm-limits"><span>1 notebook</span><span>1 sumber simulasi</span><span>Maksimum 2 soalan</span><span>1 output ringkas</span><span>Tanpa Audio Overview</span></div>
-    <div class="nlm-source"><strong>Sumber tunggal:</strong> Nota simulasi kerosakan Inkubator Makmal 02 yang dipaparkan di atas. Jangan gunakan data sensitif.</div>
-    <div class="nlm-grid"><div class="nlm-question"><strong>Soalan 1</strong>“Berdasarkan sumber sahaja, senaraikan semua fakta yang mesti ada dalam laporan. Jangan tambah maklumat yang tiada.”</div><div class="nlm-question"><strong>Soalan 2</strong>“Semak laporan yang dihasilkan. Nyatakan mana-mana ayat yang tidak disokong oleh sumber.”</div></div>
-    <div class="nlm-result"><strong>Hasil ringkas:</strong><ul><li>Senarai fakta</li><li>Fakta tambahan yang perlu dibuang</li><li>Satu pembetulan laporan</li></ul></div>
-    <div class="platform-compare"><h4>Bandingkan dan jawab</h4><ul><li>Apa yang ChatGPT hasilkan?</li><li>Apa yang NotebookLM sahkan berdasarkan sumber?</li><li>Adakah ChatGPT menambah fakta?</li><li>Platform mana lebih sesuai untuk tugasan ini?</li><li>Apa yang manusia masih perlu semak?</li></ul></div>
+    <div class="nlm-limits"><span>1 notebook</span><span>1 sumber simulasi</span><span>Maksimum 2 soalan</span><span>Tanpa Audio Overview</span></div>
+    <div class="nlm-source"><strong>Sumber tunggal:</strong> Jadual stok bahan makmal dan dokumen keperluan web app ini. Semak tajuk, lima medan jadual, peraturan Kuantiti &lt; Paras Minimum, empat rekod perhatian, jumlah 4, butang Semua Bahan/Perlu Perhatian, graf perbandingan dan satu array data JavaScript.</div>
+    <div class="nlm-grid"><div class="nlm-question"><strong>Soalan 1</strong>“Berdasarkan sumber ini, senaraikan semua fungsi dan peraturan yang wajib ada dalam mini web app.”</div><div class="nlm-question"><strong>Soalan 2</strong>“Semak kod HTML mini web app berdasarkan sumber ini. Nyatakan fungsi yang lengkap, fungsi yang belum lengkap dan sama ada jadual serta graf menggunakan sumber data yang sama.”</div></div>
+    <div class="platform-compare"><h4>Bandingkan dan jawab</h4><ul><li>Apa yang ChatGPT hasilkan?</li><li>Apa yang NotebookLM sahkan berdasarkan sumber?</li><li>Adakah semua empat rekod perhatian tepat?</li><li>Adakah jadual dan graf menggunakan sumber data sama?</li><li>Apa yang manusia masih perlu semak?</li></ul></div>
     <div class="callout nlm-note"><div class="icon">🔍</div><p><strong>ChatGPT membantu menghasilkan. NotebookLM membantu menyemak berdasarkan sumber.</strong></p></div>
   </aside>
 </div></section>
 
-<section id="kumpulan-2"><div class="wrap"><div class="section-head"><span class="eyebrow">05 · Kumpulan 2</span><h2>SOP kepada Bahan Pembelajaran</h2><span class="sim-label">⚠ SOP simulasi — bukan SOP rasmi</span><p class="lede">Pilih dan hasilkan <strong>satu output sahaja</strong>: checklist, flashcard, kuiz atau infografik teks. Jangan jalankan keempat-empat prompt.</p></div>
-  <div class="notebook"><div class="notebook-bar">SOP SIMULASI · PENERIMAAN SAMPEL</div><div class="notebook-content" id="sop-simulasi">1. Terima bungkusan di zon penerimaan sampel.
-2. Periksa keadaan bungkusan, kebocoran dan label.
-3. Semak borang penghantaran dan padankan identiti sampel.
-4. Rekod tarikh serta masa penerimaan.
-5. Asingkan sampel yang rosak, bocor atau tidak lengkap dan maklumkan penyelia.
-6. Simpan sampel mengikut keperluan suhu yang dinyatakan sebelum pemprosesan.</div></div>
-  <button class="copy-btn" type="button" data-copy-target="sop-simulasi" style="margin-bottom:24px">📋 Salin SOP Simulasi</button>
-  <div class="prompt-grid">
-    <article class="prompt-card"><div class="prompt-head"><h3>Infografik</h3></div><div class="prompt-body"><div class="prompt-box" id="prompt-infografik">Gunakan hanya SOP simulasi yang diberikan. Susun kandungannya sebagai teks infografik 6 langkah yang ringkas untuk staf baharu. Kekalkan istilah teknikal, jangan tambah prosedur dan tandakan perkara yang tidak jelas.</div><button class="copy-btn" type="button" data-copy-target="prompt-infografik">📋 Salin Prompt</button></div></article>
-    <article class="prompt-card"><div class="prompt-head"><h3>Checklist</h3></div><div class="prompt-body"><div class="prompt-box" id="prompt-checklist-sop">Gunakan hanya SOP simulasi yang diberikan. Tukarkan setiap langkah kepada checklist tindakan yang boleh ditanda. Jangan tambah prosedur. Kekalkan istilah teknikal dan tandakan maklumat yang perlu disahkan.</div><button class="copy-btn" type="button" data-copy-target="prompt-checklist-sop">📋 Salin Prompt</button></div></article>
-    <article class="prompt-card"><div class="prompt-head"><h3>Flashcard</h3></div><div class="prompt-body"><div class="prompt-box" id="prompt-flashcard">Bina 8 flashcard soalan-jawapan daripada SOP simulasi ini sahaja. Jangan tambah prosedur atau fakta luar. Kekalkan istilah teknikal dan nyatakan jika jawapan tidak terdapat dalam sumber.</div><button class="copy-btn" type="button" data-copy-target="prompt-flashcard">📋 Salin Prompt</button></div></article>
-    <article class="prompt-card"><div class="prompt-head"><h3>Kuiz</h3></div><div class="prompt-body"><div class="prompt-box" id="prompt-kuiz">Bina 6 soalan kuiz aneka pilihan berdasarkan SOP simulasi ini sahaja, bersama jawapan dan alasan ringkas. Jangan tambah prosedur. Tandakan mana-mana kandungan yang tidak jelas.</div><button class="copy-btn" type="button" data-copy-target="prompt-kuiz">📋 Salin Prompt</button></div></article>
-  </div><div class="callout"><div class="icon">✅</div><p><strong>Hasil Kumpulan:</strong> satu bahan pembelajaran pilihan, satu prompt utama, satu prompt pembetulan dan satu kelemahan output pertama.</p></div>
+<section id="kumpulan-2"><div class="wrap"><div class="section-head"><span class="eyebrow">05 · Kumpulan 2</span><h2>Mini Web App Penyelenggaraan Peralatan</h2><p class="lede">Bina web app untuk mengenal pasti peralatan yang lewat diservis atau mempunyai status tindakan.</p><span class="sim-label">⚠ Data Simulasi untuk Latihan Sahaja</span></div>
+  <div class="data-preview-wrap"><div class="data-preview-bar">JADUAL SIMULASI · 8 REKOD</div><table class="data-table"><thead><tr><th>Peralatan</th><th>Lokasi</th><th>Hari Sejak Servis</th><th>Had Servis Hari</th><th>Status</th></tr></thead><tbody><tr><td>Inkubator 01</td><td>Makmal A</td><td>25</td><td>30</td><td>Baik</td></tr><tr><td>Inkubator 02</td><td>Makmal A</td><td>48</td><td>30</td><td>Perlu Servis</td></tr><tr><td>Mikroskop 01</td><td>Makmal B</td><td>12</td><td>60</td><td>Baik</td></tr><tr><td>Mikroskop 02</td><td>Makmal B</td><td>68</td><td>60</td><td>Perlu Servis</td></tr><tr><td>Sentrifug 01</td><td>Makmal A</td><td>20</td><td>45</td><td>Baik</td></tr><tr><td>Autoklaf 01</td><td>Bilik Steril</td><td>52</td><td>45</td><td>Perlu Servis</td></tr><tr><td>Peti Sejuk 01</td><td>Stor Reagen</td><td>15</td><td>30</td><td>Baik</td></tr><tr><td>Penimbang Digital</td><td>Makmal C</td><td>75</td><td>60</td><td>Rosak</td></tr></tbody></table></div><p class="scroll-hint">↔ Leret jadual secara mendatar pada skrin kecil.</p>
+  <pre id="jadual-k2" hidden>| Peralatan | Lokasi | Hari Sejak Servis | Had Servis Hari | Status |
+|---|---|---:|---:|---|
+| Inkubator 01 | Makmal A | 25 | 30 | Baik |
+| Inkubator 02 | Makmal A | 48 | 30 | Perlu Servis |
+| Mikroskop 01 | Makmal B | 12 | 60 | Baik |
+| Mikroskop 02 | Makmal B | 68 | 60 | Perlu Servis |
+| Sentrifug 01 | Makmal A | 20 | 45 | Baik |
+| Autoklaf 01 | Bilik Steril | 52 | 45 | Perlu Servis |
+| Peti Sejuk 01 | Stor Reagen | 15 | 30 | Baik |
+| Penimbang Digital | Makmal C | 75 | 60 | Rosak |</pre>
+  <button class="copy-btn" type="button" data-copy-target="jadual-k2" style="margin-bottom:24px">📋 Salin Jadual</button>
+  <div class="callout"><div class="icon">⚠️</div><p><strong>Perlu perhatian:</strong> Hari Sejak Servis melebihi Had Servis Hari, atau Status ialah “Rosak” atau “Perlu Servis”. Rekod dijangka: Inkubator 02, Mikroskop 02, Autoklaf 01 dan Penimbang Digital — jumlah 4.</p></div>
+  <div class="prompt-grid" style="margin-top:24px"><article class="prompt-card"><div class="prompt-head"><h3>Prompt utama lengkap</h3><p>Tampal terus dalam satu chat ChatGPT.</p></div><div class="prompt-body"><div class="prompt-box" id="prompt-k2">Hasilkan satu mini web app bertajuk “Mini Web App Penyelenggaraan Peralatan” dalam satu fail HTML lengkap.
+
+Gunakan jadual data simulasi ini:
+| Peralatan | Lokasi | Hari Sejak Servis | Had Servis Hari | Status |
+|---|---|---:|---:|---|
+| Inkubator 01 | Makmal A | 25 | 30 | Baik |
+| Inkubator 02 | Makmal A | 48 | 30 | Perlu Servis |
+| Mikroskop 01 | Makmal B | 12 | 60 | Baik |
+| Mikroskop 02 | Makmal B | 68 | 60 | Perlu Servis |
+| Sentrifug 01 | Makmal A | 20 | 45 | Baik |
+| Autoklaf 01 | Bilik Steril | 52 | 45 | Perlu Servis |
+| Peti Sejuk 01 | Stor Reagen | 15 | 30 | Baik |
+| Penimbang Digital | Makmal C | 75 | 60 | Rosak |
+
+Peraturan perhatian: rekod perlu perhatian apabila Hari Sejak Servis melebihi Had Servis Hari, ATAU Status ialah “Rosak” atau “Perlu Servis”. Jumlah yang dijangka ialah 4.
+
+Keperluan:
+- Gunakan HTML, CSS dan JavaScript biasa dalam satu fail tanpa framework, API, server, database atau pemasangan.
+- Fail mesti boleh dibuka terus dalam browser dan mesra telefon.
+- Paparkan label “Data Simulasi untuk Latihan Sahaja”.
+- Simpan semua rekod dalam satu array JavaScript bernama const data = [...].
+- Jadual, kad statistik dan graf mesti dijana daripada array data JavaScript yang sama. Apabila data dalam array ditambah, dibuang atau diubah, jadual, kiraan, status perhatian dan graf mesti berubah secara automatik.
+- Paparkan kad jumlah keseluruhan dan jumlah perlu perhatian.
+- Paparkan jadual dan warnakan keseluruhan baris perhatian dengan merah lembut.
+- Sediakan butang “Semua Peralatan” dan “Perlu Tindakan”.
+- Hasilkan graf bar dinamik Hari Sejak Servis berbanding Had Servis Hari bagi setiap peralatan menggunakan HTML/CSS/JavaScript biasa.
+- Jangan tulis nombor statistik atau graf secara statik.
+- Berikan arahan ringkas untuk menyimpan fail sebagai penyelenggaraan-peralatan.html dan membukanya dalam browser.</div><button class="copy-btn" type="button" data-copy-target="prompt-k2">📋 Salin Prompt</button></div></article>
+    <article class="prompt-card"><div class="prompt-head"><h3>Prompt pembetulan</h3></div><div class="prompt-body"><div class="prompt-box" id="prompt-fix-k2">Semak semula kod HTML yang anda hasilkan.
+
+Pastikan:
+1. Jadual, kad statistik, tapisan dan graf membaca daripada array data JavaScript yang sama.
+2. Tiada nombor graf atau statistik yang ditulis secara statik.
+3. Apabila data dalam array berubah, semua paparan berubah secara automatik.
+4. Rekod yang perlu perhatian ditentukan menggunakan peraturan yang diberi.
+5. Semua butang tapisan berfungsi.
+6. Web app kekal dalam satu fail HTML.
+
+Berikan semula kod HTML lengkap yang telah diperbaiki.</div><button class="copy-btn" type="button" data-copy-target="prompt-fix-k2">📋 Salin Prompt Pembetulan</button></div></article></div>
+  <div class="grid two" style="margin-top:24px"><div class="card"><h3>Langkah kerja</h3><ol><li>Tekan Salin Prompt.</li><li>Tampal dalam ChatGPT dan hantar.</li><li>Simpan kod sebagai <strong>penyelenggaraan-peralatan.html</strong>.</li><li>Buka fail dalam browser dan uji jadual, tapisan serta graf.</li><li>Gunakan prompt pembetulan sekali jika perlu.</li></ol></div><div class="card"><h3>Hasil Kumpulan</h3><ul><li>Satu fail HTML yang boleh dibuka terus</li><li>8 rekod daripada satu array data</li><li>Jadual, dua kad statistik dan graf dinamik</li><li>Dua butang tapisan berfungsi</li><li>Satu prompt utama dan satu prompt pembetulan</li></ul></div></div>
+  <div class="card" style="margin-top:18px"><h3>Checklist Ujian</h3><ul><li>Semua 8 peralatan dipaparkan.</li><li>Empat rekod perhatian ditanda merah.</li><li>Jumlah perhatian ialah 4.</li><li>Butang Semua Peralatan dan Perlu Tindakan berfungsi.</li><li>Graf membandingkan Hari Sejak Servis dengan Had Servis Hari.</li><li>Ubah satu nilai dalam array: jadual, statistik dan graf berubah bersama.</li><li>Paparan sesuai pada telefon dan tiada data sebenar digunakan.</li></ul></div>
   <aside class="nlm-mini" aria-labelledby="nlm-k2-title"><div class="nlm-head"><div><span class="eyebrow">Perbandingan platform</span><h3 id="nlm-k2-title">Mini Hands-On NotebookLM</h3></div><a class="nlm-link" href="https://notebooklm.google.com" target="_blank" rel="noopener">Buka NotebookLM ↗</a></div>
-    <div class="nlm-limits"><span>1 notebook</span><span>1 sumber simulasi</span><span>Maksimum 2 soalan</span><span>1 output ringkas</span><span>Tanpa Audio Overview</span></div>
-    <div class="nlm-source"><strong>Sumber tunggal:</strong> SOP simulasi penerimaan sampel yang dipaparkan di atas. Jangan gunakan data sensitif.</div>
-    <div class="nlm-grid"><div class="nlm-question"><strong>Soalan 1</strong>“Berdasarkan SOP ini sahaja, apakah langkah paling penting yang wajib dipatuhi?”</div><div class="nlm-question"><strong>Soalan 2</strong>“Semak bahan pembelajaran yang dihasilkan. Nyatakan jika ada langkah SOP yang tertinggal atau berubah maksud.”</div></div>
-    <div class="nlm-result"><strong>Hasil ringkas:</strong><ul><li>Ringkasan sumber</li><li>Langkah tertinggal</li><li>Versi diperbaiki</li></ul></div>
-    <div class="platform-compare"><h4>Bandingkan dan jawab</h4><ul><li>Apa yang ChatGPT hasilkan?</li><li>Apa yang NotebookLM sahkan berdasarkan sumber?</li><li>Adakah ChatGPT menambah fakta?</li><li>Platform mana lebih sesuai untuk tugasan ini?</li><li>Apa yang manusia masih perlu semak?</li></ul></div>
+    <div class="nlm-limits"><span>1 notebook</span><span>1 sumber simulasi</span><span>Maksimum 2 soalan</span><span>Tanpa Audio Overview</span></div>
+    <div class="nlm-source"><strong>Sumber tunggal:</strong> Jadual penyelenggaraan peralatan dan dokumen keperluan web app ini. Semak tajuk, lima medan, dua syarat perhatian, empat rekod perhatian, jumlah 4, butang Semua Peralatan/Perlu Tindakan, graf perbandingan dan satu array data JavaScript.</div>
+    <div class="nlm-grid"><div class="nlm-question"><strong>Soalan 1</strong>“Berdasarkan sumber ini, senaraikan semua fungsi dan peraturan yang wajib ada dalam mini web app.”</div><div class="nlm-question"><strong>Soalan 2</strong>“Semak kod HTML mini web app berdasarkan sumber ini. Nyatakan fungsi yang lengkap, fungsi yang belum lengkap dan sama ada jadual serta graf menggunakan sumber data yang sama.”</div></div>
+    <div class="platform-compare"><h4>Bandingkan dan jawab</h4><ul><li>Apa yang ChatGPT hasilkan?</li><li>Apa yang NotebookLM sahkan berdasarkan sumber?</li><li>Adakah semua empat rekod perhatian tepat?</li><li>Adakah jadual dan graf menggunakan sumber data sama?</li><li>Apa yang manusia masih perlu semak?</li></ul></div>
     <div class="callout nlm-note"><div class="icon">🔍</div><p><strong>ChatGPT membantu menghasilkan. NotebookLM membantu menyemak berdasarkan sumber.</strong></p></div>
   </aside>
 </div></section>
 
-<section id="kumpulan-3"><div class="wrap"><div class="section-head"><span class="eyebrow">06 · Kumpulan 3</span><h2>Analisis Data Stok Makmal</h2><span class="sim-label">⚠ Data simulasi — bukan inventori sebenar</span><p class="lede">Kira baris dan lajur, kenal pasti stok rendah serta item luput/akan luput, rumuskan tiga dapatan utama, dan asingkan fakta, inferens serta cadangan.</p></div>
-  <div class="download-row"><a class="download-btn" href="assets/dummy-data.csv" download>⬇ Muat turun CSV simulasi</a></div>
-  <div class="data-preview-wrap"><div class="data-preview-bar">PRATONTON 5 DARIPADA 20 BARIS · DATA SIMULASI</div><table class="data-table"><thead><tr><th>No</th><th>Nama</th><th>Kategori</th><th>Kuantiti</th><th>Unit</th><th>Tarikh Luput</th><th>Status</th></tr></thead><tbody><tr><td>1</td><td>Sodium Chloride 0.9%</td><td>Larutan</td><td>12</td><td>botol</td><td>2026-12-31</td><td>Aktif</td></tr><tr><td>2</td><td>Formalin 10%</td><td>Larutan Fiksatif</td><td>3</td><td>botol</td><td>2026-06-15</td><td>Aktif</td></tr><tr><td>3</td><td>Antibodi Anti-Rabies</td><td>Kit Ujian</td><td>0</td><td>kit</td><td>2025-05-01</td><td>Tamat Stok</td></tr><tr><td>4</td><td>ELISA Kit - Brucellosis</td><td>Kit Ujian</td><td>8</td><td>kit</td><td>2026-03-20</td><td>Aktif</td></tr><tr><td>5</td><td>Methanol</td><td>Pelarut</td><td>5</td><td>botol</td><td>2025-09-05</td><td>Akan Luput</td></tr></tbody></table></div><p class="scroll-hint">↔ Leret jadual secara mendatar pada skrin kecil.</p>
-  <article class="prompt-card" style="margin-bottom:24px"><div class="prompt-head"><h3>Pilihan Sandaran tanpa muat naik · 10 baris ringkas</h3><p>Salin data ini dan tampal bersama prompt utama jika muat naik tidak tersedia.</p></div><div class="prompt-body"><div class="prompt-box" id="data-ringkas">No,Nama,Kuantiti,Unit,Tarikh Luput,Status
-1,Sodium Chloride 0.9%,12,botol,2026-12-31,Aktif
-2,Formalin 10%,3,botol,2026-06-15,Aktif
-3,Antibodi Anti-Rabies,0,kit,2025-05-01,Tamat Stok
-4,ELISA Kit - Brucellosis,8,kit,2026-03-20,Aktif
-5,Methanol,5,botol,2025-09-05,Akan Luput
-6,Phosphate Buffer Saline (PBS),20,botol,2027-02-01,Aktif
-7,Test Strip Glukosa,150,helai,2026-04-10,Aktif
-8,Antiserum Newcastle Disease,2,vial,2025-02-12,Luput
-9,Etanol 70%,15,botol,2027-05-01,Aktif
-10,Agar Plate (Blood Agar),30,plat,2025-06-25,Akan Luput</div><button class="copy-btn" type="button" data-copy-target="data-ringkas">📋 Salin Data Ringkas</button></div></article>
-  <div class="card dictionary"><h3>Kamus data ringkas</h3><p><strong>Kuantiti Stok</strong> = baki unit; <strong>Tarikh Luput</strong> = tarikh pada rekod simulasi; <strong>Status</strong> = klasifikasi dalam fail; <strong>Lokasi/Suhu Simpan</strong> = medan penyimpanan simulasi.</p></div>
-  <div class="prompt-grid" style="margin-top:22px"><article class="prompt-card"><div class="prompt-head"><h3>Satu prompt analisis lengkap</h3><p>Jalankan sekali sahaja selepas memuat naik satu CSV atau menampal data ringkas.</p></div><div class="prompt-body"><div class="prompt-box" id="pb-analisis">Analisis data stok simulasi yang saya berikan dalam satu jawapan. Sediakan: (1) ringkasan jumlah baris dan lajur, (2) senarai stok kritikal dengan kuantiti kurang daripada 5 serta item luput/akan luput, (3) tiga penemuan utama, dan (4) satu jadual ringkas tindakan keutamaan. Asingkan fakta, inferens dan cadangan. Jangan ubah atau reka nombor. Tandakan sel kosong, ketidakselarasan dan ketidakpastian.</div><button class="copy-btn" data-copy-target="pb-analisis">📋 Salin Prompt</button></div></article></div>
-  <div class="callout"><div class="icon">🔎</div><p><strong>Checklist:</strong> sahkan 20 baris dan 10 lajur, semak kuantiti, tarikh luput, status, serta kesepadanan jadual dan carta dengan fail sumber.</p></div>
+<section id="kumpulan-3"><div class="wrap"><div class="section-head"><span class="eyebrow">06 · Kumpulan 3</span><h2>Mini Web App Pemantauan Sampel</h2><p class="lede">Bina web app untuk mengenal pasti sampel lewat atau mempunyai keadaan yang memerlukan perhatian.</p><span class="sim-label">⚠ Data Simulasi untuk Latihan Sahaja</span></div>
+  <div class="data-preview-wrap"><div class="data-preview-bar">JADUAL SIMULASI · 8 REKOD</div><table class="data-table"><thead><tr><th>Kod Sampel</th><th>Jenis Sampel</th><th>Tempoh Menunggu Jam</th><th>Had Masa Jam</th><th>Keadaan</th></tr></thead><tbody><tr><td>SMP-001</td><td>Darah</td><td>2</td><td>6</td><td>Baik</td></tr><tr><td>SMP-002</td><td>Swab</td><td>8</td><td>6</td><td>Lewat</td></tr><tr><td>SMP-003</td><td>Serum</td><td>4</td><td>8</td><td>Baik</td></tr><tr><td>SMP-004</td><td>Tisu</td><td>13</td><td>12</td><td>Lewat</td></tr><tr><td>SMP-005</td><td>Najis</td><td>3</td><td>6</td><td>Bekas Bocor</td></tr><tr><td>SMP-006</td><td>Darah</td><td>7</td><td>6</td><td>Lewat</td></tr><tr><td>SMP-007</td><td>Swab</td><td>2</td><td>6</td><td>Baik</td></tr><tr><td>SMP-008</td><td>Serum</td><td>5</td><td>8</td><td>Label Tidak Lengkap</td></tr></tbody></table></div><p class="scroll-hint">↔ Leret jadual secara mendatar pada skrin kecil.</p>
+  <pre id="jadual-k3" hidden>| Kod Sampel | Jenis Sampel | Tempoh Menunggu Jam | Had Masa Jam | Keadaan |
+|---|---|---:|---:|---|
+| SMP-001 | Darah | 2 | 6 | Baik |
+| SMP-002 | Swab | 8 | 6 | Lewat |
+| SMP-003 | Serum | 4 | 8 | Baik |
+| SMP-004 | Tisu | 13 | 12 | Lewat |
+| SMP-005 | Najis | 3 | 6 | Bekas Bocor |
+| SMP-006 | Darah | 7 | 6 | Lewat |
+| SMP-007 | Swab | 2 | 6 | Baik |
+| SMP-008 | Serum | 5 | 8 | Label Tidak Lengkap |</pre>
+  <button class="copy-btn" type="button" data-copy-target="jadual-k3" style="margin-bottom:24px">📋 Salin Jadual</button>
+  <div class="callout"><div class="icon">⚠️</div><p><strong>Perlu perhatian:</strong> Tempoh Menunggu Jam melebihi Had Masa Jam, atau Keadaan bukan “Baik”. Rekod dijangka: SMP-002, SMP-004, SMP-005, SMP-006 dan SMP-008 — jumlah 5.</p></div>
+  <div class="prompt-grid" style="margin-top:24px"><article class="prompt-card"><div class="prompt-head"><h3>Prompt utama lengkap</h3><p>Tampal terus dalam satu chat ChatGPT.</p></div><div class="prompt-body"><div class="prompt-box" id="prompt-k3">Hasilkan satu mini web app bertajuk “Mini Web App Pemantauan Sampel” dalam satu fail HTML lengkap.
+
+Gunakan jadual data simulasi ini:
+| Kod Sampel | Jenis Sampel | Tempoh Menunggu Jam | Had Masa Jam | Keadaan |
+|---|---|---:|---:|---|
+| SMP-001 | Darah | 2 | 6 | Baik |
+| SMP-002 | Swab | 8 | 6 | Lewat |
+| SMP-003 | Serum | 4 | 8 | Baik |
+| SMP-004 | Tisu | 13 | 12 | Lewat |
+| SMP-005 | Najis | 3 | 6 | Bekas Bocor |
+| SMP-006 | Darah | 7 | 6 | Lewat |
+| SMP-007 | Swab | 2 | 6 | Baik |
+| SMP-008 | Serum | 5 | 8 | Label Tidak Lengkap |
+
+Peraturan perhatian: rekod perlu perhatian apabila Tempoh Menunggu Jam melebihi Had Masa Jam, ATAU Keadaan bukan “Baik”. Jumlah yang dijangka ialah 5.
+
+Keperluan:
+- Gunakan HTML, CSS dan JavaScript biasa dalam satu fail tanpa framework, API, server, database atau pemasangan.
+- Fail mesti boleh dibuka terus dalam browser dan mesra telefon.
+- Paparkan label “Data Simulasi untuk Latihan Sahaja”.
+- Simpan semua rekod dalam satu array JavaScript bernama const data = [...].
+- Jadual, kad statistik dan graf mesti dijana daripada array data JavaScript yang sama. Apabila data dalam array ditambah, dibuang atau diubah, jadual, kiraan, status perhatian dan graf mesti berubah secara automatik.
+- Paparkan kad jumlah keseluruhan dan jumlah perlu perhatian.
+- Paparkan jadual dan warnakan keseluruhan baris perhatian dengan merah lembut.
+- Sediakan butang “Semua Sampel” dan “Perlu Perhatian”.
+- Hasilkan graf bar dinamik Tempoh Menunggu Jam berbanding Had Masa Jam bagi setiap sampel menggunakan HTML/CSS/JavaScript biasa.
+- Jangan tulis nombor statistik atau graf secara statik.
+- Berikan arahan ringkas untuk menyimpan fail sebagai pemantauan-sampel.html dan membukanya dalam browser.</div><button class="copy-btn" type="button" data-copy-target="prompt-k3">📋 Salin Prompt</button></div></article>
+    <article class="prompt-card"><div class="prompt-head"><h3>Prompt pembetulan</h3></div><div class="prompt-body"><div class="prompt-box" id="prompt-fix-k3">Semak semula kod HTML yang anda hasilkan.
+
+Pastikan:
+1. Jadual, kad statistik, tapisan dan graf membaca daripada array data JavaScript yang sama.
+2. Tiada nombor graf atau statistik yang ditulis secara statik.
+3. Apabila data dalam array berubah, semua paparan berubah secara automatik.
+4. Rekod yang perlu perhatian ditentukan menggunakan peraturan yang diberi.
+5. Semua butang tapisan berfungsi.
+6. Web app kekal dalam satu fail HTML.
+
+Berikan semula kod HTML lengkap yang telah diperbaiki.</div><button class="copy-btn" type="button" data-copy-target="prompt-fix-k3">📋 Salin Prompt Pembetulan</button></div></article></div>
+  <div class="grid two" style="margin-top:24px"><div class="card"><h3>Langkah kerja</h3><ol><li>Tekan Salin Prompt.</li><li>Tampal dalam ChatGPT dan hantar.</li><li>Simpan kod sebagai <strong>pemantauan-sampel.html</strong>.</li><li>Buka fail dalam browser dan uji jadual, tapisan serta graf.</li><li>Gunakan prompt pembetulan sekali jika perlu.</li></ol></div><div class="card"><h3>Hasil Kumpulan</h3><ul><li>Satu fail HTML yang boleh dibuka terus</li><li>8 rekod daripada satu array data</li><li>Jadual, dua kad statistik dan graf dinamik</li><li>Dua butang tapisan berfungsi</li><li>Satu prompt utama dan satu prompt pembetulan</li></ul></div></div>
+  <div class="card" style="margin-top:18px"><h3>Checklist Ujian</h3><ul><li>Semua 8 sampel dipaparkan.</li><li>Lima rekod perhatian ditanda merah.</li><li>Jumlah perhatian ialah 5.</li><li>Butang Semua Sampel dan Perlu Perhatian berfungsi.</li><li>Graf membandingkan Tempoh Menunggu Jam dengan Had Masa Jam.</li><li>Ubah satu nilai dalam array: jadual, statistik dan graf berubah bersama.</li><li>Paparan sesuai pada telefon dan tiada data sebenar digunakan.</li></ul></div>
   <aside class="nlm-mini" aria-labelledby="nlm-k3-title"><div class="nlm-head"><div><span class="eyebrow">Perbandingan platform</span><h3 id="nlm-k3-title">Mini Hands-On NotebookLM</h3></div><a class="nlm-link" href="https://notebooklm.google.com" target="_blank" rel="noopener">Buka NotebookLM ↗</a></div>
-    <div class="nlm-limits"><span>1 notebook</span><span>1 sumber simulasi</span><span>Maksimum 2 soalan</span><span>1 output ringkas</span><span>Tanpa Audio Overview</span><span>Jangan buat carta</span><span>Jangan buat analisis statistik kompleks</span></div>
-    <div class="nlm-source"><strong>Sumber tunggal:</strong> Dataset stok simulasi atau versi data ringkas 10 baris. Gunakan satu sumber dan data simulasi sahaja; jangan gunakan data sensitif.</div>
-    <div class="nlm-grid"><div class="nlm-question"><strong>Soalan 1</strong>“Berdasarkan sumber ini, senaraikan item yang berstatus Stok Rendah, Akan Luput, Luput atau Tamat Stok.”</div><div class="nlm-question"><strong>Soalan 2</strong>“Pisahkan maklumat kepada: 1. Fakta daripada sumber, 2. Inferens, 3. Cadangan tindakan yang memerlukan pertimbangan manusia.”</div></div>
-    <div class="nlm-result"><strong>Hasil ringkas:</strong><ul><li>Fakta berasaskan sumber</li><li>Pemisahan fakta dan cadangan</li><li>Semakan analisis ChatGPT</li></ul></div>
-    <div class="platform-compare"><h4>Bandingkan dan jawab</h4><ul><li>Apa yang ChatGPT hasilkan?</li><li>Apa yang NotebookLM sahkan berdasarkan sumber?</li><li>Adakah ChatGPT menambah fakta?</li><li>Platform mana lebih sesuai untuk tugasan ini?</li><li>Apa yang manusia masih perlu semak?</li></ul></div>
+    <div class="nlm-limits"><span>1 notebook</span><span>1 sumber simulasi</span><span>Maksimum 2 soalan</span><span>Tanpa Audio Overview</span></div>
+    <div class="nlm-source"><strong>Sumber tunggal:</strong> Jadual pemantauan sampel dan dokumen keperluan web app ini. Semak tajuk, lima medan, dua syarat perhatian, lima rekod perhatian, jumlah 5, butang Semua Sampel/Perlu Perhatian, graf perbandingan dan satu array data JavaScript.</div>
+    <div class="nlm-grid"><div class="nlm-question"><strong>Soalan 1</strong>“Berdasarkan sumber ini, senaraikan semua fungsi dan peraturan yang wajib ada dalam mini web app.”</div><div class="nlm-question"><strong>Soalan 2</strong>“Semak kod HTML mini web app berdasarkan sumber ini. Nyatakan fungsi yang lengkap, fungsi yang belum lengkap dan sama ada jadual serta graf menggunakan sumber data yang sama.”</div></div>
+    <div class="platform-compare"><h4>Bandingkan dan jawab</h4><ul><li>Apa yang ChatGPT hasilkan?</li><li>Apa yang NotebookLM sahkan berdasarkan sumber?</li><li>Adakah semua lima rekod perhatian tepat?</li><li>Adakah jadual dan graf menggunakan sumber data sama?</li><li>Apa yang manusia masih perlu semak?</li></ul></div>
     <div class="callout nlm-note"><div class="icon">🔍</div><p><strong>ChatGPT membantu menghasilkan. NotebookLM membantu menyemak berdasarkan sumber.</strong></p></div>
   </aside>
 </div></section>
 
-<section id="kumpulan-4"><div class="wrap"><div class="section-head"><span class="eyebrow">07 · Kumpulan 4</span><h2>Google Apps Script Penanda Stok Kritikal</h2><span class="sim-label">⚠ Gunakan data simulasi sahaja</span><p class="lede">Bina <strong>satu mini-automasi sahaja</strong> untuk menandakan stok kritikal dalam Google Sheet.</p></div>
-  <div class="prompt-grid"><article class="prompt-card"><div class="prompt-head"><h3>Google Apps Script Penanda Stok Kritikal</h3></div><div class="prompt-body"><div class="prompt-box" id="prompt-apps-script">Tulis Google Apps Script ringkas untuk Google Sheet yang mengandungi data stok simulasi. Baca nilai dalam lajur “Kuantiti Stok”. Jika kuantiti kurang daripada 5, warnakan keseluruhan baris merah. Kira jumlah item kritikal dan paparkan ringkasan jumlah item kritikal. Skrip hanya membaca data; jangan hantar e-mel dan jangan akses servis luar. Berikan arahan pemasangan dan cara menjalankan skrip.</div><button class="copy-btn" data-copy-target="prompt-apps-script">📋 Salin Prompt</button></div></article></div>
-  <div class="card deliverable"><h3>Hasil Kumpulan & ujian minimum</h3><ul><li>Skrip membaca lajur “Kuantiti Stok”</li><li>Baris dengan kuantiti kurang daripada 5 berwarna merah</li><li>Jumlah item kritikal dikira dan dipaparkan</li><li>Arahan pemasangan dan cara menjalankan skrip disertakan</li><li>Tiada e-mel dihantar dan tiada servis luar diakses</li></ul></div>
-  <div class="live-demo-card"><div class="live-demo-bar"><span class="live-dot" aria-hidden="true"></span><span>CONTOH VISUAL FASILITATOR · BUKAN TUGASAN KUMPULAN</span><button class="refresh-btn" id="refresh-live" type="button">↻ Muat semula</button></div><div class="chart-frame"><canvas id="live-chart" aria-label="Carta stok data simulasi"></canvas></div><p class="live-status" id="live-status" role="status">Mencuba memuatkan Google Sheet simulasi…</p></div>
-  <div class="callout"><div class="icon">🔐</div><p>Terbitkan ke web hanya apabila data benar-benar <strong>simulasi dan tidak sensitif</strong>. Jika sumber langsung gagal, demo akan menyatakan dengan jelas bahawa Pilihan Sandaran CSV simulasi sedang digunakan.</p></div>
+<section id="kumpulan-4"><div class="wrap"><div class="section-head"><span class="eyebrow">07 · Kumpulan 4</span><h2>Mini Web App Stok PPE</h2><p class="lede">Bina web app untuk memantau kuantiti PPE berbanding paras minimum mengikut item dan saiz.</p><span class="sim-label">⚠ Data Simulasi untuk Latihan Sahaja</span></div>
+  <div class="data-preview-wrap"><div class="data-preview-bar">JADUAL SIMULASI · 8 REKOD</div><table class="data-table"><thead><tr><th>Item PPE</th><th>Saiz</th><th>Kuantiti</th><th>Paras Minimum</th><th>Lokasi</th></tr></thead><tbody><tr><td>Sarung Tangan</td><td>S</td><td>18</td><td>10</td><td>Stor Utama</td></tr><tr><td>Sarung Tangan</td><td>M</td><td>7</td><td>10</td><td>Stor Utama</td></tr><tr><td>Sarung Tangan</td><td>L</td><td>4</td><td>10</td><td>Makmal A</td></tr><tr><td>Pelitup Muka</td><td>Standard</td><td>25</td><td>15</td><td>Stor Utama</td></tr><tr><td>Apron Pakai Buang</td><td>Standard</td><td>8</td><td>10</td><td>Makmal B</td></tr><tr><td>Pelindung Muka</td><td>Standard</td><td>3</td><td>5</td><td>Makmal A</td></tr><tr><td>Penutup Kepala</td><td>Standard</td><td>20</td><td>10</td><td>Stor Utama</td></tr><tr><td>Penutup Kasut</td><td>Standard</td><td>6</td><td>10</td><td>Makmal C</td></tr></tbody></table></div><p class="scroll-hint">↔ Leret jadual secara mendatar pada skrin kecil.</p>
+  <pre id="jadual-k4" hidden>| Item PPE | Saiz | Kuantiti | Paras Minimum | Lokasi |
+|---|---|---:|---:|---|
+| Sarung Tangan | S | 18 | 10 | Stor Utama |
+| Sarung Tangan | M | 7 | 10 | Stor Utama |
+| Sarung Tangan | L | 4 | 10 | Makmal A |
+| Pelitup Muka | Standard | 25 | 15 | Stor Utama |
+| Apron Pakai Buang | Standard | 8 | 10 | Makmal B |
+| Pelindung Muka | Standard | 3 | 5 | Makmal A |
+| Penutup Kepala | Standard | 20 | 10 | Stor Utama |
+| Penutup Kasut | Standard | 6 | 10 | Makmal C |</pre>
+  <button class="copy-btn" type="button" data-copy-target="jadual-k4" style="margin-bottom:24px">📋 Salin Jadual</button>
+  <div class="callout"><div class="icon">⚠️</div><p><strong>Perlu perhatian:</strong> Kuantiti kurang daripada Paras Minimum. Rekod dijangka: Sarung Tangan M, Sarung Tangan L, Apron Pakai Buang, Pelindung Muka dan Penutup Kasut — jumlah 5.</p></div>
+  <div class="prompt-grid" style="margin-top:24px"><article class="prompt-card"><div class="prompt-head"><h3>Prompt utama lengkap</h3><p>Tampal terus dalam satu chat ChatGPT.</p></div><div class="prompt-body"><div class="prompt-box" id="prompt-k4">Hasilkan satu mini web app bertajuk “Mini Web App Stok PPE” dalam satu fail HTML lengkap.
+
+Gunakan jadual data simulasi ini:
+| Item PPE | Saiz | Kuantiti | Paras Minimum | Lokasi |
+|---|---|---:|---:|---|
+| Sarung Tangan | S | 18 | 10 | Stor Utama |
+| Sarung Tangan | M | 7 | 10 | Stor Utama |
+| Sarung Tangan | L | 4 | 10 | Makmal A |
+| Pelitup Muka | Standard | 25 | 15 | Stor Utama |
+| Apron Pakai Buang | Standard | 8 | 10 | Makmal B |
+| Pelindung Muka | Standard | 3 | 5 | Makmal A |
+| Penutup Kepala | Standard | 20 | 10 | Stor Utama |
+| Penutup Kasut | Standard | 6 | 10 | Makmal C |
+
+Peraturan perhatian: rekod perlu perhatian apabila Kuantiti kurang daripada Paras Minimum. Jumlah yang dijangka ialah 5.
+
+Keperluan:
+- Gunakan HTML, CSS dan JavaScript biasa dalam satu fail tanpa framework, API, server, database atau pemasangan.
+- Fail mesti boleh dibuka terus dalam browser dan mesra telefon.
+- Paparkan label “Data Simulasi untuk Latihan Sahaja”.
+- Simpan semua rekod dalam satu array JavaScript bernama const data = [...].
+- Jadual, kad statistik dan graf mesti dijana daripada array data JavaScript yang sama. Apabila data dalam array ditambah, dibuang atau diubah, jadual, kiraan, status perhatian dan graf mesti berubah secara automatik.
+- Paparkan kad jumlah keseluruhan dan jumlah perlu perhatian.
+- Paparkan jadual dan warnakan keseluruhan baris perhatian dengan merah lembut.
+- Sediakan butang “Semua PPE” dan “Stok Rendah”.
+- Hasilkan graf bar dinamik Kuantiti berbanding Paras Minimum bagi setiap item PPE menggunakan HTML/CSS/JavaScript biasa. Label graf mesti membezakan saiz, contohnya “Sarung Tangan — M”.
+- Jangan tulis nombor statistik atau graf secara statik.
+- Berikan arahan ringkas untuk menyimpan fail sebagai stok-ppe.html dan membukanya dalam browser.</div><button class="copy-btn" type="button" data-copy-target="prompt-k4">📋 Salin Prompt</button></div></article>
+    <article class="prompt-card"><div class="prompt-head"><h3>Prompt pembetulan</h3></div><div class="prompt-body"><div class="prompt-box" id="prompt-fix-k4">Semak semula kod HTML yang anda hasilkan.
+
+Pastikan:
+1. Jadual, kad statistik, tapisan dan graf membaca daripada array data JavaScript yang sama.
+2. Tiada nombor graf atau statistik yang ditulis secara statik.
+3. Apabila data dalam array berubah, semua paparan berubah secara automatik.
+4. Rekod yang perlu perhatian ditentukan menggunakan peraturan yang diberi.
+5. Semua butang tapisan berfungsi.
+6. Web app kekal dalam satu fail HTML.
+
+Berikan semula kod HTML lengkap yang telah diperbaiki.</div><button class="copy-btn" type="button" data-copy-target="prompt-fix-k4">📋 Salin Prompt Pembetulan</button></div></article></div>
+  <div class="grid two" style="margin-top:24px"><div class="card"><h3>Langkah kerja</h3><ol><li>Tekan Salin Prompt.</li><li>Tampal dalam ChatGPT dan hantar.</li><li>Simpan kod sebagai <strong>stok-ppe.html</strong>.</li><li>Buka fail dalam browser dan uji jadual, tapisan serta graf.</li><li>Gunakan prompt pembetulan sekali jika perlu.</li></ol></div><div class="card"><h3>Hasil Kumpulan</h3><ul><li>Satu fail HTML yang boleh dibuka terus</li><li>8 rekod daripada satu array data</li><li>Jadual, dua kad statistik dan graf dinamik</li><li>Dua butang tapisan berfungsi</li><li>Satu prompt utama dan satu prompt pembetulan</li></ul></div></div>
+  <div class="card" style="margin-top:18px"><h3>Checklist Ujian</h3><ul><li>Semua 8 rekod PPE dipaparkan.</li><li>Lima rekod perhatian ditanda merah.</li><li>Jumlah perhatian ialah 5.</li><li>Butang Semua PPE dan Stok Rendah berfungsi.</li><li>Graf membandingkan Kuantiti dengan Paras Minimum dan membezakan saiz.</li><li>Ubah Sarung Tangan M daripada 7 kepada 14: jadual, statistik dan graf berubah bersama.</li><li>Paparan sesuai pada telefon dan tiada data sebenar digunakan.</li></ul></div>
   <aside class="nlm-mini" aria-labelledby="nlm-k4-title"><div class="nlm-head"><div><span class="eyebrow">Perbandingan platform</span><h3 id="nlm-k4-title">Mini Hands-On NotebookLM</h3></div><a class="nlm-link" href="https://notebooklm.google.com" target="_blank" rel="noopener">Buka NotebookLM ↗</a></div>
-    <div class="nlm-limits"><span>1 notebook</span><span>1 sumber simulasi</span><span>Maksimum 2 soalan</span><span>1 output ringkas</span><span>Tanpa Audio Overview</span></div>
-    <div class="nlm-source"><strong>Sumber tunggal:</strong> Satu dokumen simulasi yang mengandungi keperluan dan kod/mini-tool untuk disemak: kuantiti kurang daripada 5 dianggap kritikal; baris kritikal berwarna merah; sistem hanya membaca data; sistem tidak menghantar e-mel; paparkan jumlah item kritikal.</div>
-    <div class="nlm-grid"><div class="nlm-question"><strong>Soalan 1</strong>“Berdasarkan dokumen keperluan ini, senaraikan semua fungsi yang wajib ada.”</div><div class="nlm-question"><strong>Soalan 2</strong>“Semak kod atau mini-tool ini. Nyatakan fungsi yang sudah dipenuhi dan fungsi yang masih belum dipenuhi.”</div></div>
-    <div class="nlm-result"><strong>Hasil ringkas:</strong><ul><li>Checklist keperluan</li><li>Audit fungsi</li><li>Satu cadangan pembetulan</li></ul></div>
-    <div class="platform-compare"><h4>Bandingkan dan jawab</h4><ul><li>Apa yang ChatGPT hasilkan?</li><li>Apa yang NotebookLM sahkan berdasarkan sumber?</li><li>Adakah ChatGPT menambah fakta?</li><li>Platform mana lebih sesuai untuk tugasan ini?</li><li>Apa yang manusia masih perlu semak?</li></ul></div>
+    <div class="nlm-limits"><span>1 notebook</span><span>1 sumber simulasi</span><span>Maksimum 2 soalan</span><span>Tanpa Audio Overview</span></div>
+    <div class="nlm-source"><strong>Sumber tunggal:</strong> Jadual stok PPE dan dokumen keperluan web app ini. Semak tajuk, lima medan, peraturan Kuantiti &lt; Paras Minimum, lima rekod perhatian, jumlah 5, butang Semua PPE/Stok Rendah, graf dengan label saiz dan satu array data JavaScript.</div>
+    <div class="nlm-grid"><div class="nlm-question"><strong>Soalan 1</strong>“Berdasarkan sumber ini, senaraikan semua fungsi dan peraturan yang wajib ada dalam mini web app.”</div><div class="nlm-question"><strong>Soalan 2</strong>“Semak kod HTML mini web app berdasarkan sumber ini. Nyatakan fungsi yang lengkap, fungsi yang belum lengkap dan sama ada jadual serta graf menggunakan sumber data yang sama.”</div></div>
+    <div class="platform-compare"><h4>Bandingkan dan jawab</h4><ul><li>Apa yang ChatGPT hasilkan?</li><li>Apa yang NotebookLM sahkan berdasarkan sumber?</li><li>Adakah semua lima rekod perhatian tepat?</li><li>Adakah jadual dan graf menggunakan sumber data sama?</li><li>Apa yang manusia masih perlu semak?</li></ul></div>
     <div class="callout nlm-note"><div class="icon">🔍</div><p><strong>ChatGPT membantu menghasilkan. NotebookLM membantu menyemak berdasarkan sumber.</strong></p></div>
   </aside>
 </div></section>
 
-<section id="pembentangan"><div class="wrap"><div class="section-head"><span class="eyebrow">08 · Pembentangan</span><h2>Panduan pembentangan kumpulan · 5 minit</h2></div><div class="step-list"><div class="step"><span class="num">1</span><p><strong>Prompt utama:</strong> tunjukkan arahan asal.</p></div><div class="step"><span class="num">2</span><p><strong>Output pertama:</strong> tunjukkan hasil yang dijana.</p></div><div class="step"><span class="num">3</span><p><strong>Kelemahan yang ditemui:</strong> jelaskan kesilapan atau kekurangan.</p></div><div class="step"><span class="num">4</span><p><strong>Prompt pembetulan:</strong> tunjukkan cara arahan diperbaik.</p></div><div class="step"><span class="num">5</span><p><strong>Output akhir:</strong> tunjukkan versi yang lebih baik dan perkara yang masih perlu disahkan manusia.</p></div></div></div></section>
+<section id="pembentangan"><div class="wrap"><div class="section-head"><span class="eyebrow">08 · Pembentangan</span><h2>Panduan pembentangan kumpulan · 5 minit</h2><p class="lede">Semua kumpulan membentangkan mini web app masing-masing.</p></div><div class="step-list"><div class="step"><span class="num">1</span><p>Terangkan jadual simulasi kumpulan.</p></div><div class="step"><span class="num">2</span><p>Terangkan syarat “perlu perhatian”.</p></div><div class="step"><span class="num">3</span><p>Tunjukkan web app.</p></div><div class="step"><span class="num">4</span><p>Tunjukkan butang tapisan.</p></div><div class="step"><span class="num">5</span><p>Tunjukkan graf.</p></div><div class="step"><span class="num">6</span><p>Ubah satu nilai dalam array <code>data</code>.</p></div><div class="step"><span class="num">7</span><p>Muat semula dan tunjuk jadual serta graf berubah.</p></div><div class="step"><span class="num">8</span><p>Nyatakan satu pembetulan yang dibuat.</p></div><div class="step"><span class="num">9</span><p>Terangkan hasil semakan NotebookLM.</p></div><div class="step"><span class="num">10</span><p>Nyatakan perkara yang masih perlu disahkan manusia.</p></div></div></div></section>
 
 <section id="checklist"><div class="wrap"><div class="section-head"><span class="eyebrow">09 · Semak output</span><h2>Sembilan perkara sebelum guna</h2></div><div class="checklist"><div class="check-item"><span>✓</span>Fakta sepadan dengan sumber simulasi.</div><div class="check-item"><span>✓</span>Nombor dan tarikh dikira semula.</div><div class="check-item"><span>✓</span>Tiada nama, prosedur atau fakta direka.</div><div class="check-item"><span>✓</span>Fakta, inferens dan cadangan dipisahkan.</div><div class="check-item"><span>✓</span>Ketidakpastian dan maklumat kosong ditandakan.</div><div class="check-item"><span>✓</span>Format sesuai dengan pengguna sasaran.</div><div class="check-item"><span>✓</span>Bahasa jelas, neutral dan profesional.</div><div class="check-item"><span>✓</span>Tiada data sensitif dimuat naik atau didedahkan.</div><div class="check-item"><span>✓</span>Manusia yang sesuai meluluskan hasil akhir.</div></div><div class="callout"><div class="icon">👤</div><p><strong>ChatGPT menghasilkan draf. Manusia mengesahkan hasil.</strong></p></div></div></section>
 
@@ -170,8 +336,6 @@ Format: Tajuk, tarikh/masa, lokasi, peralatan, pemerhatian, tindakan segera, tin
 <section id="penutup"><div class="wrap"><div class="closing"><span class="eyebrow" style="background:rgba(255,255,255,.12);color:var(--yellow)">11 · Penutup</span><h2>Mulakan kecil, semak teliti, kongsi dengan selamat</h2><p class="lede">Nilai A.I datang daripada gabungan arahan yang jelas, data yang sesuai dan pertimbangan manusia.</p><div class="grid three"><div class="card"><h3>1 · Pilih satu kerja</h3><p>Cari tugasan berulang yang rendah risiko.</p></div><div class="card"><h3>2 · Cuba panduan T.K.T.F</h3><p>Simpan prompt utama dan prompt pembetulan.</p></div><div class="card"><h3>3 · Sahkan hasil</h3><p>Semak fakta, keselamatan dan pemilik keputusan.</p></div></div></div></div></section>
 </main>
 <footer><strong>Workshop A.I DVS</strong><br>Data latihan dalam halaman ini ialah simulasi · Semak sebelum guna</footer>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 <script>
 (() => {
   'use strict';
@@ -190,21 +354,7 @@ Format: Tajuk, tarikh/masa, lokasi, peralatan, pemerhatian, tindakan segera, tin
 
   async function copyText(text){if(navigator.clipboard?.writeText){try{await navigator.clipboard.writeText(text);return true}catch(e){}}
     const ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;opacity:0;pointer-events:none';document.body.appendChild(ta);ta.select();let ok=false;try{ok=document.execCommand('copy')}catch(e){}ta.remove();return ok}
-  document.querySelectorAll('[data-copy-target]').forEach(btn=>btn.addEventListener('click',async()=>{const source=document.getElementById(btn.dataset.copyTarget);if(!source)return;const old=btn.textContent;const ok=await copyText(source.innerText.trim());btn.textContent=ok?'✓ Disalin!':'Cuba lagi…';btn.classList.toggle('copied',ok);setTimeout(()=>{btn.textContent=old;btn.classList.remove('copied')},1800)}));
-
-  const LIVE_SHEET_CSV_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vQCsVaIK_O-y63ZcaTfR6ArHhBoAeuLaiKXF1et3RME-XZFvOqdNx6RMYd5x0wPjH0zNPSdPTHzBq_u/pub?gid=0&single=true&output=csv';
-  const dataSandaran=`No,Nama Reagen/Bahan,Kategori,Kuantiti Stok,Unit,Tarikh Terima,Tarikh Luput,Lokasi Simpan,Suhu Simpan,Status
-1,Sodium Chloride 0.9%,Larutan,12,botol,2025-01-10,2026-12-31,Rak A1,Suhu Bilik,Aktif
-2,Formalin 10%,Larutan Fiksatif,3,botol,2024-06-15,2026-06-15,Rak A2,Suhu Bilik,Aktif
-3,Antibodi Anti-Rabies,Kit Ujian,0,kit,2024-11-01,2025-05-01,Peti Sejuk 1,2-8°C,Tamat Stok
-4,ELISA Kit - Brucellosis,Kit Ujian,8,kit,2025-03-20,2026-03-20,Peti Sejuk 1,2-8°C,Aktif
-5,Methanol,Pelarut,5,botol,2024-09-05,2025-09-05,Almari Kimia 1,Suhu Bilik,Akan Luput
-6,Phosphate Buffer Saline (PBS),Larutan Penampan,20,botol,2025-02-01,2027-02-01,Rak A1,Suhu Bilik,Aktif`;
-  let chart=null;const status=document.getElementById('live-status');const canvas=document.getElementById('live-chart');
-  function render(rows){if(!canvas||typeof window.Chart==='undefined')return false;const usable=rows.filter(r=>r['Nama Reagen/Bahan']);if(!usable.length)return false;chart?.destroy();chart=new Chart(canvas,{type:'bar',data:{labels:usable.map(r=>r['Nama Reagen/Bahan']),datasets:[{label:'Kuantiti stok (simulasi)',data:usable.map(r=>Number(r['Kuantiti Stok'])||0),backgroundColor:usable.map(r=>(Number(r['Kuantiti Stok'])||0)<5?'#d32f2f':'#1e4fa0'),borderRadius:7}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},title:{display:true,text:'Kuantiti Stok · Data Simulasi'}},scales:{y:{beginAtZero:true}}}});return true}
-  function gunaDataSandaran(reason){if(typeof window.Papa==='undefined'){if(status)status.textContent='Demo carta tidak dapat dimuatkan kerana pustaka data tidak tersedia.';return}const parsed=Papa.parse(dataSandaran,{header:true,skipEmptyLines:true});const ok=render(parsed.data);if(status)status.textContent=ok?`Pilihan Sandaran CSV simulasi sedang digunakan — ${reason}`:'Carta tidak dapat dipaparkan. Semak sambungan internet dan cuba lagi.'}
-  async function loadLive(){if(status)status.textContent='Mencuba memuatkan Google Sheet simulasi…';if(!canvas||typeof window.Chart==='undefined'||typeof window.Papa==='undefined'){gunaDataSandaran('pustaka carta atau data tidak tersedia.');return}try{const res=await fetch(LIVE_SHEET_CSV_URL,{cache:'no-store'});if(!res.ok)throw new Error('HTTP '+res.status);const text=await res.text();const parsed=Papa.parse(text,{header:true,skipEmptyLines:true});if(parsed.errors.length||!render(parsed.data))throw new Error('format data tidak sah');if(status)status.textContent='Data Google Sheet live berjaya dimuatkan. Semua nilai ialah data simulasi.'}catch(e){gunaDataSandaran('sumber langsung gagal dimuatkan.') } }
-  document.getElementById('refresh-live')?.addEventListener('click',loadLive);loadLive();
+  document.querySelectorAll('[data-copy-target]').forEach(btn=>btn.addEventListener('click',async()=>{const source=document.getElementById(btn.dataset.copyTarget);if(!source)return;const old=btn.textContent;const ok=await copyText((source.textContent||'').trim());btn.textContent=ok?'✓ Disalin!':'Cuba lagi…';btn.classList.toggle('copied',ok);setTimeout(()=>{btn.textContent=old;btn.classList.remove('copied')},1800)}));
 })();
 </script>
 </body>
