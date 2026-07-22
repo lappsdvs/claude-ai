@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bagaimana A.I Membantu Kerja Seharian </title>
+<title>A.I dalam Kerja Seharian</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -103,8 +103,29 @@
     border-color: var(--clay-yellow);
     box-shadow: 0 3px 0 rgba(0,0,0,0.18);
   }
+  nav a[data-active-for].active {
+    background: var(--clay-yellow) !important;
+    color: var(--ink) !important;
+    border-color: var(--clay-yellow) !important;
+  }
+  .menu-toggle {
+    display: none;
+    min-height: 44px;
+    align-items: center; justify-content: center; gap: 7px;
+    font-family: var(--body); font-size: 13px; font-weight: 700;
+    color: var(--ink); background: var(--clay-yellow);
+    border: 1.5px solid var(--clay-yellow); border-radius: 50px;
+    padding: 9px 16px; cursor: pointer;
+    box-shadow: 0 3px 0 rgba(0,0,0,0.18);
+  }
+  .menu-toggle:focus-visible, nav a:focus-visible,
+  .demo-tab:focus-visible, .copy-btn:focus-visible, .faq-q:focus-visible {
+    outline: 3px solid var(--clay-yellow);
+    outline-offset: 3px;
+  }
 
   /* ===== SECTION BASE ===== */
+  main > section[id] { scroll-margin-top: 128px; }
   .section-wrap {
     max-width: 1100px; margin: 0 auto;
     padding: 72px 24px;
@@ -285,7 +306,11 @@
     border: 1.5px solid rgba(30,79,160,0.2);
     text-decoration: none; word-break: break-all;
   }
-  .qr-card.qr-claude { border-color: var(--clay-yellow); }
+  .qr-card.qr-chatgpt-featured {
+    border-color: var(--clay-yellow);
+    background: linear-gradient(160deg, #FFFCF0 0%, var(--clay-cream) 70%);
+    box-shadow: 0 3px 0 rgba(255,199,44,0.35);
+  }
 
   /* ===== BEFORE / AFTER ===== */
   .ba-wrap { margin-top: 36px; }
@@ -480,6 +505,55 @@
   .step h4 { font-family: var(--display); font-weight: 700; font-size: 17px; color: var(--ink); margin-bottom: 6px; }
   .step p { font-size: 14.5px; color: var(--ink-soft); }
 
+  /* ===== CONTENT FLOWS + SAFETY ===== */
+  .flow {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
+    align-items: stretch; margin-top: 28px;
+  }
+  .flow-item {
+    position: relative; background: var(--clay-white); border-radius: 18px;
+    padding: 20px 16px; text-align: center; box-shadow: var(--shadow-card);
+    font-size: 14px; font-weight: 700; color: var(--ink);
+  }
+  .flow-item:not(:last-child)::after {
+    content: "→"; position: absolute; right: -19px; top: 50%;
+    transform: translateY(-50%); color: var(--clay-blue);
+    font-size: 22px; z-index: 2;
+  }
+  .flow-item span { display: block; font-size: 24px; margin-bottom: 8px; }
+  .warning-card { border-top: 5px solid var(--clay-red); }
+  .message-banner {
+    margin-top: 26px; padding: 22px 24px; border-radius: 18px;
+    background: linear-gradient(135deg, var(--clay-blue), var(--clay-blue-light));
+    color: #fff; font-family: var(--display); font-size: 21px; font-weight: 700;
+    text-align: center; box-shadow: var(--shadow-card);
+  }
+  .training-note {
+    display: inline-flex; margin: 0 0 16px; padding: 7px 14px;
+    border-radius: 50px; background: rgba(211,47,47,0.10); color: var(--clay-red);
+    font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .traffic-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .traffic-card {
+    background: var(--clay-white); border-radius: 22px; padding: 24px;
+    box-shadow: var(--shadow-card); border-top: 8px solid;
+  }
+  .traffic-card.green { border-color: #2E9D58; }
+  .traffic-card.yellow { border-color: var(--clay-yellow); }
+  .traffic-card.red { border-color: var(--clay-red); }
+  .traffic-card h3 { font-family: var(--display); font-size: 20px; margin-bottom: 12px; }
+  .traffic-card ul, .checklist { list-style: none; }
+  .traffic-card li { font-size: 14px; color: var(--ink-soft); padding: 5px 0; }
+  .traffic-card li::before { content: "•"; color: var(--clay-blue); font-weight: 800; margin-right: 8px; }
+  .checklist { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .checklist li {
+    background: var(--clay-white); border-radius: 16px; padding: 16px 18px;
+    box-shadow: var(--shadow-card); font-size: 14.5px; color: var(--ink);
+  }
+  .checklist li::before { content: "✓"; color: #1A7A1A; font-weight: 800; margin-right: 10px; }
+  .mini-flow { margin-top: 24px; }
+  .section-tint { background: rgba(30,79,160,0.025); }
+
   /* ===== FOOTER ===== */
   footer {
     background: linear-gradient(135deg, var(--clay-blue-deep) 0%, var(--clay-blue) 100%);
@@ -521,19 +595,40 @@
 
   /* ===== RESPONSIVE ===== */
   @media (max-width: 680px) {
+    header { padding: 10px 14px; }
     .hero-inner h1 { font-size: 34px; }
     h2 { font-size: 26px; }
-    .header-inner { flex-direction: column; align-items: flex-start; }
+    .header-inner {
+      display: grid; grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center; gap: 8px;
+    }
+    .brand { min-width: 0; gap: 8px; }
+    .brand-icon { width: 36px; height: 36px; font-size: 19px; border-radius: 11px; }
+    .brand-text h1 { font-size: 16px; }
+    .brand-text .sub { font-size: 9px; letter-spacing: 0.04em; }
+    .menu-toggle { display: inline-flex; }
+    nav {
+      display: none; grid-column: 1 / -1; width: 100%;
+      padding-top: 8px; max-height: calc(100vh - 76px); overflow-y: auto;
+    }
+    nav.is-open { display: flex; }
+    nav a {
+      min-height: 44px; display: inline-flex;
+      align-items: center; justify-content: center;
+      padding: 9px 16px;
+    }
+    main > section[id] { scroll-margin-top: 76px; }
     .section-wrap { padding: 52px 16px; }
     .hero-inner { padding: 64px 16px; }
     .compare-row { grid-template-columns: 1fr; }
     .compare-row div:first-child { border-right: none; border-bottom: 1px solid var(--line); }
     .ba-grid { grid-template-columns: 1fr; }
+    .flow { grid-template-columns: 1fr; }
+    .flow-item:not(:last-child)::after { content: "↓"; right: 50%; top: auto; bottom: -25px; transform: translateX(50%); }
+    .traffic-grid, .checklist { grid-template-columns: 1fr; }
     .qr-section { flex-direction: column; align-items: flex-start; }
-    .brand-divider { display: none; }
-    .logo-group { gap: 6px; }
-    .logo-pill { height: 32px; padding: 4px 7px; }
-    .logo-pill img { height: 20px; max-width: 52px; }
+    .brand-divider, .logo-group { display: none; }
+    .demo-tab, .copy-btn, .faq-q { min-height: 44px; }
   }
 </style>
 </head>
@@ -545,406 +640,337 @@
     <div class="brand">
       <div class="brand-icon">🐾</div>
       <div class="brand-text">
-        <h1>Claude di Makmal</h1>
+        <h1>A.I dalam Kerja Seharian</h1>
         <span class="sub">Jabatan Perkhidmatan Veterinar</span>
       </div>
       <div class="brand-divider"></div>
       <div class="logo-group">
-        <div class="logo-pill">
-          <img src="assets/jata-kpkm.png" alt="Jata Kementerian Pertanian dan Keterjaminan Makanan">
-        </div>
-        <div class="logo-pill">
-          <img src="assets/logo-dvs.png" alt="Logo Jabatan Perkhidmatan Veterinar">
-        </div>
-        <div class="logo-pill">
-          <img src="assets/logo-laapps.png" alt="Logo LAAPPS Institut Teknologi Unggas">
-        </div>
+        <div class="logo-pill"><img src="assets/jata-kpkm.png" alt="Jata Kementerian Pertanian dan Keterjaminan Makanan"></div>
+        <div class="logo-pill"><img src="assets/logo-dvs.png" alt="Logo Jabatan Perkhidmatan Veterinar"></div>
+        <div class="logo-pill"><img src="assets/logo-laapps.png" alt="Logo LAAPPS Institut Teknologi Unggas"></div>
       </div>
     </div>
-    <nav>
-      <a href="#intro"     class="nav-link active">Intro</a>
-      <a href="#landskap"  class="nav-link">Landskap AI</a>
-      <a href="#setup"     class="nav-link">Setup</a>
-      <a href="#integrasi" class="nav-link">Integrasi</a>
-      <a href="#skill"     class="nav-link">Skill</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">☰ Menu</button>
+    <nav id="main-nav" aria-label="Navigasi utama">
+      <a href="#pengenalan" class="nav-link active">Pengenalan</a>
+      <a href="#apa-ai" class="nav-link">Asas A.I</a>
+      <a href="#keupayaan" class="nav-link">Keupayaan</a>
+      <a href="#platform" class="nav-link">Platform</a>
+      <a href="#kerja-makmal" class="nav-link">Kerja Makmal</a>
+      <a href="#prompt" class="nav-link">Prompt</a>
+      <a href="#keselamatan" class="nav-link">Keselamatan</a>
       <a href="ai-network-3d.html" class="nav-link" target="_blank" rel="noopener" style="background:rgba(255,199,44,0.08);border-color:rgba(255,199,44,0.3);color:var(--clay-yellow);">🌍 Globe AI</a>
-      <a href="#debug"     class="nav-link">Debug</a>
-      <a href="#deploy"    class="nav-link">Deploy</a>
-      <a href="hands-on.html" class="nav-link" style="background:rgba(255,199,44,0.15);border-color:rgba(255,199,44,0.4);color:var(--clay-yellow);">🧪 Hands-On</a>
+      <a href="hands-on.html" class="nav-link" data-active-for="hands-on" style="background:rgba(255,199,44,0.15);border-color:rgba(255,199,44,0.4);color:var(--clay-yellow);">🧪 Hands-On</a>
     </nav>
   </div>
 </header>
 
-<!-- ================= INTRO ================= -->
-<div id="intro" class="hero-bg">
-  <div class="hero-inner">
-    <div class="eyebrow">✦ Pengenalan — Sesi Taklimat DVS</div>
-    <h1>Bagaimana <em>A.I</em> boleh bantu kerja seharian </h1>
-    <p class="lede">
-      Bukan robot yang menggantikan kerja kita — tapi rakan kerja yang boleh tolong fikir,
-      tulis, semak dan susun, supaya masa kita lebih banyak untuk kerja teknikal
-      dan operasi makmal yang sebenar.
-    </p>
-    <div class="meta-row">
-      <div class="meta-card fade-up"><span class="label">Audien</span><strong>37 peserta PM &amp; PPS</strong></div>
-      <div class="meta-card fade-up"><span class="label">Pengalaman</span><strong>2–3 tahun bertugas</strong></div>
-      <div class="meta-card fade-up"><span class="label">Fokus</span><strong>Tugasan harian makmal &amp; pejabat</strong></div>
-      <div class="meta-card fade-up"><span class="label">Alat</span><strong>Claude.ai (Web &amp; App)</strong></div>
-    </div>
-  </div>
-</div>
-
-<!-- ================= LANDSKAP AI ================= -->
-<div id="landskap">
-  <div class="section-wrap">
-    <div class="eyebrow">🌐 Pengenalan — Landskap AI</div>
-    <h2>Bukan Cuma Satu AI — Kenal Pemain Utama</h2>
-    <p class="lede">Sebelum kita fokus kepada Claude, baik kita kenali dulu beberapa AI assistant popular yang mungkin sudah pernah anda dengar atau guna.</p>
-
-    <div class="grid grid-4">
-      <div class="card fade-up">
-        <span class="badge">01</span>
-        <h3>ChatGPT (OpenAI)</h3>
-        <p>Paling dikenali ramai orang, pelopor chatbot AI mainstream. Kuat untuk perbualan umum, brainstorming, dan pelbagai plugin/integrasi pihak ketiga.</p>
+<main>
+  <!-- 1. PENGENALAN -->
+  <section id="pengenalan" class="hero-bg">
+    <div class="hero-inner">
+      <div class="eyebrow">✦ Pengenalan — Sesi Taklimat DVS</div>
+      <h1>A.I dalam <em>Kerja Seharian</em></h1>
+      <p class="lede"><strong>Pengenalan A.I untuk Pembantu Makmal dan Penolong Pegawai Sains.</strong> A.I bukan robot yang menggantikan manusia. A.I ialah alat bantu untuk menulis, menyusun, menganalisis dan menghasilkan draf. Keputusan akhir dan tanggungjawab tetap pada manusia.</p>
+      <div class="callout fade-up">
+        <div class="icon">🧪</div>
+        <p><strong>Sesi demonstrasi dan hands-on menggunakan ChatGPT.</strong> Kita akan belajar menggunakan A.I secara praktikal, selamat dan sesuai dengan konteks kerja.</p>
       </div>
-      <div class="card fade-up">
-        <span class="badge">02</span>
-        <h3>Gemini (Google)</h3>
-        <p>Terbina terus dalam Google Workspace — Gmail, Docs, Sheets. Sesuai untuk yang dah biasa guna ekosistem Google dalam kerja harian.</p>
-      </div>
-      <div class="card fade-up">
-        <span class="badge">03</span>
-        <h3>NotebookLM (Google)</h3>
-        <p>Alat AI berasaskan sumber/dokumen sendiri — upload nota atau SOP, ia jana ringkasan, panduan ulang kaji, kuiz, malah audio overview daripada dokumen tersebut.</p>
-      </div>
-      <div class="card card-featured fade-up">
-        <span class="badge">04</span>
-        <h3>Claude (Anthropic)</h3>
-        <p>Dikenali kuat dalam penulisan, analisis dokumen panjang, dan memahami konteks Bahasa Melayu dengan baik. Fokus kita untuk hands-on hari ini.</p>
+      <div class="meta-row">
+        <div class="meta-card fade-up"><span class="label">Audien</span><strong>37 peserta PM &amp; PPS</strong></div>
+        <div class="meta-card fade-up"><span class="label">Pengalaman</span><strong>2–3 tahun bertugas</strong></div>
+        <div class="meta-card fade-up"><span class="label">Fokus</span><strong>Tugasan harian makmal &amp; pejabat</strong></div>
+        <div class="meta-card fade-up"><span class="label">Alat</span><strong>ChatGPT (Web &amp; App)</strong></div>
       </div>
     </div>
+  </section>
 
-    <div class="callout fade-up">
-      <div class="icon">💡</div>
-      <p><strong>Kenapa Claude untuk sesi hands-on hari ini?</strong> Bukan sebab yang lain tak bagus — tapi sebab senang untuk pemula, free tier mencukupi untuk kegunaan harian, dan kuat dalam tugasan Bahasa Melayu/dokumen yang relevan dengan kerja makmal kita.</p>
-    </div>
-  </div>
-</div>
-
-<!-- ================= SETUP ================= -->
-<div id="setup">
-  <div class="section-wrap">
-    <div class="eyebrow">⚙️ Setup</div>
-    <h2>Mula dalam 2 minit</h2>
-    <p class="lede">Tak perlu install software berat atau setting rumit. Claude boleh terus digunakan dari browser atau telefon.</p>
-
-    <div class="grid grid-3">
-      <div class="card fade-up">
-        <span class="badge">A</span>
-        <h3>Daftar Akaun</h3>
-        <p>Pergi ke <strong>claude.ai</strong>, daftar guna emel (Google/Outlook pun boleh). Percuma untuk mula guna.</p>
-      </div>
-      <div class="card fade-up">
-        <span class="badge">B</span>
-        <h3>Buka Chat Baru</h3>
-        <p>Macam WhatsApp — taip apa yang nak ditanya atau minta dibuat, dalam Bahasa Melayu pun boleh.</p>
-      </div>
-      <div class="card fade-up">
-        <span class="badge">C</span>
-        <h3>Lampir Fail</h3>
-        <p>Boleh upload gambar, PDF, Excel atau Word terus dalam chat untuk Claude baca dan analisa.</p>
+  <!-- 2. APA SEBENARNYA A.I? -->
+  <section id="apa-ai">
+    <div class="section-wrap">
+      <div class="eyebrow">01 — Asas A.I</div>
+      <h2>Apa Sebenarnya A.I?</h2>
+      <p class="lede">Artificial Intelligence atau Kecerdasan Buatan ialah teknologi yang membolehkan komputer mengenal corak, memproses maklumat dan menghasilkan jawapan berdasarkan data serta arahan yang diberikan.</p>
+      <div class="grid grid-4">
+        <div class="card fade-up"><span class="badge">01</span><h3>Bukan Manusia</h3><p>A.I tidak mempunyai pengalaman, pertimbangan atau tanggungjawab seperti manusia.</p></div>
+        <div class="card fade-up"><span class="badge">02</span><h3>Bukan Tahu Semua</h3><p>Pengetahuan A.I mempunyai batas dan jawapannya boleh kurang tepat atau ketinggalan.</p></div>
+        <div class="card fade-up"><span class="badge">03</span><h3>Tidak Berfikir Seperti Kita</h3><p>A.I memproses arahan dan maklumat, bukan memahami dunia sepenuhnya seperti manusia.</p></div>
+        <div class="card fade-up"><span class="badge">04</span><h3>Mengenal Corak</h3><p>A.I menghasilkan jawapan berdasarkan corak yang dipelajari daripada data.</p></div>
       </div>
     </div>
+  </section>
 
-    <div class="callout fade-up">
-      <div class="icon">💡</div>
-      <p><strong>Tip:</strong> Claude App (mobile) sesuai untuk soalan cepat di makmal —
-      contoh, snap gambar label spesimen dan tanya terjemahan atau maksud singkatan teknikal.</p>
+  <!-- 3. BAGAIMANA A.I MENGHASILKAN JAWAPAN? -->
+  <section id="cara-ai-menjawab" class="section-tint">
+    <div class="section-wrap">
+      <div class="eyebrow">02 — Dari Arahan ke Jawapan</div>
+      <h2>Bagaimana A.I Menghasilkan Jawapan?</h2>
+      <p class="lede">Secara mudah, A.I meramalkan perkataan atau susunan jawapan yang paling sesuai berdasarkan arahan dan konteks. Sebab itu kualiti hasil bergantung pada maklumat yang kita berikan.</p>
+      <div class="flow fade-up" aria-label="Aliran A.I menghasilkan jawapan">
+        <div class="flow-item"><span>💬</span>Arahan pengguna</div>
+        <div class="flow-item"><span>📖</span>A.I membaca konteks</div>
+        <div class="flow-item"><span>🔎</span>A.I mengenal corak</div>
+        <div class="flow-item"><span>✨</span>A.I menjana jawapan</div>
+        <div class="flow-item"><span>👤</span>Manusia menyemak</div>
+      </div>
+      <div class="callout fade-up"><div class="icon">⚠️</div><p>A.I boleh menghasilkan jawapan yang kedengaran meyakinkan tetapi sebenarnya salah. Beri arahan yang jelas, sertakan konteks dan sentiasa semak hasil.</p></div>
     </div>
+  </section>
 
-    <!-- 3.1 QR CODE -->
-    <div class="qr-multi fade-up">
-      <h3 class="qr-multi-title">Scan untuk mula — pilih platform</h3>
-      <p class="qr-multi-sub">Tujukan kamera telefon ke kod QR platform pilihan anda. Semua percuma, tiada kad kredit diperlukan.</p>
-      <div class="qr-grid">
-        <div class="qr-card qr-claude">
-          <div id="qr-claude" class="qr-img"></div>
-          <div class="qr-name">Claude</div>
-          <a class="qr-url" href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>
+  <!-- 4. APA YANG A.I BOLEH BUAT? -->
+  <section id="keupayaan">
+    <div class="section-wrap">
+      <div class="eyebrow">03 — Keupayaan</div>
+      <h2>Apa yang A.I Boleh Buat?</h2>
+      <p class="lede">A.I membantu mempercepat tugasan berasaskan maklumat. Berikut enam kegunaan yang dekat dengan kerja PM/PPS dan makmal.</p>
+      <div class="grid grid-3">
+        <div class="card fade-up"><span class="badge">01</span><h3>Menulis</h3><p>Menghasilkan draf surat, emel rasmi, minit mesyuarat atau laporan aktiviti.</p></div>
+        <div class="card fade-up"><span class="badge">02</span><h3>Meringkaskan</h3><p>Menukar SOP atau laporan panjang kepada ringkasan dan senarai tindakan.</p></div>
+        <div class="card fade-up"><span class="badge">03</span><h3>Menganalisis Data</h3><p>Membantu mengenal trend dalam jadual atau rekod simulasi untuk semakan pegawai.</p></div>
+        <div class="card fade-up"><span class="badge">04</span><h3>Menterjemah</h3><p>Menterjemah bahan teknikal Bahasa Inggeris kepada Bahasa Melayu yang mudah difahami.</p></div>
+        <div class="card fade-up"><span class="badge">05</span><h3>Menjana Idea</h3><p>Mencadangkan struktur taklimat, tajuk latihan atau cara menyusun proses kerja.</p></div>
+        <div class="card fade-up"><span class="badge">06</span><h3>Membina Bahan Visual</h3><p>Mencadangkan jadual, carta, checklist atau rajah proses untuk pembentangan.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. APA YANG A.I TIDAK BOLEH BUAT? -->
+  <section id="batas-ai" class="section-tint">
+    <div class="section-wrap">
+      <div class="eyebrow">04 — Batas A.I</div>
+      <h2>Apa yang A.I Tidak Boleh Buat?</h2>
+      <p class="lede">A.I ialah alat bantuan, bukan pengganti pertimbangan profesional, SOP atau akauntabiliti pegawai.</p>
+      <div class="grid grid-3">
+        <div class="card warning-card fade-up"><h3>Tidak Sentiasa Betul</h3><p>A.I tidak dapat menjamin setiap fakta, nombor atau rujukan tepat.</p></div>
+        <div class="card warning-card fade-up"><h3>Tidak Tahu Keadaan Sebenar</h3><p>A.I hanya melihat maklumat yang diberi dan mungkin terlepas konteks penting.</p></div>
+        <div class="card warning-card fade-up"><h3>Tidak Menggantikan SOP</h3><p>Prosedur dan arahan rasmi kekal menjadi rujukan utama.</p></div>
+        <div class="card warning-card fade-up"><h3>Tidak Membuat Keputusan Akhir</h3><p>Keputusan teknikal dan saintifik mesti dibuat oleh pegawai yang bertanggungjawab.</p></div>
+        <div class="card warning-card fade-up"><h3>Tidak Bertanggungjawab</h3><p>Pengguna tetap bertanggungjawab terhadap hasil kerja yang digunakan.</p></div>
+        <div class="card warning-card fade-up"><h3>Tidak Sesuai untuk Semua Data</h3><p>Maklumat sensitif, peribadi atau terperingkat tidak boleh dimuat naik sesuka hati.</p></div>
+      </div>
+      <div class="message-banner fade-up">A.I boleh membantu menghasilkan jawapan. Pegawai tetap bertanggungjawab menentukan sama ada jawapan itu betul.</div>
+    </div>
+  </section>
+
+  <!-- 6. LANDSKAP PLATFORM A.I -->
+  <section id="platform">
+    <div class="section-wrap">
+      <div class="eyebrow">05 — Landskap Platform A.I</div>
+      <h2>Kenal Beberapa Platform Utama</h2>
+      <p class="lede">Tiada satu platform terbaik untuk semua tugasan. Pilih alat mengikut tujuan, jenis maklumat dan ciri yang tersedia pada akaun anda.</p>
+      <div class="grid grid-4">
+        <div class="card card-featured fade-up"><span class="badge">01</span><h3>ChatGPT (OpenAI)</h3><p>Sesuai untuk penulisan, analisis, dokumen, gambar dan brainstorming. Digunakan untuk demonstrasi hari ini.</p></div>
+        <div class="card fade-up"><span class="badge">02</span><h3>Gemini (Google)</h3><p>Sesuai untuk pengguna yang bekerja dalam ekosistem Google dan mahu bantuan A.I dalam aliran kerja tersebut.</p></div>
+        <div class="card fade-up"><span class="badge">03</span><h3>NotebookLM (Google)</h3><p>NotebookLM sesuai untuk membaca, merumus dan menyemak maklumat berdasarkan sumber atau dokumen yang dimuat naik.</p></div>
+        <div class="card fade-up"><span class="badge">04</span><h3>Claude (Anthropic)</h3><p>Salah satu pilihan untuk penulisan dan analisis dokumen panjang.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. MENGAPA CHATGPT -->
+  <section id="kenapa-chatgpt" class="section-tint">
+    <div class="section-wrap">
+      <div class="eyebrow">06 — Platform Demonstrasi</div>
+      <h2>Mengapa ChatGPT Digunakan untuk Sesi Hands-On?</h2>
+      <div class="callout fade-up">
+        <div class="icon">💡</div>
+        <p><strong>ChatGPT mudah digunakan melalui web dan aplikasi.</strong> Ia boleh menerima teks, gambar dan dokumen; membantu penulisan, rumusan, idea dan analisis; serta meneruskan perbualan berdasarkan konteks. Fasilitator menggunakan akaun ChatGPT Plus untuk demo. Peserta masih boleh mencuba tugasan asas dengan akaun percuma, tertakluk kepada had dan ciri semasa.</p>
+      </div>
+      <div class="grid grid-3" style="margin-top:28px;">
+        <div class="card fade-up"><span class="badge">A</span><h3>Buka atau Daftar Akaun</h3><p>Pergi ke <strong>chatgpt.com</strong> melalui pelayar web atau gunakan ChatGPT App.</p></div>
+        <div class="card fade-up"><span class="badge">B</span><h3>Buka Chat Baharu</h3><p>Taip arahan dalam Bahasa Melayu dan teruskan perbualan untuk memperbaik jawapan.</p></div>
+        <div class="card fade-up"><span class="badge">C</span><h3>Lampir Fail</h3><p>Muat naik gambar, PDF, Word atau data simulasi jika ciri tersebut tersedia pada akaun anda.</p></div>
+      </div>
+      <div class="qr-multi fade-up">
+        <h3 class="qr-multi-title">Imbas untuk mula — pilih platform</h3>
+        <p class="qr-multi-sub">ChatGPT digunakan untuk hands-on. Platform lain dikekalkan sebagai pilihan perbandingan; ciri dan had akaun boleh berubah.</p>
+        <div class="qr-grid">
+          <div class="qr-card qr-chatgpt-featured"><div id="qr-chatgpt" class="qr-img"></div><div class="qr-name">ChatGPT — kita guna hari ini</div><a class="qr-url" href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com</a></div>
+          <div class="qr-card"><div id="qr-gemini" class="qr-img"></div><div class="qr-name">Gemini</div><a class="qr-url" href="https://gemini.google.com" target="_blank" rel="noopener">gemini.google.com</a></div>
+          <div class="qr-card"><div id="qr-notebooklm" class="qr-img"></div><div class="qr-name">NotebookLM</div><a class="qr-url" href="https://notebooklm.google.com" target="_blank" rel="noopener">notebooklm.google.com</a></div>
+          <div class="qr-card"><div id="qr-claude" class="qr-img"></div><div class="qr-name">Claude</div><a class="qr-url" href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a></div>
         </div>
-        <div class="qr-card">
-          <div id="qr-chatgpt" class="qr-img"></div>
-          <div class="qr-name">ChatGPT</div>
-          <a class="qr-url" href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com</a>
-        </div>
-        <div class="qr-card">
-          <div id="qr-gemini" class="qr-img"></div>
-          <div class="qr-name">Gemini</div>
-          <a class="qr-url" href="https://gemini.google.com" target="_blank" rel="noopener">gemini.google.com</a>
-        </div>
-        <div class="qr-card">
-          <div id="qr-notebooklm" class="qr-img"></div>
-          <div class="qr-name">NotebookLM</div>
-          <a class="qr-url" href="https://notebooklm.google.com" target="_blank" rel="noopener">notebooklm.google.com</a>
-        </div>
       </div>
     </div>
-  </div>
-</div>
+  </section>
 
-<!-- ================= INTEGRASI ================= -->
-<div id="integrasi">
-  <div class="section-wrap">
-    <div class="eyebrow">🔗 Integrasi dalam Tugasan</div>
-    <h2>Di mana A.I masuk dalam kerja harian kita?</h2>
-    <p class="lede">Daripada tugasan pentadbiran sampai ke analisis data — berikut contoh sebenar yang relevan dengan kerja PM/PPS.</p>
-
-    <div class="grid grid-2">
-      <div class="card fade-up">
-        <span class="badge">01</span>
-        <h3>Penulisan &amp; Pelaporan</h3>
-        <p>Draf laporan aktiviti, minit mesyuarat, surat rasmi, atau emel rasmi dalam BM yang kemas dan formal — siap dalam saat.</p>
-      </div>
-      <div class="card fade-up">
-        <span class="badge">02</span>
-        <h3>Analisis Data Makmal</h3>
-        <p>Upload Excel keputusan ujian / rekod sampel, suruh Claude rumuskan trend, kira purata, atau buat carta ringkas.</p>
-      </div>
-      <div class="card fade-up">
-        <span class="badge">03</span>
-        <h3>Rujukan SOP &amp; Protokol</h3>
-        <p>Tanya soalan tentang SOP makmal, prosedur biosafety, atau istilah sains veterinar — dapat penjelasan ringkas berdasarkan dokumen rujukan sendiri.</p>
-      </div>
-      <div class="card fade-up">
-        <span class="badge">04</span>
-        <h3>Automasi Tugasan Berulang</h3>
-        <p>Bina skrip ringkas (Google Sheets/Forms) untuk tracking sampel, jadual penggunaan peralatan, atau borang permohonan — tanpa perlu jadi programmer.</p>
+  <!-- 8. A.I DALAM KERJA MAKMAL -->
+  <section id="kerja-makmal">
+    <div class="section-wrap">
+      <div class="eyebrow">07 — A.I dalam Tugasan</div>
+      <h2>A.I dalam Kerja Makmal</h2>
+      <p class="lede">Daripada tugasan pentadbiran hingga analisis data, A.I boleh membantu menyediakan draf untuk disemak oleh pegawai.</p>
+      <div class="grid grid-2">
+        <div class="card fade-up"><span class="badge">01</span><h3>Penulisan &amp; Pelaporan</h3><p>Draf laporan aktiviti, minit mesyuarat, surat atau emel rasmi dalam Bahasa Melayu yang kemas.</p></div>
+        <div class="card fade-up"><span class="badge">02</span><h3>Analisis Data Makmal</h3><p>Gunakan A.I untuk membantu merumus trend, mengira nilai ringkas atau mencadangkan carta daripada data simulasi.</p></div>
+        <div class="card fade-up"><span class="badge">03</span><h3>Rujukan SOP &amp; Protokol</h3><p>Minta ringkasan atau penjelasan berdasarkan dokumen rujukan, kemudian semak semula dengan SOP rasmi.</p></div>
+        <div class="card fade-up"><span class="badge">04</span><h3>Automasi Tugasan Berulang</h3><p>Dapatkan cadangan untuk tracker sampel, jadual peralatan atau struktur borang tanpa menggantikan semakan teknikal.</p></div>
       </div>
     </div>
+  </section>
 
-    <!-- 3.4 BEFORE / AFTER -->
-    <div class="ba-wrap fade-up">
-      <div class="ba-label">📝 Sebelum &amp; Selepas — Nota Makmal → Laporan Rasmi</div>
-      <div class="ba-grid">
-        <div class="ba-card">
-          <div class="ba-header before">📋 Sebelum — Nota Mentah</div>
-          <div class="ba-body">ujian HI H5N1 — 10/6/2026
-12 sampel ayam, kump A-C
+  <!-- 9. CONTOH SEBELUM DAN SELEPAS -->
+  <section id="contoh-output" class="section-tint">
+    <div class="section-wrap">
+      <div class="eyebrow">08 — Contoh Transformasi</div>
+      <h2>Contoh Sebelum dan Selepas</h2>
+      <p class="lede">Contoh ini menunjukkan bagaimana nota ringkas boleh disusun menjadi draf laporan. Semua maklumat di bawah ialah simulasi.</p>
+      <span class="training-note">Data simulasi untuk tujuan latihan sahaja</span>
+      <div class="ba-wrap fade-up">
+        <div class="ba-label">📝 Nota Makmal → Draf Laporan Rasmi</div>
+        <div class="ba-grid">
+          <div class="ba-card"><div class="ba-header before">📋 Sebelum — Nota Simulasi</div><div class="ba-body">ujian simulasi — 10/6/2026
+12 sampel, kumpulan A-C
 
-kump A (6 ekor): negative
-kump B (4 ekor): positive, titre 1:64
-kump C (2 ekor): positive, titre 1:128
+kumpulan A (6): negatif
+kumpulan B (4): positif, nilai 1:64
+kumpulan C (2): positif, nilai 1:128
 
-perlu buat laporan ke ketua
-ada trend meningkat dari bulan lepas</div>
-        </div>
-        <div class="ba-card">
-          <div class="ba-header after">✨ Selepas — Output Claude</div>
-          <div class="ba-body after-body"><strong>LAPORAN UJIAN SEROLOGI — HI Test</strong>
-Penyakit: Avian Influenza H5N1
+perlu draf laporan kepada ketua
+catatan: bandingkan dengan rekod bulan lepas</div></div>
+          <div class="ba-card"><div class="ba-header after">✨ Selepas — Contoh Output A.I</div><div class="ba-body after-body"><strong>DRAF LAPORAN UJIAN SIMULASI</strong>
 Tarikh: 10 Jun 2026
 
-<span class="ba-tag pos">Ringkasan Keputusan</span>
-• Kumpulan A (6 ekor): <strong>Negatif</strong>
-• Kumpulan B (4 ekor): <strong>Positif</strong> — Titer 1:64
-• Kumpulan C (2 ekor): <strong>Positif</strong> — Titer 1:128
+<span class="ba-tag pos">Ringkasan Data Diberikan</span>
+• Kumpulan A (6 sampel): <strong>Negatif</strong>
+• Kumpulan B (4 sampel): <strong>Positif</strong> — nilai 1:64
+• Kumpulan C (2 sampel): <strong>Positif</strong> — nilai 1:128
 
-<span class="ba-tag neg">Pemerhatian</span>
-6 daripada 12 sampel (50%) menunjukkan tindak balas antibodi positif dengan peningkatan titer berbanding bulan lepas. Dicadangkan pemantauan lanjut dijalankan.</div>
+<span class="ba-tag neg">Tindakan Pengguna</span>
+Semak semua angka, bandingkan dengan rekod yang sah dan dapatkan pengesahan pegawai sebelum digunakan.</div></div>
         </div>
       </div>
+      <div class="cuba-card fade-up">
+        <div class="cuba-eyebrow">Arahan contoh</div>
+        <p class="desc">Susun nota simulasi ini sebagai draf laporan. Jangan tambah fakta atau nombor, jangan membuat diagnosis, dan gunakan hanya maklumat yang diberikan.</p>
+      </div>
     </div>
+  </section>
 
-    <!-- LIVE DEMO -->
-    <div style="margin-top:40px;" class="fade-up">
-      <h3 style="font-family:var(--display);font-size:22px;font-weight:700;color:var(--ink);margin-bottom:16px;">
-        Contoh Cepat — Live Demo
-      </h3>
-      <div class="demo-shell">
-        <div class="demo-bar">
-          <div class="dots"><span></span><span></span><span></span></div>
-          <span>claude.ai — sesi chat</span>
-        </div>
+  <!-- 10. FORMULA PROMPT T.K.T.F -->
+  <section id="prompt">
+    <div class="section-wrap">
+      <div class="eyebrow">09 — Formula Prompt</div>
+      <h2>Formula Prompt T.K.T.F</h2>
+      <p class="lede">Prompt yang jelas membantu A.I memahami tugasan, situasi, tujuan dan bentuk hasil yang diperlukan.</p>
+      <div class="grid grid-4">
+        <div class="card fade-up"><span class="badge">T</span><h3>Tugas</h3><p>Apa yang A.I perlu buat?</p></div>
+        <div class="card fade-up"><span class="badge">K</span><h3>Konteks</h3><p>Siapa pengguna dan apakah situasinya?</p></div>
+        <div class="card fade-up"><span class="badge">T</span><h3>Tujuan</h3><p>Untuk siapa atau untuk apa hasil digunakan?</p></div>
+        <div class="card fade-up"><span class="badge">F</span><h3>Format</h3><p>Mahu laporan, jadual, emel, checklist atau carta?</p></div>
+      </div>
+      <div class="cuba-card fade-up">
+        <div class="cuba-eyebrow">🧪 Cuba Sendiri</div>
+        <h3>Prompt lengkap — salin dan guna</h3>
+        <p class="desc">Gunakan data simulasi dan ubah bahagian dalam kurungan mengikut latihan.</p>
+        <div class="prompt-box" id="cuba-prompt">Tukarkan nota makmal simulasi berikut menjadi laporan rasmi Bahasa Melayu untuk dihantar kepada Ketua Unit. Gunakan format Tajuk, Objektif, Keputusan, Pemerhatian dan Cadangan. Jangan tambah fakta atau nombor yang tiada. Nota: [tampal nota simulasi di sini]</div>
+        <button class="copy-btn" id="copy-btn" type="button"><span id="copy-icon">📋</span><span id="copy-text">Salin Prompt</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. DOKUMEN, GAMBAR DAN DATA -->
+  <section id="dokumen-data" class="section-tint">
+    <div class="section-wrap">
+      <div class="eyebrow">10 — Bekerja dengan Fail</div>
+      <h2>Bekerja dengan Dokumen, Gambar dan Data</h2>
+      <p class="lede">Mulakan dengan bahan yang sesuai dan tidak sensitif. Terangkan tugasan dengan jelas, kemudian sahkan hasil.</p>
+      <div class="grid grid-3">
+        <div class="card fade-up"><span class="badge">01</span><h3>📄 Dokumen</h3><p>PDF, Word, SOP dan laporan — minta ringkasan, struktur atau senarai tindakan.</p></div>
+        <div class="card fade-up"><span class="badge">02</span><h3>🖼️ Gambar</h3><p>Label, peralatan, screenshot dan rajah — minta penerangan atau susunan maklumat.</p></div>
+        <div class="card fade-up"><span class="badge">03</span><h3>📊 Data</h3><p>CSV, Excel, jadual dan rekod simulasi — minta rumusan atau cadangan visualisasi.</p></div>
+      </div>
+      <div class="flow mini-flow fade-up" aria-label="Aliran bekerja dengan fail">
+        <div class="flow-item"><span>⬆️</span>Muat naik</div>
+        <div class="flow-item"><span>💬</span>Beri arahan</div>
+        <div class="flow-item"><span>🔎</span>Semak jawapan</div>
+        <div class="flow-item"><span>🛠️</span>Baiki prompt</div>
+        <div class="flow-item"><span>✅</span>Sahkan hasil</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. KESELAMATAN DATA -->
+  <section id="keselamatan">
+    <div class="section-wrap">
+      <div class="eyebrow">11 — Keselamatan Data</div>
+      <h2>Fikir Sebelum Muat Naik</h2>
+      <p class="lede">Tiada platform yang harus dianggap menjamin keselamatan penuh. Ikut SOP, klasifikasi dokumen dan arahan organisasi.</p>
+      <div class="traffic-grid">
+        <div class="traffic-card green fade-up"><h3>🟢 Hijau — Boleh Digunakan</h3><ul><li>Data simulasi</li><li>Bahan awam</li><li>Template kosong</li><li>Contoh latihan</li></ul></div>
+        <div class="traffic-card yellow fade-up"><h3>🟡 Kuning — Semak Dahulu</h3><ul><li>Laporan dalaman</li><li>Data operasi</li><li>Dokumen belum diterbitkan</li><li>Perlu kebenaran dahulu</li></ul></div>
+        <div class="traffic-card red fade-up"><h3>🔴 Merah — Jangan Muat Naik</h3><ul><li>Kata laluan atau nombor kad pengenalan</li><li>Data peribadi</li><li>Dokumen terperingkat</li><li>Data kes atau siasatan</li><li>Keputusan sensitif</li><li>Maklumat rasmi sulit</li></ul></div>
+      </div>
+      <div class="message-banner fade-up">Apabila ragu-ragu, jangan muat naik.</div>
+    </div>
+  </section>
+
+  <!-- 13. SEMAK SEBELUM GUNA -->
+  <section id="semak" class="section-tint">
+    <div class="section-wrap">
+      <div class="eyebrow">12 — Kawalan Kualiti</div>
+      <h2>Semak Sebelum Guna</h2>
+      <p class="lede">Gunakan checklist ini sebelum menyalin hasil A.I ke dalam dokumen atau tugasan rasmi.</p>
+      <ul class="checklist fade-up">
+        <li>Adakah fakta betul?</li><li>Adakah nombor tepat?</li><li>Adakah A.I menambah maklumat?</li><li>Adakah format mengikut arahan?</li><li>Adakah bahasa sesuai?</li><li>Adakah hasil mematuhi SOP?</li><li>Adakah data sensitif terlibat?</li>
+      </ul>
+      <div class="message-banner fade-up">A.I ialah draf pertama, bukan keputusan muktamad.</div>
+      <div class="faq-list fade-up">
+        <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false">Adakah A.I akan menggantikan kerja kita?<span class="arrow">▾</span></button><div class="faq-a" role="region"><p>Tidak. A.I membantu tugasan tertentu, tetapi kerja makmal memerlukan pengetahuan domain, kemahiran fizikal, pertimbangan profesional dan tanggungjawab manusia.</p></div></div>
+        <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false">Adakah data yang dimuat naik selamat?<span class="arrow">▾</span></button><div class="faq-a" role="region"><p>Jangan anggap mana-mana platform menjamin privasi mutlak. Semak klasifikasi data, SOP dan kebenaran organisasi. Gunakan data simulasi apabila boleh.</p></div></div>
+        <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false">Perlu bayar untuk menggunakan A.I?<span class="arrow">▾</span></button><div class="faq-a" role="region"><p>Tugasan asas boleh dicuba dengan akaun percuma, tertakluk kepada had dan ciri semasa. Akaun berbayar mungkin menawarkan ciri tambahan tetapi bukan syarat untuk mula belajar.</p></div></div>
+        <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false">Apa perlu dibuat jika jawapan A.I salah?<span class="arrow">▾</span></button><div class="faq-a" role="region"><p>Berikan konteks tambahan, jelaskan pembetulan, minta jawapan disusun semula dan semak dengan sumber atau pegawai yang sah sebelum digunakan.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14. HANDS-ON CHATGPT -->
+  <section id="hands-on">
+    <div class="section-wrap">
+      <div class="eyebrow">13 — Demonstrasi &amp; Latihan</div>
+      <h2>Hands-On Menggunakan ChatGPT</h2>
+      <p class="lede">Cuba tiga tugasan ringkas menggunakan formula T.K.T.F. Semua contoh menggunakan data simulasi.</p>
+      <span class="training-note">Semua contoh menggunakan data simulasi</span>
+      <div class="demo-shell fade-up">
+        <div class="demo-bar"><div class="dots"><span></span><span></span><span></span></div><span>chatgpt.com — sesi demonstrasi</span></div>
         <div class="demo-body">
-          <div class="demo-tabs">
-            <div class="demo-tab active" data-demo="surat">📄 Draf Surat</div>
-            <div class="demo-tab" data-demo="data">📊 Analisis Data</div>
-            <div class="demo-tab" data-demo="sop">📋 Rujuk SOP</div>
+          <div class="demo-tabs" role="tablist" aria-label="Contoh demonstrasi">
+            <button class="demo-tab active" type="button" data-demo="surat" role="tab" aria-selected="true">📄 Draf Surat</button>
+            <button class="demo-tab" type="button" data-demo="data" role="tab" aria-selected="false">📊 Analisis Data</button>
+            <button class="demo-tab" type="button" data-demo="sop" role="tab" aria-selected="false">📋 Rujuk SOP</button>
           </div>
           <div id="demo-content"></div>
         </div>
       </div>
+      <div class="steps" style="margin-top:32px;">
+        <div class="step fade-up"><div class="num"></div><div><h4>Buka atau daftar akaun ChatGPT</h4><p>Gunakan chatgpt.com atau aplikasi rasmi, tertakluk kepada akses yang tersedia.</p></div></div>
+        <div class="step fade-up"><div class="num"></div><div><h4>Pilih satu tugasan kecil</h4><p>Contohnya draf satu emel atau ringkaskan bahan latihan.</p></div></div>
+        <div class="step fade-up"><div class="num"></div><div><h4>Gunakan formula T.K.T.F</h4><p>Nyatakan tugas, konteks, tujuan dan format yang dikehendaki.</p></div></div>
+        <div class="step fade-up"><div class="num"></div><div><h4>Semak dan baiki jawapan</h4><p>Betulkan konteks, semak fakta dan minta format yang lebih sesuai.</p></div></div>
+        <div class="step fade-up"><div class="num"></div><div><h4>Jangan masukkan data sensitif</h4><p>Gunakan data simulasi dan patuhi SOP keselamatan organisasi.</p></div></div>
+      </div>
+      <div class="callout fade-up"><div class="icon">🧪</div><p><strong>Sedia untuk mencuba?</strong> Buka halaman latihan langkah demi langkah melalui butang Hands-On dalam navigasi.</p></div>
     </div>
-  </div>
-</div>
+  </section>
 
-<!-- ================= SKILL ================= -->
-<div id="skill">
-  <div class="section-wrap">
-    <div class="eyebrow">⚡ Skill yang Berguna</div>
-    <h2>5 kebolehan yang patut PM/PPS tahu</h2>
-    <p class="lede">Lima ciri ini yang paling kerap akan digunakan dalam konteks kerja makmal dan pejabat.</p>
-
-    <div class="compare fade-up">
-      <div class="compare-row">
-        <div>Ciri</div>
-        <div>Kegunaan dalam kerja makmal</div>
-      </div>
-      <div class="compare-row">
-        <div>Baca Dokumen / Gambar</div>
-        <div>Upload manual, sijil, label, atau gambar peralatan — Claude boleh terangkan, terjemah atau ringkaskan.</div>
-      </div>
-      <div class="compare-row">
-        <div>Tulisan &amp; Terjemahan</div>
-        <div>Tukar nota ringkas jadi laporan formal, atau terjemah artikel sains EN → BM dengan cepat.</div>
-      </div>
-      <div class="compare-row">
-        <div>Excel / Data</div>
-        <div>Susun, kira, dan visualkan data rekod makmal tanpa formula rumit.</div>
-      </div>
-      <div class="compare-row">
-        <div>Buat Carta / Visual</div>
-        <div>Minta carta perbandingan, jadual ringkas, atau diagram proses untuk taklimat.</div>
-      </div>
-      <div class="compare-row">
-        <div>"Projects" / Sejarah Chat</div>
-        <div>Susun chat mengikut tugasan (contoh: "Laporan Bulanan", "SOP Makmal A") supaya senang rujuk balik.</div>
+  <!-- 15. PENUTUP -->
+  <section id="penutup" class="section-tint">
+    <div class="section-wrap">
+      <div class="eyebrow">14 — Penutup</div>
+      <h2>A.I Mempercepatkan Kerja</h2>
+      <div class="message-banner fade-up">A.I mempercepatkan kerja. Kepakaran manusia memastikan hasilnya tepat, selamat dan boleh dipercayai.</div>
+      <div class="grid grid-3" style="margin-top:28px;">
+        <div class="card fade-up"><span class="badge">01</span><h3>Mulakan Kecil</h3><p>Mulakan dengan satu tugas kecil yang mudah disemak.</p></div>
+        <div class="card fade-up"><span class="badge">02</span><h3>Simpan Prompt</h3><p>Simpan prompt yang berjaya untuk digunakan dan diperbaik kemudian.</p></div>
+        <div class="card fade-up"><span class="badge">03</span><h3>Kongsi Amalan Baik</h3><p>Kongsi cara yang selamat dan berkesan dengan rakan sekerja.</p></div>
       </div>
     </div>
-
-    <!-- 3.2 CUBA SENDIRI -->
-    <div class="cuba-card fade-up">
-      <div class="cuba-eyebrow">🧪 Cuba Sendiri</div>
-      <h3>Prompt siap pakai — copy &amp; guna terus</h3>
-      <p class="desc">Copy prompt di bawah, tampal ke A.I pilihan anda, kemudian gantikan bahagian dalam [ ] dengan kandungan kerja sebenar anda.</p>
-      <div class="prompt-box" id="cuba-prompt">
-        Tukar nota makmal ringkas ini jadi laporan rasmi dalam Bahasa Melayu formal untuk dihantar kepada Ketua Jabatan. Pastikan format kemas, gunakan ayat lengkap, dan tambah kesimpulan ringkas. Nota: [tampal nota anda di sini]
-      </div>
-      <button class="copy-btn" id="copy-btn" onclick="copyPrompt()">
-        <span id="copy-icon">📋</span>
-        <span id="copy-text">Copy Prompt</span>
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- ================= DEBUG ================= -->
-<div id="debug">
-  <div class="section-wrap">
-    <div class="eyebrow">🔍 Debug &amp; Perkara Perlu Diingat</div>
-    <h2>Bila A.I tersilap — dan macam mana handle</h2>
-    <p class="lede">AI sangat berguna, tapi bukan sempurna. Beberapa garis panduan supaya guna AI dengan selamat dan berkesan.</p>
-
-    <div class="grid grid-2">
-      <div class="card fade-up">
-        <span class="badge red">!</span>
-        <h3>Sentiasa Semak Output</h3>
-        <p>A.I boleh tersilap fakta atau nombor (dipanggil "hallucination"). Untuk data penting (keputusan ujian, angka rasmi), sentiasa verify sebelum guna.</p>
-      </div>
-      <div class="card fade-up">
-        <span class="badge red">!</span>
-        <h3>Jangan Kongsi Data Sulit</h3>
-        <p>Elakkan upload maklumat sulit/rasmi (data pesakit, dokumen sulit kerajaan) tanpa kebenaran — ikut SOP keselamatan data pejabat.</p>
-      </div>
-      <div class="card fade-up">
-        <span class="badge red">!</span>
-        <h3>Arahan yang Jelas = Hasil Lebih Baik</h3>
-        <p>Bagi konteks lengkap: siapa audien, tujuan, format yang diingini. Contoh: "Tulis dalam BM formal untuk surat rasmi ke JPV" lebih baik dari "tulis surat".</p>
-      </div>
-      <div class="card fade-up">
-        <span class="badge red">!</span>
-        <h3>A.I Bantu, Bukan Gantikan Kepakaran</h3>
-        <p>Keputusan teknikal dan saintifik tetap perlu pertimbangan profesional kita — Claude alat sokongan, bukan pegawai sains.</p>
-      </div>
-    </div>
-
-    <!-- 3.3 FAQ ACCORDION -->
-    <div class="faq-list fade-up">
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
-          A.I akan gantikan kerja kita ke?
-          <span class="arrow">▾</span>
-        </button>
-        <div class="faq-a" role="region">
-          <p>Tidak — Claude direka untuk <strong>menambah keupayaan</strong> kita, bukan menggantikan. Kerja makmal dan sains veterinar memerlukan pengetahuan domain, pertimbangan profesional, dan kemahiran fizikal yang AI tidak boleh lakukan. Claude hanya bantu bahagian pentadbiran dan penulisan supaya kita lebih fokus pada kerja teknikal sebenar.</p>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
-          Data yang kita taip selamat ke?
-          <span class="arrow">▾</span>
-        </button>
-        <div class="faq-a" role="region">
-          <p>Anthropic (syarikat di sebalik Claude) mempunyai polisi privasi yang ketat. Namun, sebagai amalan terbaik: <strong>jangan taip maklumat sulit rasmi, nombor pesakit, atau data sensitif kerajaan</strong> ke dalam mana-mana sistem AI tanpa kebenaran pegawai atasan. Guna data dummy atau ringkasan umum bila perlu.</p>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
-          Perlu bayar ke untuk guna A.I?
-          <span class="arrow">▾</span>
-        </button>
-        <div class="faq-a" role="region">
-          <p>Akaun <strong>percuma</strong> A.I sudah cukup untuk kebanyakan tugasan harian — draf surat, ringkasan dokumen, terjemahan, analisis data ringkas. Versi Pro (berbayar) memberi lebih banyak mesej sehari dan akses ke model terkini, tapi tidak wajib untuk bermula. Cuba free dulu!</p>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false" onclick="toggleFaq(this)">
-          Macam mana kalau jawapan A.I salah?
-          <span class="arrow">▾</span>
-        </button>
-        <div class="faq-a" role="region">
-          <p>Dua cara terbaik: Pertama, <strong>berikan lebih konteks</strong> — "Jawapan tadi kurang tepat, saya maksudkan X, bukan Y. Cuba semula." Claude akan betulkan. Kedua, <strong>minta rujukan</strong> — "Boleh nyatakan sumber atau asas jawapan ini?" Jika AI tidak pasti, dia akan beritahu. Ingat: AI adalah draf pertama, bukan keputusan muktamad.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ================= DEPLOY ================= -->
-<div id="deploy">
-  <div class="section-wrap">
-    <div class="eyebrow">🚀 Deploy — Mula Sekarang</div>
-    <h2>Mula guna esok — langkah praktikal</h2>
-    <p class="lede">Tak perlu tunggu "masa sesuai". Berikut 4 langkah ringkas untuk setiap peserta cuba sendiri selepas sesi ini.</p>
-
-    <div class="steps">
-      <div class="step fade-up">
-        <div class="num"></div>
-        <div>
-          <h4>Daftar akaun Claude.ai (percuma)</h4>
-          <p>Guna emel pejabat atau peribadi. Ambil masa kurang 2 minit.</p>
-        </div>
-      </div>
-      <div class="step fade-up">
-        <div class="num"></div>
-        <div>
-          <h4>Pilih satu tugasan kecil minggu ini</h4>
-          <p>Contoh: draf satu emel rasmi, atau ringkaskan satu dokumen panjang.</p>
-        </div>
-      </div>
-      <div class="step fade-up">
-        <div class="num"></div>
-        <div>
-          <h4>Beri arahan dengan konteks penuh</h4>
-          <p>Nyatakan tujuan, audien, dan format — semakin spesifik, semakin tepat hasilnya.</p>
-        </div>
-      </div>
-      <div class="step fade-up">
-        <div class="num"></div>
-        <div>
-          <h4>Semak, edit, dan kongsi pengalaman</h4>
-          <p>Semak hasil sebelum guna rasmi. Kongsi dengan rakan sekerja apa yang berjaya — kita belajar bersama.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+  </section>
+</main>
 
 <footer>
-  <div class="footer-madani">
-    <img src="assets/malaysia-madani.png" alt="Logo Malaysia MADANI">
-  </div>
-  <div class="footer-brand">Claude di Makmal 🐾</div>
+  <div class="footer-madani"><img src="assets/malaysia-madani.png" alt="Logo Malaysia MADANI"></div>
+  <div class="footer-brand">A.I dalam Kerja Seharian 🐾</div>
   Disediakan untuk taklimat PM &amp; PPS, <span>Jabatan Perkhidmatan Veterinar</span>
 </footer>
 
@@ -953,14 +979,60 @@ Tarikh: 10 Jun 2026
 <script>
   // ===== ACTIVE NAV ON SCROLL =====
   const navLinks = document.querySelectorAll('.nav-link');
-  const anchors  = ['intro','landskap','setup','integrasi','skill','debug','deploy'];
+  const menuToggle = document.querySelector('.menu-toggle');
+  const mainNav = document.getElementById('main-nav');
+
+  function setMobileMenu(open) {
+    if (!menuToggle || !mainNav) return;
+    menuToggle.setAttribute('aria-expanded', String(open));
+    mainNav.classList.toggle('is-open', open);
+  }
+
+  menuToggle?.addEventListener('click', () => {
+    setMobileMenu(menuToggle.getAttribute('aria-expanded') !== 'true');
+  });
+
+  navLinks.forEach(link => {
+    if (link.getAttribute('href')?.startsWith('#')) {
+      link.addEventListener('click', () => setMobileMenu(false));
+    }
+  });
+
+  mainNav?.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      setMobileMenu(false);
+      menuToggle?.focus();
+    }
+  });
+
+  const anchors = [
+    { id: 'pengenalan', nav: 'pengenalan' },
+    { id: 'apa-ai', nav: 'apa-ai' },
+    { id: 'cara-ai-menjawab', nav: 'apa-ai' },
+    { id: 'keupayaan', nav: 'keupayaan' },
+    { id: 'batas-ai', nav: 'keupayaan' },
+    { id: 'platform', nav: 'platform' },
+    { id: 'kenapa-chatgpt', nav: 'platform' },
+    { id: 'kerja-makmal', nav: 'kerja-makmal' },
+    { id: 'contoh-output', nav: 'kerja-makmal' },
+    { id: 'prompt', nav: 'prompt' },
+    { id: 'dokumen-data', nav: 'prompt' },
+    { id: 'keselamatan', nav: 'keselamatan' },
+    { id: 'semak', nav: 'keselamatan' },
+    { id: 'hands-on', nav: 'hands-on' },
+    { id: 'penutup', nav: 'hands-on' }
+  ];
   window.addEventListener('scroll', () => {
-    let current = anchors[0];
-    anchors.forEach(id => {
+    let current = anchors[0].nav;
+    anchors.forEach(({ id, nav }) => {
       const el = document.getElementById(id);
-      if (el && window.scrollY >= el.offsetTop - 130) current = id;
+      if (el && window.scrollY >= el.offsetTop - 130) current = nav;
     });
-    navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current));
+    navLinks.forEach(link => {
+      const matchesAnchor = link.getAttribute('href') === '#' + current;
+      const matchesGroup = link.dataset.activeFor === current;
+      link.classList.toggle('active', matchesAnchor || matchesGroup);
+    });
   });
 
   // ===== FADE-UP WITH INTERSECTION OBSERVER =====
@@ -981,13 +1053,15 @@ Tarikh: 10 Jun 2026
 
   // ===== QR CODES (semua platform) =====
   const qrTargets = [
-    ['qr-claude', 'https://claude.ai'],
     ['qr-chatgpt', 'https://chatgpt.com'],
     ['qr-gemini', 'https://gemini.google.com'],
     ['qr-notebooklm', 'https://notebooklm.google.com'],
+    ['qr-claude', 'https://claude.ai'],
   ];
   qrTargets.forEach(([id, url]) => {
-    new QRCode(document.getElementById(id), {
+    const target = document.getElementById(id);
+    if (!target || typeof QRCode === 'undefined') return;
+    new QRCode(target, {
       text: url,
       width: 120,
       height: 120,
@@ -997,26 +1071,60 @@ Tarikh: 10 Jun 2026
     });
   });
 
-  // ===== COPY PROMPT =====
-  function copyPrompt() {
+  // ===== SALIN PROMPT =====
+  function salinPromptSandaran(prompt) {
+    const textarea = document.createElement('textarea');
+    textarea.value = prompt;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    textarea.style.pointerEvents = 'none';
+    document.body.appendChild(textarea);
+    textarea.select();
+
+    let copied = false;
+    try {
+      copied = document.execCommand('copy');
+    } catch (_) {
+      copied = false;
+    } finally {
+      textarea.remove();
+    }
+    return copied;
+  }
+
+  async function copyPrompt() {
     const prompt = document.getElementById('cuba-prompt').innerText.trim();
     const btn    = document.getElementById('copy-btn');
     const icon   = document.getElementById('copy-icon');
     const text   = document.getElementById('copy-text');
-    navigator.clipboard.writeText(prompt).then(() => {
+
+    let copied = false;
+    if (navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(prompt);
+        copied = true;
+      } catch (_) {
+        copied = false;
+      }
+    }
+    if (!copied) copied = salinPromptSandaran(prompt);
+
+    if (copied) {
       icon.textContent = '✓';
       text.textContent = 'Disalin!';
       btn.classList.add('copied');
       setTimeout(() => {
         icon.textContent = '📋';
-        text.textContent = 'Copy Prompt';
+        text.textContent = 'Salin Prompt';
         btn.classList.remove('copied');
       }, 2200);
-    }).catch(() => {
+    } else {
       text.textContent = 'Cuba lagi…';
-      setTimeout(() => { text.textContent = 'Copy Prompt'; }, 1800);
-    });
+      setTimeout(() => { text.textContent = 'Salin Prompt'; }, 1800);
+    }
   }
+  document.getElementById('copy-btn')?.addEventListener('click', copyPrompt);
 
   // ===== FAQ ACCORDION =====
   function toggleFaq(btn) {
@@ -1037,6 +1145,9 @@ Tarikh: 10 Jun 2026
       item.classList.add('open');
     }
   }
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => toggleFaq(btn));
+  });
 
   // ===== DEMO CHAT TABS =====
   const demoData = {
@@ -1045,11 +1156,11 @@ Tarikh: 10 Jun 2026
       ai:   "Berikut draf surat:<br><br><em>\"Tuan,<br>Permohonan Kelulusan Pembelian Reagen Makmal<br><br>Dengan segala hormatnya saya memohon kelulusan tuan bagi pembelian reagen makmal yang telah hampir kehabisan stok bagi keperluan ujian rutin di Institut Teknologi Unggas...\"</em><br><br>— boleh edit lanjut mengikut keperluan sebenar."
     },
     data: {
-      user: "Saya upload Excel keputusan ujian sampel bulan ini. Boleh rumuskan trend dan tunjuk mana sampel yang luar julat normal?",
+      user: "Saya muat naik Excel keputusan ujian simulasi bulan ini. Boleh rumuskan trend dan tunjuk mana sampel yang luar julat normal?",
       ai:   "Berdasarkan data yang dimuat naik:<br>• 42 daripada 50 sampel dalam julat normal<br>• 8 sampel melebihi nilai rujukan, kebanyakan dari Kumpulan B<br>• Trend menunjukkan peningkatan kecil berbanding bulan lepas<br><br>Boleh saya jana carta perbandingan bulanan untuk laporan?"
     },
     sop: {
-      user: "Apa langkah pelupusan sampel biohazard mengikut SOP makmal kita? (saya upload dokumen SOP)",
+      user: "Apa langkah pelupusan sampel biohazard mengikut SOP makmal kita? (saya muat naik dokumen SOP latihan)",
       ai:   "Berdasarkan dokumen SOP yang dikongsi, langkah utama:<br>1. Asingkan sampel mengikut kategori risiko<br>2. Guna bekas berlabel biohazard yang ditetapkan<br>3. Rekod dalam log pelupusan sebelum diserahkan ke pihak bertugas<br><br>Nak saya ringkaskan jadi senarai semak (checklist) untuk dicetak?"
     }
   };
@@ -1060,13 +1171,15 @@ Tarikh: 10 Jun 2026
     const d = demoData[key];
     content.innerHTML = `
       <div class="bubble user"><span class="who">Anda</span>${d.user}</div>
-      <div class="bubble ai"><span class="who">Claude</span>${d.ai}</div>
+      <div class="bubble ai"><span class="who">ChatGPT</span>${d.ai}</div>
     `;
   }
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       tabs.forEach(t => t.classList.remove('active'));
+      tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
       tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
       renderDemo(tab.dataset.demo);
     });
   });

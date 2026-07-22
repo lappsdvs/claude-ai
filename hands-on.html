@@ -3,1159 +3,209 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Workshop Hands-On — Belajar Guna Claude Sendiri | DVS</title>
+<title>Workshop Hands-On Menggunakan ChatGPT | DVS</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* ===== DESIGN TOKENS (sama dengan index.html) ===== */
-  :root {
-    --clay-blue:       #1E4FA0;
-    --clay-blue-deep:  #0F3576;
-    --clay-blue-light: #2A61BB;
-    --clay-red:        #D32F2F;
-    --clay-red-deep:   #8B1A1A;
-    --clay-yellow:     #FFC72C;
-    --clay-cream:      #FFF8EC;
-    --clay-white:      #FFFFFF;
-    --ink:             #27314A;
-    --ink-soft:        #5B6478;
-    --line:            rgba(30,79,160,0.12);
-
-    --display: 'Baloo 2', sans-serif;
-    --body:    'Plus Jakarta Sans', sans-serif;
-
-    --shadow-card:       0 2px 0 rgba(15,53,118,0.45), 0 8px 28px rgba(30,79,160,0.10);
-    --shadow-card-hover: 0 5px 0 rgba(15,53,118,0.45), 0 20px 44px rgba(30,79,160,0.16);
-    --shadow-btn:        0 4px 0 var(--clay-blue-deep), 0 6px 18px rgba(15,53,118,0.22);
-    --shadow-btn-press:  0 1px 0 var(--clay-blue-deep), 0 2px 6px rgba(15,53,118,0.14);
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: var(--body);
-    background: var(--clay-cream);
-    color: var(--ink);
-    line-height: 1.6;
-  }
-
-  /* ===== FADE-UP ===== */
-  @media (prefers-reduced-motion: no-preference) {
-    .fade-up {
-      opacity: 0; transform: translateY(24px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
-    .fade-up:nth-child(2) { transition-delay: 0.08s; }
-    .fade-up:nth-child(3) { transition-delay: 0.16s; }
-  }
-
-  /* ===== HEADER / NAV ===== */
-  header {
-    position: sticky; top: 0; z-index: 50;
-    background: var(--clay-blue);
-    box-shadow: 0 4px 18px rgba(15,53,118,0.30);
-    padding: 13px 24px;
-  }
-  .header-inner {
-    max-width: 1100px; margin: 0 auto;
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 10px;
-  }
-  .brand { display: flex; align-items: center; gap: 12px; }
-  .brand-icon {
-    width: 40px; height: 40px; background: var(--clay-yellow);
-    border-radius: 13px; display: flex; align-items: center; justify-content: center;
-    font-size: 22px; box-shadow: 0 4px 0 rgba(0,0,0,0.18); flex-shrink: 0;
-  }
-  .brand-text h1 { font-family: var(--display); font-weight: 700; font-size: 18px; color: #fff; line-height: 1.1; }
-  .brand-text .sub { font-size: 11px; font-weight: 500; color: var(--clay-yellow); letter-spacing: 0.07em; }
-  nav { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-  nav a {
-    font-family: var(--body); font-size: 13px; font-weight: 600;
-    color: rgba(255,255,255,0.85);
-    background: rgba(255,255,255,0.10);
-    border: 1.5px solid rgba(255,255,255,0.16);
-    padding: 7px 16px; border-radius: 50px; text-decoration: none;
-    box-shadow: 0 2px 0 rgba(0,0,0,0.14);
-    transition: background 0.15s, color 0.15s, transform 0.12s, box-shadow 0.12s;
-  }
-  nav a:hover { background: rgba(255,255,255,0.20); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 0 rgba(0,0,0,0.14); }
-  nav a:active { transform: translateY(1px); box-shadow: var(--shadow-btn-press); }
-  nav a.active { background: var(--clay-yellow); color: var(--ink); border-color: var(--clay-yellow); box-shadow: 0 3px 0 rgba(0,0,0,0.18); }
-  nav a.back {
-    background: rgba(255,255,255,0.06);
-    border-color: rgba(255,255,255,0.25);
-    color: rgba(255,255,255,0.7);
-  }
-  nav a.back:hover { background: rgba(255,255,255,0.15); color: #fff; }
-  .nav-divider { width: 1px; height: 22px; background: rgba(255,255,255,0.2); margin: 0 2px; }
-
-  /* ===== SECTION BASE ===== */
-  .section-wrap { max-width: 1100px; margin: 0 auto; padding: 72px 24px; border-bottom: 1px solid var(--line); }
-  .section-wrap:last-of-type { border-bottom: none; }
-
-  .eyebrow {
-    display: inline-flex; align-items: center; gap: 7px;
-    font-family: var(--body); font-size: 12px; font-weight: 700;
-    letter-spacing: 0.17em; text-transform: uppercase;
-    color: var(--clay-blue); background: rgba(30,79,160,0.08);
-    padding: 6px 14px; border-radius: 50px; margin-bottom: 18px;
-  }
-  h2 { font-family: var(--display); font-weight: 700; font-size: 36px; color: var(--ink); margin-bottom: 10px; }
-  .lede { font-size: 17px; color: var(--ink-soft); max-width: 720px; margin-bottom: 40px; line-height: 1.65; }
-
-  /* ===== HERO ===== */
-  .hero-bg {
-    background:
-      radial-gradient(ellipse at 90% 10%, rgba(255,199,44,0.22) 0%, transparent 50%),
-      radial-gradient(ellipse at 5% 95%, rgba(30,79,160,0.10) 0%, transparent 50%),
-      var(--clay-cream);
-  }
-  .hero-inner { max-width: 1100px; margin: 0 auto; padding: 80px 24px 72px; }
-  .hero-inner h1 {
-    font-family: var(--display); font-weight: 800; font-size: 46px; line-height: 1.1;
-    color: var(--ink); max-width: 800px; margin-bottom: 20px;
-  }
-  .hero-inner h1 em {
-    font-style: normal;
-    background: linear-gradient(135deg, var(--clay-blue) 20%, #5087D6 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  }
-  .hero-inner .lede { font-size: 18px; max-width: 660px; margin-bottom: 28px; }
-  .hero-badges { display: flex; gap: 12px; flex-wrap: wrap; }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--clay-white); border-radius: 50px;
-    padding: 9px 16px; font-size: 13.5px; font-weight: 600; color: var(--ink);
-    box-shadow: var(--shadow-card);
-  }
-
-  /* ===== BAHAGIAN HEADER CARD ===== */
-  .bahagian-header {
-    background: linear-gradient(135deg, var(--clay-blue) 0%, var(--clay-blue-light) 100%);
-    border-radius: 22px; padding: 28px 32px;
-    margin-bottom: 36px;
-    box-shadow: var(--shadow-card);
-    display: flex; align-items: flex-start; gap: 20px;
-  }
-  .bahagian-letter {
-    font-family: var(--display); font-weight: 800; font-size: 52px; line-height: 1;
-    color: rgba(255,255,255,0.15); flex-shrink: 0; margin-top: -4px;
-    min-width: 44px;
-  }
-  .bahagian-info { flex: 1; }
-  .bahagian-karat {
-    font-family: var(--body); font-size: 11px; font-weight: 700;
-    letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--clay-yellow); margin-bottom: 6px;
-  }
-  .bahagian-info h3 { font-family: var(--display); font-weight: 700; font-size: 24px; color: #fff; margin-bottom: 8px; }
-  .bahagian-info p { font-size: 14.5px; color: rgba(255,255,255,0.78); line-height: 1.6; max-width: 640px; }
-
-  /* ===== STEP FLOW ===== */
-  .step-flow { display: flex; flex-direction: column; gap: 0; margin-bottom: 40px; }
-  .step-flow-item { display: flex; gap: 18px; align-items: flex-start; padding: 22px 0; border-top: 1px solid var(--line); }
-  .step-flow-item:last-child { border-bottom: 1px solid var(--line); }
-  .step-num {
-    font-family: var(--display); font-weight: 800; font-size: 22px;
-    color: #fff; background: linear-gradient(135deg, var(--clay-blue), #5087D6);
-    min-width: 44px; height: 44px; border-radius: 13px; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 3px 0 var(--clay-blue-deep); font-size: 18px;
-  }
-  .step-flow-item h4 { font-family: var(--display); font-weight: 700; font-size: 16px; color: var(--ink); margin-bottom: 4px; }
-  .step-flow-item p { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
-
-  /* ===== SAMPLE NOTES BOX ===== */
-  .sample-label {
-    font-family: var(--display); font-weight: 700; font-size: 16px;
-    color: var(--ink); margin-bottom: 12px;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .notebook {
-    background: var(--clay-white);
-    border-radius: 18px; overflow: hidden;
-    box-shadow: var(--shadow-card);
-    margin-bottom: 40px;
-  }
-  .notebook-bar {
-    background: linear-gradient(135deg, #4A4A6A, #27314A);
-    padding: 12px 20px;
-    display: flex; align-items: center; gap: 10px;
-    font-family: var(--body); font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.7);
-  }
-  .notebook-bar .dots { display: flex; gap: 6px; }
-  .notebook-bar .dots span { width: 9px; height: 9px; border-radius: 50%; }
-  .notebook-bar .dots span:nth-child(1) { background: #FF5F57; }
-  .notebook-bar .dots span:nth-child(2) { background: #FEBC2E; }
-  .notebook-bar .dots span:nth-child(3) { background: #28C840; }
-  .notebook-content {
-    padding: 24px 28px;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 13.5px; color: var(--ink); line-height: 1.9;
-    white-space: pre-line;
-    border-left: 4px solid var(--clay-yellow);
-  }
-  .notebook-content .nt { color: var(--clay-blue); font-weight: 700; }
-
-  /* ===== PROMPT CARDS ===== */
-  .step-divider {
-    font-family: var(--display); font-weight: 700; font-size: 18px;
-    color: var(--ink); margin-bottom: 20px;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .step-divider::after {
-    content: ''; flex: 1; height: 1px; background: var(--line);
-  }
-
-  .prompt-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-
-  .prompt-card {
-    background: var(--clay-white);
-    border-radius: 22px; overflow: hidden;
-    box-shadow: var(--shadow-card);
-    display: flex; flex-direction: column;
-    transition: transform 0.22s, box-shadow 0.22s;
-  }
-  .prompt-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
-  .prompt-card-header {
-    padding: 18px 22px 14px;
-    border-bottom: 1px solid var(--line);
-  }
-  .prompt-card-icon {
-    font-size: 28px; margin-bottom: 10px; display: block;
-    width: 52px; height: 52px;
-    background: rgba(30,79,160,0.07);
-    border-radius: 14px; display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 2px 0 rgba(30,79,160,0.12);
-  }
-  .prompt-card h3 {
-    font-family: var(--display); font-weight: 700; font-size: 18px;
-    color: var(--ink); margin-bottom: 5px;
-  }
-  .prompt-card .prompt-desc { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; }
-  .prompt-card-body { padding: 18px 22px 20px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
-  .prompt-box {
-    background: rgba(30,79,160,0.04);
-    border: 1.5px solid rgba(30,79,160,0.14);
-    border-left: 4px solid var(--clay-yellow);
-    border-radius: 14px; padding: 14px 16px;
-    font-size: 13.5px; color: var(--ink); line-height: 1.7;
-    font-style: italic; flex: 1;
-  }
-  .copy-btn {
-    font-family: var(--body); font-size: 13.5px; font-weight: 700;
-    background: var(--clay-blue); color: #fff;
-    border: none; border-radius: 50px; cursor: pointer;
-    padding: 10px 20px;
-    box-shadow: var(--shadow-btn);
-    transition: transform 0.12s, box-shadow 0.12s, background 0.2s;
-    display: inline-flex; align-items: center; gap: 7px;
-    user-select: none; align-self: flex-start;
-  }
-  .copy-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
-  .copy-btn:active { transform: translateY(2px); box-shadow: var(--shadow-btn-press); }
-  .copy-btn.copied { background: #1a7a1a; }
-
-  /* ===== CALLOUT ===== */
-  .callout {
-    border-radius: 18px; background: #FFFBF0;
-    border: 1.5px solid rgba(255,199,44,0.5);
-    padding: 20px 22px; display: flex; gap: 14px; align-items: flex-start;
-    margin-top: 24px;
-    box-shadow: 0 3px 0 rgba(255,199,44,0.3), 0 6px 16px rgba(255,199,44,0.10);
-  }
-  .callout .icon {
-    width: 36px; height: 36px; flex-shrink: 0;
-    background: var(--clay-yellow); border-radius: 11px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px; box-shadow: 0 3px 0 rgba(0,0,0,0.12);
-  }
-  .callout p { font-size: 14.5px; color: #5b4a1a; line-height: 1.65; }
-  .callout strong { color: #8B6A00; }
-
-  /* ===== PLATFORM NOTE (Claude / ChatGPT / Gemini) ===== */
-  .platform-note {
-    border-radius: 18px; background: #FFFBF0;
-    border: 1.5px solid rgba(255,199,44,0.5);
-    padding: 20px 22px; display: flex; gap: 14px; align-items: flex-start;
-    margin: 0 auto 36px; max-width: 1080px;
-    box-shadow: 0 3px 0 rgba(255,199,44,0.3), 0 6px 16px rgba(255,199,44,0.10);
-  }
-  .platform-note .icon {
-    width: 36px; height: 36px; flex-shrink: 0;
-    background: var(--clay-yellow); border-radius: 11px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px; box-shadow: 0 3px 0 rgba(0,0,0,0.12);
-  }
-  .platform-note p { font-size: 14.5px; color: #5b4a1a; line-height: 1.65; margin-bottom: 14px; }
-  .platform-note strong { color: #8B6A00; }
-  .platform-grid { display: flex; gap: 12px; flex-wrap: wrap; }
-  .platform-pill {
-    display: flex; flex-direction: column; gap: 3px;
-    padding: 10px 18px; border-radius: 14px;
-    background: var(--clay-white); text-decoration: none;
-    box-shadow: var(--shadow-card); transition: transform 0.12s, box-shadow 0.12s;
-    min-width: 160px;
-  }
-  .platform-pill:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
-  .platform-pill .p-emoji { font-size: 20px; }
-  .platform-pill .p-name { font-family: var(--display); font-weight: 700; font-size: 15px; color: var(--ink); }
-  .platform-pill .p-by { font-size: 11px; color: var(--ink-soft); }
-  .pill-claude { border: 1.5px solid var(--clay-yellow); }
-
-  /* ===== LIVE DEMO CARD ===== */
-  .live-demo-card {
-    background: var(--clay-white);
-    border-radius: 22px; overflow: hidden;
-    box-shadow: var(--shadow-card);
-    margin-bottom: 28px;
-  }
-  .live-demo-bar {
-    background: linear-gradient(135deg, #6A3FC4, #9B6FE0);
-    padding: 14px 20px;
-    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-    font-family: var(--body); font-size: 13px; font-weight: 700; color: #fff;
-  }
-  .live-dot {
-    width: 10px; height: 10px; border-radius: 50%;
-    background: #4CFF8A; box-shadow: 0 0 0 0 rgba(76,255,138,0.6);
-    animation: livepulse 1.6s infinite;
-    flex-shrink: 0;
-  }
-  @keyframes livepulse {
-    0%   { box-shadow: 0 0 0 0 rgba(76,255,138,0.55); }
-    70%  { box-shadow: 0 0 0 8px rgba(76,255,138,0); }
-    100% { box-shadow: 0 0 0 0 rgba(76,255,138,0); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .live-dot { animation: none; }
-  }
-  .refresh-btn {
-    margin-left: auto;
-    display: inline-flex; align-items: center; gap: 6px;
-    font-family: var(--body); font-size: 13px; font-weight: 700;
-    background: rgba(255,255,255,0.18); color: #fff;
-    border: 1.5px solid rgba(255,255,255,0.4);
-    padding: 7px 14px; border-radius: 50px; cursor: pointer;
-    transition: transform 0.12s, background 0.12s;
-  }
-  .refresh-btn:hover { background: rgba(255,255,255,0.3); transform: translateY(-1px); }
-  .refresh-btn:active { transform: translateY(1px); }
-  .live-demo-body { padding: 20px 24px 8px; }
-  .live-status {
-    font-size: 12.5px; color: var(--ink-soft);
-    padding: 0 24px 18px; line-height: 1.6;
-  }
-  .live-status code {
-    background: var(--clay-cream); border: 1px solid var(--line);
-    border-radius: 6px; padding: 1px 6px; font-size: 11.5px;
-  }
-  .live-legend {
-    display: flex; flex-wrap: wrap; gap: 14px;
-    padding: 0 24px 16px; font-size: 12.5px; color: var(--ink-soft);
-  }
-  .live-legend-item { display: flex; align-items: center; gap: 6px; }
-  .live-legend-dot { width: 11px; height: 11px; border-radius: 3px; flex-shrink: 0; }
-
-  /* ===== DOWNLOAD BUTTON ===== */
-  .download-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 28px; }
-  .download-btn {
-    display: inline-flex; align-items: center; gap: 9px;
-    font-family: var(--body); font-size: 14px; font-weight: 700;
-    background: var(--clay-blue); color: #fff;
-    padding: 12px 22px; border-radius: 50px; text-decoration: none;
-    box-shadow: var(--shadow-btn);
-    transition: transform 0.12s, box-shadow 0.12s;
-  }
-  .download-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); color: #fff; }
-  .download-btn:active { transform: translateY(2px); box-shadow: var(--shadow-btn-press); }
-  .download-note { font-size: 13px; color: var(--ink-soft); }
-
-  /* ===== DATA PREVIEW TABLE ===== */
-  .data-preview-wrap {
-    background: var(--clay-white); border-radius: 18px;
-    overflow: auto; box-shadow: var(--shadow-card); margin-bottom: 32px;
-  }
-  .data-preview-bar {
-    background: #F0F0F8; padding: 10px 18px;
-    font-size: 12px; font-weight: 700; color: var(--ink-soft);
-    letter-spacing: 0.06em; border-bottom: 1px solid var(--line);
-    display: flex; align-items: center; gap: 8px;
-  }
-  .data-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 560px; }
-  .data-table th {
-    background: rgba(30,79,160,0.07); padding: 10px 14px; text-align: left;
-    font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--clay-blue); border-bottom: 1px solid var(--line); white-space: nowrap;
-  }
-  .data-table td { padding: 9px 14px; border-bottom: 1px solid rgba(30,79,160,0.06); color: var(--ink-soft); }
-  .data-table tr:last-child td { border-bottom: none; }
-  .data-table tr:hover td { background: rgba(30,79,160,0.03); }
-  .tag-aktif    { color: #1a7a1a; font-weight: 700; }
-  .tag-luput    { color: var(--clay-red); font-weight: 700; }
-  .tag-akan     { color: #8B5500; font-weight: 700; }
-  .tag-habis    { color: var(--ink-soft); font-weight: 700; }
-  .data-more    { padding: 10px 18px; font-size: 13px; color: var(--ink-soft); text-align: center; border-top: 1px solid var(--line); font-style: italic; }
-
-  /* ===== CHALLENGE CARDS ===== */
-  .challenge-list { display: flex; flex-direction: column; gap: 12px; }
-  .challenge-card {
-    display: block; cursor: pointer; position: relative;
-    background: var(--clay-white); border-radius: 20px;
-    box-shadow: var(--shadow-card);
-    transition: transform 0.18s, box-shadow 0.18s;
-    overflow: hidden; user-select: none;
-  }
-  .challenge-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
-  .challenge-cb { position: absolute; opacity: 0; pointer-events: none; }
-  .challenge-inner { display: flex; align-items: flex-start; gap: 16px; padding: 20px 24px; }
-  .cb-visual {
-    width: 28px; height: 28px; flex-shrink: 0; margin-top: 3px;
-    border: 2.5px solid rgba(30,79,160,0.25); border-radius: 9px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px; color: transparent;
-    transition: background 0.18s, border-color 0.18s, color 0.18s, box-shadow 0.18s;
-  }
-  .challenge-cb:checked + .challenge-inner .cb-visual {
-    background: var(--clay-blue); border-color: var(--clay-blue-deep);
-    color: #fff; box-shadow: 0 2px 0 var(--clay-blue-deep);
-  }
-  .challenge-content { flex: 1; }
-  .challenge-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; flex-wrap: wrap; }
-  .challenge-level {
-    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
-    text-transform: uppercase; padding: 3px 11px; border-radius: 50px;
-  }
-  .level-mudah     { background: rgba(26,122,26,0.12); color: #1a6e1a; }
-  .level-sederhana { background: rgba(180,100,0,0.12); color: #8B5000; }
-  .level-mencabar  { background: rgba(211,47,47,0.12); color: var(--clay-red); }
-  .challenge-num   { font-size: 12px; color: var(--ink-soft); font-weight: 600; }
-  .challenge-title {
-    font-family: var(--display); font-weight: 700; font-size: 17px;
-    color: var(--ink); margin-bottom: 5px;
-    transition: opacity 0.18s;
-  }
-  .challenge-desc { font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
-  .challenge-hint {
-    margin-top: 10px; font-size: 13px; color: var(--clay-blue); font-style: italic;
-    padding: 8px 12px; border-left: 3px solid var(--clay-yellow);
-    background: rgba(255,199,44,0.06); border-radius: 0 8px 8px 0;
-  }
-  .challenge-cb:checked + .challenge-inner .challenge-title { text-decoration: line-through; opacity: 0.45; }
-  .challenge-cb:checked + .challenge-inner .challenge-desc  { opacity: 0.45; }
-  .challenge-cb:checked + .challenge-inner .challenge-hint  { opacity: 0.45; }
-
-  /* ===== FOOTER ===== */
-  footer {
-    background: linear-gradient(135deg, var(--clay-blue-deep) 0%, var(--clay-blue) 100%);
-    color: rgba(255,255,255,0.75); padding: 44px 24px; text-align: center;
-    font-size: 13.5px; font-weight: 500;
-  }
-  .footer-brand { font-family: var(--display); font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 10px; }
-  footer span { color: var(--clay-yellow); font-weight: 700; }
-
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 680px) {
-    .hero-inner h1 { font-size: 32px; }
-    h2 { font-size: 26px; }
-    .header-inner { flex-direction: column; align-items: flex-start; }
-    .section-wrap { padding: 52px 16px; }
-    .hero-inner { padding: 56px 16px 52px; }
-    .bahagian-header { flex-direction: column; gap: 12px; }
-    .bahagian-letter { font-size: 36px; }
-    .prompt-grid { grid-template-columns: 1fr; }
-    .nav-divider { display: none; }
-    .download-row { flex-direction: column; align-items: flex-start; }
-    .challenge-inner { padding: 16px 16px; }
-  }
+:root{--blue:#1e4fa0;--deep:#0f3576;--light:#2a61bb;--red:#d32f2f;--yellow:#ffc72c;--cream:#fff8ec;--white:#fff;--ink:#27314a;--soft:#5b6478;--line:rgba(30,79,160,.13);--display:'Baloo 2',sans-serif;--body:'Plus Jakarta Sans',sans-serif;--shadow:0 2px 0 rgba(15,53,118,.42),0 8px 28px rgba(30,79,160,.1);--shadow-hover:0 5px 0 rgba(15,53,118,.42),0 18px 40px rgba(30,79,160,.16)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:var(--body);color:var(--ink);background:var(--cream);line-height:1.65;overflow-x:hidden}button,a{font:inherit}:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+header{position:sticky;top:0;z-index:50;background:var(--blue);padding:12px 16px;box-shadow:0 4px 18px rgba(15,53,118,.3)}.header-inner{max-width:1240px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:8px}.brand{display:flex;align-items:center;gap:10px;flex-shrink:0}.brand-icon{width:40px;height:40px;border-radius:13px;background:var(--yellow);display:grid;place-items:center;font-size:22px;box-shadow:0 4px 0 rgba(0,0,0,.18)}.brand h1{font:700 17px/1.1 var(--display);color:white}.brand span{font-size:9.5px;color:var(--yellow);letter-spacing:.05em}.menu-toggle{display:none;min-height:44px;border:1.5px solid rgba(255,255,255,.4);border-radius:50px;background:rgba(255,255,255,.12);color:white;padding:8px 15px;font-weight:700;cursor:pointer}nav{display:flex;gap:4px;flex-wrap:wrap;align-items:center;justify-content:flex-end}nav a{min-height:38px;display:inline-flex;align-items:center;color:rgba(255,255,255,.9);text-decoration:none;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.17);border-radius:50px;padding:6px 9px;font-size:10.5px;font-weight:700;box-shadow:0 2px 0 rgba(0,0,0,.14);white-space:nowrap}nav a:hover{background:rgba(255,255,255,.21)}nav a.active{background:var(--yellow);color:var(--ink);border-color:var(--yellow)}nav a.back{background:rgba(255,255,255,.05)}.nav-divider{width:1px;height:22px;background:rgba(255,255,255,.25)}
+main>section[id]{scroll-margin-top:102px}.wrap{max-width:1100px;margin:auto;padding:68px 24px;border-bottom:1px solid var(--line)}.hero{background:radial-gradient(ellipse at 90% 10%,rgba(255,199,44,.24),transparent 48%),radial-gradient(ellipse at 4% 95%,rgba(30,79,160,.11),transparent 48%)}.hero .wrap{padding-top:76px}.eyebrow,.sim-label{display:inline-flex;align-items:center;gap:7px;border-radius:50px;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.eyebrow{color:var(--blue);background:rgba(30,79,160,.08);padding:6px 14px;margin-bottom:17px}.sim-label{color:#852525;background:rgba(211,47,47,.1);border:1px solid rgba(211,47,47,.3);padding:7px 13px;margin:0 0 16px}.hero h1{font:800 clamp(34px,5vw,52px)/1.08 var(--display);max-width:850px;margin-bottom:18px}.hero h1 em{font-style:normal;color:var(--blue)}h2{font:700 clamp(28px,4vw,38px)/1.2 var(--display);margin-bottom:10px}h3{font:700 20px/1.25 var(--display)}.lede{font-size:17px;color:var(--soft);max-width:780px;margin-bottom:34px}.hero-badges,.platform-grid,.grid{display:grid;gap:16px}.hero-badges{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:30px}.badge,.card,.prompt-card,.platform-pill{background:white;border-radius:18px;box-shadow:var(--shadow)}.badge{padding:13px 15px;font-size:13px;font-weight:700}.platform-note,.callout{display:flex;gap:14px;align-items:flex-start;border:1.5px solid rgba(255,199,44,.52);border-radius:18px;background:#fffbf0;padding:20px 22px;margin-top:24px}.callout .icon,.platform-note>.icon{width:36px;height:36px;flex:0 0 36px;border-radius:11px;background:var(--yellow);display:grid;place-items:center}.platform-note p,.callout p{font-size:14px;color:#5b4a1a}.platform-grid{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:14px}.platform-pill{padding:13px;text-decoration:none;color:var(--ink);font-size:12px}.platform-pill strong{display:block;font:700 16px var(--display)}.platform-pill.featured{border:2px solid var(--yellow);background:#fffdf4}.platform-pill.featured::before{content:'Platform utama';display:block;color:var(--blue);font-size:10px;font-weight:800;text-transform:uppercase}.section-head{margin-bottom:30px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}.card{padding:22px}.card .icon{font-size:30px;margin-bottom:9px}.card p,.card li{font-size:14px;color:var(--soft)}ul,ol{padding-left:21px}.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:28px}.flow span{background:white;border:1px solid var(--line);border-radius:50px;padding:10px 14px;font-size:13px;font-weight:700;box-shadow:0 2px 0 rgba(15,53,118,.15)}.flow b{color:var(--blue)}.step-list{display:grid;gap:11px}.step{display:flex;gap:15px;padding:16px 0;border-top:1px solid var(--line)}.step:last-child{border-bottom:1px solid var(--line)}.num{width:44px;height:44px;flex:0 0 44px;border-radius:13px;background:var(--blue);color:white;display:grid;place-items:center;font-weight:800;box-shadow:0 3px 0 var(--deep)}.step p{color:var(--soft);font-size:14px}.tktf{border-top:5px solid var(--yellow)}.tktf b{font:800 28px var(--display);color:var(--blue);display:block}.prompt-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}.prompt-card{overflow:hidden;display:flex;flex-direction:column}.prompt-head{padding:18px 20px;border-bottom:1px solid var(--line)}.prompt-head p{font-size:13px;color:var(--soft)}.prompt-body{padding:18px 20px;display:flex;flex-direction:column;gap:13px;flex:1}.prompt-box{white-space:pre-line;background:rgba(30,79,160,.04);border:1px solid rgba(30,79,160,.16);border-left:4px solid var(--yellow);border-radius:13px;padding:14px;font-size:13px;font-style:italic;flex:1}.copy-btn,.download-btn,.refresh-btn{min-height:44px;border:0;border-radius:50px;display:inline-flex;align-items:center;justify-content:center;padding:10px 19px;font-weight:800;cursor:pointer;text-decoration:none}.copy-btn,.download-btn{align-self:flex-start;background:var(--blue);color:white;box-shadow:0 4px 0 var(--deep)}.copy-btn.copied{background:#1a7a1a}.notebook{background:white;border-radius:18px;overflow:hidden;box-shadow:var(--shadow);margin:18px 0 28px}.notebook-bar{padding:12px 19px;background:#27314a;color:white;font-size:12px}.notebook-content{padding:22px 26px;border-left:5px solid var(--yellow);font:13.5px/1.85 'Courier New',monospace;white-space:pre-line}.deliverable{margin-top:20px;border-left:5px solid var(--blue)}.mini-list{margin-top:12px;display:grid;gap:6px}.mini-list li{margin-left:18px}.data-preview-wrap{background:white;border-radius:18px;overflow:auto;box-shadow:var(--shadow);margin:20px 0 28px}.data-preview-bar{padding:10px 18px;background:#f0f0f8;font-size:12px;font-weight:800}.data-table{border-collapse:collapse;width:100%;min-width:760px;font-size:12px}.data-table th,.data-table td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left}.data-table th{color:var(--blue);background:rgba(30,79,160,.07);text-transform:uppercase;font-size:10px}.scroll-hint{font-size:12px;color:var(--soft);margin-top:8px}.dictionary{font-size:13px}.live-demo-card{background:white;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);margin-top:28px}.live-demo-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 18px;background:linear-gradient(135deg,#6a3fc4,#9b6fe0);color:white;font-size:13px;font-weight:800}.live-dot{width:10px;height:10px;border-radius:50%;background:#4cff8a}.refresh-btn{margin-left:auto;color:white;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4)}.chart-frame{height:420px;padding:18px;position:relative}.live-status{padding:0 22px 18px;color:var(--soft);font-size:12.5px}.checklist,.challenge-list{display:grid;gap:12px}.check-item{display:flex;gap:12px;align-items:flex-start;background:white;padding:15px 18px;border-radius:15px;box-shadow:0 2px 0 rgba(15,53,118,.16);font-size:14px}.check-item span{color:#177317;font-weight:900}.challenge-card{display:block;position:relative;background:white;border-radius:18px;box-shadow:var(--shadow);cursor:pointer}.challenge-cb{position:absolute;opacity:0}.challenge-inner{display:flex;gap:15px;padding:18px}.challenge-cb:focus-visible+.challenge-inner{outline:3px solid var(--yellow);outline-offset:3px;border-radius:18px}.cb{width:28px;height:28px;flex:0 0 28px;border:2px solid rgba(30,79,160,.3);border-radius:8px;display:grid;place-items:center}.challenge-cb:checked+.challenge-inner .cb{background:var(--blue);color:white}.challenge-cb:checked+.challenge-inner .challenge-title{text-decoration:line-through;opacity:.5}.challenge-title{font:700 17px var(--display)}.challenge-desc{font-size:13px;color:var(--soft)}.closing{background:linear-gradient(135deg,var(--deep),var(--blue));color:white;border-radius:24px;padding:32px}.closing h2{color:white}.closing .lede{color:rgba(255,255,255,.8)}footer{background:var(--deep);color:rgba(255,255,255,.75);padding:38px 20px;text-align:center;font-size:13px}.fade-up{opacity:1}
+@media(prefers-reduced-motion:no-preference){.fade-up{opacity:0;transform:translateY(20px);transition:.45s}.fade-up.visible{opacity:1;transform:none}}
+@media(max-width:920px){.header-inner{display:grid;grid-template-columns:1fr auto}.menu-toggle{display:inline-flex;align-items:center}nav{display:none;grid-column:1/-1;width:100%;padding-top:10px;max-height:70vh;overflow:auto}nav.open{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}nav a{min-height:44px;justify-content:center;text-align:center}.nav-divider{display:none}main>section[id]{scroll-margin-top:86px}.hero-badges,.platform-grid,.grid.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:680px){header{padding:9px 12px}.brand span{display:none}.brand h1{font-size:16px}.brand-icon{width:38px;height:38px}.wrap,.hero .wrap{padding:48px 16px}.hero .wrap{padding-top:52px}.grid.two,.grid.three,.grid.four,.hero-badges,.platform-grid{grid-template-columns:1fr}.prompt-grid{grid-template-columns:1fr}.flow{display:grid}.flow b{display:none}.chart-frame{height:390px;padding:10px}.live-demo-bar{align-items:stretch}.refresh-btn{margin-left:0;width:100%}.copy-btn,.download-btn{width:100%}.notebook-content{padding:18px 16px;font-size:12px}.card{padding:19px}main>section[id]{scroll-margin-top:78px}}
+.nlm-mini{margin-top:32px;padding:24px;background:linear-gradient(135deg,#f8f4ff,#fff);border:1.5px solid rgba(106,63,196,.24);border-radius:22px;box-shadow:var(--shadow)}
+.nlm-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:16px}.nlm-head h3{font-size:24px;color:#5a34ac}
+.nlm-link{min-height:44px;display:inline-flex;align-items:center;padding:9px 16px;border-radius:50px;background:#6a3fc4;color:white;text-decoration:none;font-size:13px;font-weight:800}
+.nlm-limits{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 18px}.nlm-limits span{padding:6px 10px;border-radius:50px;background:white;border:1px solid rgba(106,63,196,.18);font-size:11px;font-weight:700;color:#5a34ac}
+.nlm-source{padding:15px 17px;border-left:4px solid #6a3fc4;background:white;border-radius:12px;margin-bottom:16px;font-size:14px}.nlm-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.nlm-question{padding:16px;background:white;border-radius:14px;border:1px solid rgba(106,63,196,.15);font-size:13.5px}.nlm-question strong{display:block;color:#5a34ac;margin-bottom:6px}
+.nlm-result,.platform-compare{margin-top:16px;padding:17px;background:white;border-radius:14px}.nlm-result li,.platform-compare li{font-size:13.5px;color:var(--soft)}.platform-compare h4{font:700 18px var(--display);margin-bottom:7px}.nlm-note{margin-top:16px;border-color:rgba(106,63,196,.25);background:#faf7ff}
+@media(max-width:680px){.nlm-grid{grid-template-columns:1fr}.nlm-mini{padding:19px}.nlm-link{width:100%;justify-content:center}}
 </style>
 </head>
 <body>
-
-<!-- ===== HEADER ===== -->
 <header>
   <div class="header-inner">
-    <div class="brand">
-      <div class="brand-icon">🧪</div>
-      <div class="brand-text">
-        <h1>Workshop Hands-On</h1>
-        <span class="sub">Jabatan Perkhidmatan Veterinar · ITU</span>
-      </div>
-    </div>
-    <nav>
-      <a href="index.html" class="back nav-link">← Kembali ke Taklimat</a>
-      <div class="nav-divider"></div>
-      <a href="#bahagian-a" class="nav-link active">Bahagian A</a>
-      <a href="#bahagian-b" class="nav-link">Bahagian B</a>
-      <a href="#bahagian-c" class="nav-link">Bahagian C</a>
-      <div class="nav-divider"></div>
-      <a href="ai-network.html" class="nav-link" target="_blank" rel="noopener" style="background:rgba(255,199,44,0.08);border-color:rgba(255,199,44,0.3);color:var(--clay-yellow);">🧠 Peta AI</a>
+    <div class="brand"><div class="brand-icon">🧪</div><div><h1>Workshop Hands-On</h1><span>JABATAN PERKHIDMATAN VETERINAR · ITU</span></div></div>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="workshop-nav">☰ Menu</button>
+    <nav id="workshop-nav" aria-label="Navigasi workshop">
+      <a class="back" href="index.html">← Kembali</a><span class="nav-divider" aria-hidden="true"></span>
+      <a href="#arahan" class="active">Arahan</a><a href="#tktf">T.K.T.F</a><a href="#kumpulan-1">Kumpulan 1</a><a href="#kumpulan-2">Kumpulan 2</a><a href="#kumpulan-3">Kumpulan 3</a><a href="#kumpulan-4">Kumpulan 4</a><a href="#pembentangan">Pembentangan</a><a href="#cabaran">Cabaran</a>
+      <span class="nav-divider" aria-hidden="true"></span><a class="back" href="ai-network.html">🌐 Peta AI</a>
     </nav>
   </div>
 </header>
+<main>
+<section id="hero" class="hero"><div class="wrap">
+  <span class="eyebrow">Aktiviti berkumpulan</span>
+  <h1>Workshop Hands-On Menggunakan <em>ChatGPT</em></h1>
+  <p class="lede">Empat kumpulan, empat tugasan berbeza. Gunakan ChatGPT untuk mencipta, menyemak dan menambah baik output berasaskan data simulasi.</p>
+  <div class="hero-badges"><div class="badge">⏱️ Anggaran keseluruhan: 75 minit</div><div class="badge">👥 45 minit kerja kumpulan</div><div class="badge">🎤 4 × 5 minit pembentangan</div><div class="badge">💬 Akaun ChatGPT</div></div>
+  <div class="platform-note"><div class="icon">💡</div><div><p><strong>ChatGPT ialah platform utama demonstrasi.</strong> Akaun percuma boleh digunakan, tertakluk pada had semasa. Fasilitator menggunakan ChatGPT Plus; ciri yang tersedia mungkin berbeza mengikut akaun.</p><div class="platform-grid">
+    <a class="platform-pill featured" href="https://chatgpt.com/" target="_blank" rel="noopener"><strong>ChatGPT</strong>OpenAI</a>
+    <a class="platform-pill" href="https://claude.ai/" target="_blank" rel="noopener"><strong>Claude</strong>Anthropic · alternatif</a>
+    <a class="platform-pill" href="https://gemini.google.com/" target="_blank" rel="noopener"><strong>Gemini</strong>Google · alternatif</a>
+    <a class="platform-pill" href="https://notebooklm.google.com/" target="_blank" rel="noopener"><strong>NotebookLM</strong>Google · alternatif dokumen</a>
+  </div><p style="margin-top:14px;margin-bottom:0"><strong>Tak ada akaun ChatGPT?</strong> Ikut demonstrasi utama bersama fasilitator atau gunakan salah satu platform alternatif untuk membandingkan hasil.</p></div></div>
+</div></section>
 
-<!-- ===== HERO ===== -->
-<div class="hero-bg">
-  <div class="hero-inner">
-    <div class="eyebrow">🛠️ Modul Hands-On — DVS / ITU</div>
-    <h1>Belajar Guna <em>Claude</em> Sendiri</h1>
-    <p class="lede">
-      Bukan tengok je — masa untuk praktik! Dalam workshop ni, setiap peserta akan cuba sendiri tukar nota kerja jadi bahan interaktif, main dengan data makmal, dan selesaikan mini-challenge guna Claude.
-    </p>
-    <div class="hero-badges">
-      <span class="hero-badge">⏱️ &nbsp;±45 minit</span>
-      <span class="hero-badge">👥 &nbsp;Kerja individu / berkumpulan</span>
-      <span class="hero-badge">💻 &nbsp;Perlu akaun Claude.ai</span>
-    </div>
-  </div>
-</div>
+<section id="arahan"><div class="wrap"><div class="section-head"><span class="eyebrow">01 · Arahan umum</span><h2>Cara semua kumpulan bekerja</h2><p class="lede">Matlamatnya bukan mendapatkan jawapan pertama yang cantik, tetapi menghasilkan output yang boleh disemak dan dipertanggungjawabkan.</p></div>
+  <div class="callout"><div class="icon">💬</div><p><strong>Mod Akaun Free — maksimum satu prompt utama dan satu prompt pembetulan.</strong> Gunakan satu prompt tambahan hanya jika benar-benar perlu.</p></div>
+  <div class="callout"><div class="icon">📋</div><p><strong>Jika muat naik tidak tersedia atau had telah dicapai, salin data simulasi daripada halaman ini dan tampal sebagai teks.</strong></p></div>
+  <div class="grid three" style="margin-top:24px"><div class="card"><div class="icon">⏱️</div><h3>Pembahagian masa</h3><ul><li>45 minit kerja kumpulan, termasuk ChatGPT dan NotebookLM</li><li>10 minit kemaskan hasil</li><li>5 minit pembentangan bagi setiap kumpulan</li><li>4 kumpulan = 20 minit pembentangan</li><li><strong>Anggaran keseluruhan: 75 minit</strong></li></ul></div><div class="card"><div class="icon">👤</div><h3>Agihkan peranan</h3><p>Ketua/penyelaras, penulis prompt, penyemak fakta, penyedia output dan pembentang.</p></div><div class="card"><div class="icon">🛡️</div><h3>Peraturan</h3><p>Maksimum satu fail untuk dimuat naik. Gunakan simulasi sahaja, jangan muat naik data sensitif, simpan prompt utama dan prompt pembetulan, serta semak output—jangan terima bulat-bulat. Elakkan imej, Deep Research, jana semula berulang kali dan banyak fail.</p></div></div>
+  <div class="flow" aria-label="Aliran kerja"><span>Tugas</span><b>→</b><span>Bina prompt utama</span><b>→</b><span>Output pertama</span><b>→</b><span>Semak</span><b>→</b><span>Prompt pembetulan</span><b>→</b><span>Output akhir</span><b>→</b><span>Bentang</span></div>
+</div></section>
 
-<!-- ================= PLATFORM NOTE ================= -->
-<div class="section-wrap" style="padding-bottom: 0;">
-  <div class="platform-note fade-up">
-    <div class="icon">🔄</div>
-    <div>
-      <p><strong>Tak ada akaun Claude?</strong> Tak mengapa! Semua prompt dalam workshop ini bersifat <strong>universal</strong> — boleh terus salin-tampal ke ChatGPT, Gemini atau NotebookLM, hasilnya tetap berguna. Pilih platform yang anda dah ada akaun:</p>
-      <div class="platform-grid">
-        <a href="https://claude.ai" target="_blank" class="platform-pill pill-claude">
-          <span class="p-emoji">✶</span>
-          <span class="p-name">Claude</span>
-          <span class="p-by">Anthropic · claude.ai</span>
-        </a>
-        <a href="https://chatgpt.com" target="_blank" class="platform-pill">
-          <span class="p-emoji">💬</span>
-          <span class="p-name">ChatGPT</span>
-          <span class="p-by">OpenAI · chatgpt.com</span>
-        </a>
-        <a href="https://gemini.google.com" target="_blank" class="platform-pill">
-          <span class="p-emoji">✦</span>
-          <span class="p-name">Gemini</span>
-          <span class="p-by">Google · gemini.google.com</span>
-        </a>
-        <a href="https://notebooklm.google.com" target="_blank" class="platform-pill">
-          <span class="p-emoji">📒</span>
-          <span class="p-name">NotebookLM</span>
-          <span class="p-by">Google · notebooklm.google.com</span>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
+<section id="tktf"><div class="wrap"><div class="section-head"><span class="eyebrow">02 · Formula prompt</span><h2>T.K.T.F — empat unsur prompt yang jelas</h2></div>
+  <div class="grid four"><div class="card tktf"><b>T</b><h3>Tugas</h3><p>Nyatakan hasil yang hendak dibuat.</p></div><div class="card tktf"><b>K</b><h3>Konteks</h3><p>Berikan latar, pengguna dan sumber.</p></div><div class="card tktf"><b>T</b><h3>Tujuan</h3><p>Terangkan kegunaan hasil.</p></div><div class="card tktf"><b>F</b><h3>Format</h3><p>Tetapkan struktur, panjang dan gaya.</p></div></div>
+<div class="prompt-grid" style="margin-top:24px"><article class="prompt-card"><div class="prompt-head"><h3>Prompt utama universal</h3><p>Salin sekali, kemudian sesuaikan dengan tugas kumpulan.</p></div><div class="prompt-body"><div class="prompt-box" id="prompt-universal">Tugas: Bantu saya menghasilkan [hasil yang diperlukan].
+Konteks: Saya bekerja dalam [situasi/peranan]. Gunakan hanya maklumat simulasi yang saya berikan.
+Tujuan: Hasil ini akan digunakan untuk [kegunaan].
+Format: Susun sebagai [jadual/senarai/laporan/kod]. Jangan reka fakta. Tandakan maklumat yang tidak lengkap atau tidak pasti.</div><button class="copy-btn" type="button" data-copy-target="prompt-universal">📋 Salin Prompt</button></div></article><article class="prompt-card"><div class="prompt-head"><h3>Prompt pembetulan universal</h3><p>Gunakan sekali selepas menyemak output pertama.</p></div><div class="prompt-body"><div class="prompt-box" id="prompt-pembetulan">Semak semula output tadi berdasarkan pembetulan ini: [nyatakan kesilapan atau kekurangan]. Kekalkan fakta yang tepat, betulkan hanya perkara yang dinyatakan, jangan tambah fakta baharu, dan hasilkan versi akhir dalam format yang sama.</div><button class="copy-btn" type="button" data-copy-target="prompt-pembetulan">📋 Salin Prompt</button></div></article></div>
+</div></section>
 
-<!-- ================= BAHAGIAN A ================= -->
-<div id="bahagian-a">
-  <div class="section-wrap">
+<section id="kumpulan"><div class="wrap"><div class="section-head"><span class="eyebrow">03 · Kenali kumpulan</span><h2>Empat fokus kerja yang berbeza</h2><p class="lede">Label kumpulan menunjukkan fokus tugasan, bukan tahap kebolehan.</p></div><div class="grid four"><div class="card"><div class="icon">📝</div><h3>Kumpulan 1</h3><p>Nota mentah → laporan rasmi</p></div><div class="card"><div class="icon">📚</div><h3>Kumpulan 2</h3><p>SOP → bahan pembelajaran</p></div><div class="card"><div class="icon">📊</div><h3>Kumpulan 3</h3><p>CSV/Excel → analisis stok</p></div><div class="card"><div class="icon">⚙️</div><h3>Kumpulan 4</h3><p>Data → Google Apps Script penanda stok</p></div></div></div></section>
 
-    <div class="bahagian-header fade-up">
-      <div class="bahagian-letter">A</div>
-      <div class="bahagian-info">
-        <div class="bahagian-karat">Bahagian A — Aktiviti 1 &nbsp;·&nbsp; ±15 minit</div>
-        <h3>Nota Kelas → Bahan Interaktif</h3>
-        <p>Anda ada nota atau SOP dalam bentuk teks biasa? Claude boleh tukar jadi infografik visual, set flashcard untuk ulang kaji, atau kuiz MCQ secara automatik — tanpa perlu reka bentuk sendiri.</p>
-      </div>
-    </div>
+<section id="kumpulan-1"><div class="wrap"><div class="section-head"><span class="eyebrow">04 · Kumpulan 1</span><h2>Nota Mentah kepada Laporan Rasmi</h2><span class="sim-label">⚠ Nota simulasi — bukan rekod sebenar</span></div>
+  <div class="notebook"><div class="notebook-bar">NOTA KEJADIAN · 21 JULAI 2026</div><div class="notebook-content" id="nota-simulasi">Lokasi: Lab Diagnostik
+Peralatan: Inkubator 02
+Bacaan dipaparkan: 39°C; tetapan sepatutnya: 37°C
+Bunyi kipas lebih kuat daripada biasa. Pintu telah diperiksa dan ditutup rapat.
+Sampel dipindahkan ke inkubator lain. Penyelia dimaklumkan pada 10:15 pagi.
+Label “Jangan Guna” diletakkan. Pemeriksaan teknikal dan rekod penyelenggaraan diperlukan.</div></div>
+  <button class="copy-btn" type="button" data-copy-target="nota-simulasi" style="margin-bottom:24px">📋 Salin Nota Simulasi</button>
+  <div class="prompt-grid"><article class="prompt-card"><div class="prompt-head"><h3>Hasilkan laporan kejadian</h3><p>Format rasmi, padat dan berasaskan fakta.</p></div><div class="prompt-body"><div class="prompt-box" id="prompt-kumpulan-1">Tugas: Tukarkan nota simulasi ini kepada laporan kejadian rasmi.
+Konteks: Kejadian melibatkan Inkubator 02 di Lab Diagnostik pada 21 Julai 2026.
+Tujuan: Mendokumentasikan fakta, tindakan segera dan tindakan susulan.
+Format: Tajuk, tarikh/masa, lokasi, peralatan, pemerhatian, tindakan segera, tindakan susulan dan perkara yang perlu disahkan. Jangan cipta nama pegawai, nombor aset atau fakta baharu.</div><button class="copy-btn" type="button" data-copy-target="prompt-kumpulan-1">📋 Salin Prompt</button></div></article>
+  <div class="card deliverable"><h3>Hasil Kumpulan & semakan</h3><p>Sediakan laporan rasmi, prompt utama dan prompt pembetulan.</p><ul class="mini-list"><li>Tarikh, masa, suhu dan lokasi tepat</li><li>Tindakan segera tidak berubah</li><li>Tiada nama/nombor aset direka</li><li>Bahasa formal dan neutral</li></ul></div></div>
+  <aside class="nlm-mini" aria-labelledby="nlm-k1-title"><div class="nlm-head"><div><span class="eyebrow">Perbandingan platform</span><h3 id="nlm-k1-title">Mini Hands-On NotebookLM</h3></div><a class="nlm-link" href="https://notebooklm.google.com" target="_blank" rel="noopener">Buka NotebookLM ↗</a></div>
+    <div class="nlm-limits"><span>1 notebook</span><span>1 sumber simulasi</span><span>Maksimum 2 soalan</span><span>1 output ringkas</span><span>Tanpa Audio Overview</span></div>
+    <div class="nlm-source"><strong>Sumber tunggal:</strong> Nota simulasi kerosakan Inkubator Makmal 02 yang dipaparkan di atas. Jangan gunakan data sensitif.</div>
+    <div class="nlm-grid"><div class="nlm-question"><strong>Soalan 1</strong>“Berdasarkan sumber sahaja, senaraikan semua fakta yang mesti ada dalam laporan. Jangan tambah maklumat yang tiada.”</div><div class="nlm-question"><strong>Soalan 2</strong>“Semak laporan yang dihasilkan. Nyatakan mana-mana ayat yang tidak disokong oleh sumber.”</div></div>
+    <div class="nlm-result"><strong>Hasil ringkas:</strong><ul><li>Senarai fakta</li><li>Fakta tambahan yang perlu dibuang</li><li>Satu pembetulan laporan</li></ul></div>
+    <div class="platform-compare"><h4>Bandingkan dan jawab</h4><ul><li>Apa yang ChatGPT hasilkan?</li><li>Apa yang NotebookLM sahkan berdasarkan sumber?</li><li>Adakah ChatGPT menambah fakta?</li><li>Platform mana lebih sesuai untuk tugasan ini?</li><li>Apa yang manusia masih perlu semak?</li></ul></div>
+    <div class="callout nlm-note"><div class="icon">🔍</div><p><strong>ChatGPT membantu menghasilkan. NotebookLM membantu menyemak berdasarkan sumber.</strong></p></div>
+  </aside>
+</div></section>
 
-    <!-- Cara kerja -->
-    <div class="step-flow fade-up">
-      <div class="step-flow-item">
-        <div class="step-num">1</div>
-        <div>
-          <h4>Sediakan nota anda</h4>
-          <p>Ambil mana-mana nota SOP, prosedur, atau kandungan latihan dalam bentuk teks biasa. Boleh guna contoh di bawah kalau tak ada nota sendiri.</p>
-        </div>
-      </div>
-      <div class="step-flow-item">
-        <div class="step-num">2</div>
-        <div>
-          <h4>Pilih jenis output yang dikehendaki</h4>
-          <p>Copy salah satu prompt template di bawah mengikut output yang anda nak hasilkan — infografik, flashcard, atau kuiz.</p>
-        </div>
-      </div>
-      <div class="step-flow-item">
-        <div class="step-num">3</div>
-        <div>
-          <h4>Tampal prompt + nota ke AI pilihan anda</h4>
-          <p>Buka Claude, ChatGPT, Gemini atau NotebookLM — paste prompt yang dicopy, gantikan "[tampal nota anda di sini]" dengan nota sebenar, tekan Enter dan tengok hasilnya.</p>
-        </div>
-      </div>
-    </div>
+<section id="kumpulan-2"><div class="wrap"><div class="section-head"><span class="eyebrow">05 · Kumpulan 2</span><h2>SOP kepada Bahan Pembelajaran</h2><span class="sim-label">⚠ SOP simulasi — bukan SOP rasmi</span><p class="lede">Pilih dan hasilkan <strong>satu output sahaja</strong>: checklist, flashcard, kuiz atau infografik teks. Jangan jalankan keempat-empat prompt.</p></div>
+  <div class="notebook"><div class="notebook-bar">SOP SIMULASI · PENERIMAAN SAMPEL</div><div class="notebook-content" id="sop-simulasi">1. Terima bungkusan di zon penerimaan sampel.
+2. Periksa keadaan bungkusan, kebocoran dan label.
+3. Semak borang penghantaran dan padankan identiti sampel.
+4. Rekod tarikh serta masa penerimaan.
+5. Asingkan sampel yang rosak, bocor atau tidak lengkap dan maklumkan penyelia.
+6. Simpan sampel mengikut keperluan suhu yang dinyatakan sebelum pemprosesan.</div></div>
+  <button class="copy-btn" type="button" data-copy-target="sop-simulasi" style="margin-bottom:24px">📋 Salin SOP Simulasi</button>
+  <div class="prompt-grid">
+    <article class="prompt-card"><div class="prompt-head"><h3>Infografik</h3></div><div class="prompt-body"><div class="prompt-box" id="prompt-infografik">Gunakan hanya SOP simulasi yang diberikan. Susun kandungannya sebagai teks infografik 6 langkah yang ringkas untuk staf baharu. Kekalkan istilah teknikal, jangan tambah prosedur dan tandakan perkara yang tidak jelas.</div><button class="copy-btn" type="button" data-copy-target="prompt-infografik">📋 Salin Prompt</button></div></article>
+    <article class="prompt-card"><div class="prompt-head"><h3>Checklist</h3></div><div class="prompt-body"><div class="prompt-box" id="prompt-checklist-sop">Gunakan hanya SOP simulasi yang diberikan. Tukarkan setiap langkah kepada checklist tindakan yang boleh ditanda. Jangan tambah prosedur. Kekalkan istilah teknikal dan tandakan maklumat yang perlu disahkan.</div><button class="copy-btn" type="button" data-copy-target="prompt-checklist-sop">📋 Salin Prompt</button></div></article>
+    <article class="prompt-card"><div class="prompt-head"><h3>Flashcard</h3></div><div class="prompt-body"><div class="prompt-box" id="prompt-flashcard">Bina 8 flashcard soalan-jawapan daripada SOP simulasi ini sahaja. Jangan tambah prosedur atau fakta luar. Kekalkan istilah teknikal dan nyatakan jika jawapan tidak terdapat dalam sumber.</div><button class="copy-btn" type="button" data-copy-target="prompt-flashcard">📋 Salin Prompt</button></div></article>
+    <article class="prompt-card"><div class="prompt-head"><h3>Kuiz</h3></div><div class="prompt-body"><div class="prompt-box" id="prompt-kuiz">Bina 6 soalan kuiz aneka pilihan berdasarkan SOP simulasi ini sahaja, bersama jawapan dan alasan ringkas. Jangan tambah prosedur. Tandakan mana-mana kandungan yang tidak jelas.</div><button class="copy-btn" type="button" data-copy-target="prompt-kuiz">📋 Salin Prompt</button></div></article>
+  </div><div class="callout"><div class="icon">✅</div><p><strong>Hasil Kumpulan:</strong> satu bahan pembelajaran pilihan, satu prompt utama, satu prompt pembetulan dan satu kelemahan output pertama.</p></div>
+  <aside class="nlm-mini" aria-labelledby="nlm-k2-title"><div class="nlm-head"><div><span class="eyebrow">Perbandingan platform</span><h3 id="nlm-k2-title">Mini Hands-On NotebookLM</h3></div><a class="nlm-link" href="https://notebooklm.google.com" target="_blank" rel="noopener">Buka NotebookLM ↗</a></div>
+    <div class="nlm-limits"><span>1 notebook</span><span>1 sumber simulasi</span><span>Maksimum 2 soalan</span><span>1 output ringkas</span><span>Tanpa Audio Overview</span></div>
+    <div class="nlm-source"><strong>Sumber tunggal:</strong> SOP simulasi penerimaan sampel yang dipaparkan di atas. Jangan gunakan data sensitif.</div>
+    <div class="nlm-grid"><div class="nlm-question"><strong>Soalan 1</strong>“Berdasarkan SOP ini sahaja, apakah langkah paling penting yang wajib dipatuhi?”</div><div class="nlm-question"><strong>Soalan 2</strong>“Semak bahan pembelajaran yang dihasilkan. Nyatakan jika ada langkah SOP yang tertinggal atau berubah maksud.”</div></div>
+    <div class="nlm-result"><strong>Hasil ringkas:</strong><ul><li>Ringkasan sumber</li><li>Langkah tertinggal</li><li>Versi diperbaiki</li></ul></div>
+    <div class="platform-compare"><h4>Bandingkan dan jawab</h4><ul><li>Apa yang ChatGPT hasilkan?</li><li>Apa yang NotebookLM sahkan berdasarkan sumber?</li><li>Adakah ChatGPT menambah fakta?</li><li>Platform mana lebih sesuai untuk tugasan ini?</li><li>Apa yang manusia masih perlu semak?</li></ul></div>
+    <div class="callout nlm-note"><div class="icon">🔍</div><p><strong>ChatGPT membantu menghasilkan. NotebookLM membantu menyemak berdasarkan sumber.</strong></p></div>
+  </aside>
+</div></section>
 
-    <!-- Sample Nota SOP -->
-    <div class="sample-label fade-up">
-      📄 &nbsp;Contoh nota SOP yang boleh digunakan (atau guna nota sendiri):
-    </div>
-    <div class="notebook fade-up">
-      <div class="notebook-bar">
-        <div class="dots"><span></span><span></span><span></span></div>
-        <span>sop-penerimaan-sampel.txt</span>
-      </div>
-      <div class="notebook-content"><span class="nt">SOP PENERIMAAN SAMPEL MAKMAL</span>
-Institut Teknologi Unggas — Jabatan Perkhidmatan Veterinar
+<section id="kumpulan-3"><div class="wrap"><div class="section-head"><span class="eyebrow">06 · Kumpulan 3</span><h2>Analisis Data Stok Makmal</h2><span class="sim-label">⚠ Data simulasi — bukan inventori sebenar</span><p class="lede">Kira baris dan lajur, kenal pasti stok rendah serta item luput/akan luput, rumuskan tiga dapatan utama, dan asingkan fakta, inferens serta cadangan.</p></div>
+  <div class="download-row"><a class="download-btn" href="assets/dummy-data.csv" download>⬇ Muat turun CSV simulasi</a></div>
+  <div class="data-preview-wrap"><div class="data-preview-bar">PRATONTON 5 DARIPADA 20 BARIS · DATA SIMULASI</div><table class="data-table"><thead><tr><th>No</th><th>Nama</th><th>Kategori</th><th>Kuantiti</th><th>Unit</th><th>Tarikh Luput</th><th>Status</th></tr></thead><tbody><tr><td>1</td><td>Sodium Chloride 0.9%</td><td>Larutan</td><td>12</td><td>botol</td><td>2026-12-31</td><td>Aktif</td></tr><tr><td>2</td><td>Formalin 10%</td><td>Larutan Fiksatif</td><td>3</td><td>botol</td><td>2026-06-15</td><td>Aktif</td></tr><tr><td>3</td><td>Antibodi Anti-Rabies</td><td>Kit Ujian</td><td>0</td><td>kit</td><td>2025-05-01</td><td>Tamat Stok</td></tr><tr><td>4</td><td>ELISA Kit - Brucellosis</td><td>Kit Ujian</td><td>8</td><td>kit</td><td>2026-03-20</td><td>Aktif</td></tr><tr><td>5</td><td>Methanol</td><td>Pelarut</td><td>5</td><td>botol</td><td>2025-09-05</td><td>Akan Luput</td></tr></tbody></table></div><p class="scroll-hint">↔ Leret jadual secara mendatar pada skrin kecil.</p>
+  <article class="prompt-card" style="margin-bottom:24px"><div class="prompt-head"><h3>Pilihan Sandaran tanpa muat naik · 10 baris ringkas</h3><p>Salin data ini dan tampal bersama prompt utama jika muat naik tidak tersedia.</p></div><div class="prompt-body"><div class="prompt-box" id="data-ringkas">No,Nama,Kuantiti,Unit,Tarikh Luput,Status
+1,Sodium Chloride 0.9%,12,botol,2026-12-31,Aktif
+2,Formalin 10%,3,botol,2026-06-15,Aktif
+3,Antibodi Anti-Rabies,0,kit,2025-05-01,Tamat Stok
+4,ELISA Kit - Brucellosis,8,kit,2026-03-20,Aktif
+5,Methanol,5,botol,2025-09-05,Akan Luput
+6,Phosphate Buffer Saline (PBS),20,botol,2027-02-01,Aktif
+7,Test Strip Glukosa,150,helai,2026-04-10,Aktif
+8,Antiserum Newcastle Disease,2,vial,2025-02-12,Luput
+9,Etanol 70%,15,botol,2027-05-01,Aktif
+10,Agar Plate (Blood Agar),30,plat,2025-06-25,Akan Luput</div><button class="copy-btn" type="button" data-copy-target="data-ringkas">📋 Salin Data Ringkas</button></div></article>
+  <div class="card dictionary"><h3>Kamus data ringkas</h3><p><strong>Kuantiti Stok</strong> = baki unit; <strong>Tarikh Luput</strong> = tarikh pada rekod simulasi; <strong>Status</strong> = klasifikasi dalam fail; <strong>Lokasi/Suhu Simpan</strong> = medan penyimpanan simulasi.</p></div>
+  <div class="prompt-grid" style="margin-top:22px"><article class="prompt-card"><div class="prompt-head"><h3>Satu prompt analisis lengkap</h3><p>Jalankan sekali sahaja selepas memuat naik satu CSV atau menampal data ringkas.</p></div><div class="prompt-body"><div class="prompt-box" id="pb-analisis">Analisis data stok simulasi yang saya berikan dalam satu jawapan. Sediakan: (1) ringkasan jumlah baris dan lajur, (2) senarai stok kritikal dengan kuantiti kurang daripada 5 serta item luput/akan luput, (3) tiga penemuan utama, dan (4) satu jadual ringkas tindakan keutamaan. Asingkan fakta, inferens dan cadangan. Jangan ubah atau reka nombor. Tandakan sel kosong, ketidakselarasan dan ketidakpastian.</div><button class="copy-btn" data-copy-target="pb-analisis">📋 Salin Prompt</button></div></article></div>
+  <div class="callout"><div class="icon">🔎</div><p><strong>Checklist:</strong> sahkan 20 baris dan 10 lajur, semak kuantiti, tarikh luput, status, serta kesepadanan jadual dan carta dengan fail sumber.</p></div>
+  <aside class="nlm-mini" aria-labelledby="nlm-k3-title"><div class="nlm-head"><div><span class="eyebrow">Perbandingan platform</span><h3 id="nlm-k3-title">Mini Hands-On NotebookLM</h3></div><a class="nlm-link" href="https://notebooklm.google.com" target="_blank" rel="noopener">Buka NotebookLM ↗</a></div>
+    <div class="nlm-limits"><span>1 notebook</span><span>1 sumber simulasi</span><span>Maksimum 2 soalan</span><span>1 output ringkas</span><span>Tanpa Audio Overview</span><span>Jangan buat carta</span><span>Jangan buat analisis statistik kompleks</span></div>
+    <div class="nlm-source"><strong>Sumber tunggal:</strong> Dataset stok simulasi atau versi data ringkas 10 baris. Gunakan satu sumber dan data simulasi sahaja; jangan gunakan data sensitif.</div>
+    <div class="nlm-grid"><div class="nlm-question"><strong>Soalan 1</strong>“Berdasarkan sumber ini, senaraikan item yang berstatus Stok Rendah, Akan Luput, Luput atau Tamat Stok.”</div><div class="nlm-question"><strong>Soalan 2</strong>“Pisahkan maklumat kepada: 1. Fakta daripada sumber, 2. Inferens, 3. Cadangan tindakan yang memerlukan pertimbangan manusia.”</div></div>
+    <div class="nlm-result"><strong>Hasil ringkas:</strong><ul><li>Fakta berasaskan sumber</li><li>Pemisahan fakta dan cadangan</li><li>Semakan analisis ChatGPT</li></ul></div>
+    <div class="platform-compare"><h4>Bandingkan dan jawab</h4><ul><li>Apa yang ChatGPT hasilkan?</li><li>Apa yang NotebookLM sahkan berdasarkan sumber?</li><li>Adakah ChatGPT menambah fakta?</li><li>Platform mana lebih sesuai untuk tugasan ini?</li><li>Apa yang manusia masih perlu semak?</li></ul></div>
+    <div class="callout nlm-note"><div class="icon">🔍</div><p><strong>ChatGPT membantu menghasilkan. NotebookLM membantu menyemak berdasarkan sumber.</strong></p></div>
+  </aside>
+</div></section>
 
-<span class="nt">LANGKAH PENERIMAAN:</span>
-1. Periksa label sampel — pastikan nama pemilik, spesies haiwan,
-   nombor kes, dan tarikh pengambilan lengkap
-2. Semak keadaan sampel secara fizikal — suhu, kebocoran, kerosakan
-   bekas, dan sama ada jenis spesimen bersesuaian
-3. Daftar dalam sistem LIMS — masukkan nombor sampel, jenis ujian
-   yang diminta, dan unit pemohon
-4. Hantar ke bahagian yang sesuai mengikut jenis ujian:
-   - Ujian serologi → Unit Serologi
-   - Kultur bakteria → Unit Bakteriologi
-   - PCR/diagnostik molekul → Unit Virologi
-5. Simpan baki sampel: 4°C (jangka pendek) atau -20°C (jangka panjang)
+<section id="kumpulan-4"><div class="wrap"><div class="section-head"><span class="eyebrow">07 · Kumpulan 4</span><h2>Google Apps Script Penanda Stok Kritikal</h2><span class="sim-label">⚠ Gunakan data simulasi sahaja</span><p class="lede">Bina <strong>satu mini-automasi sahaja</strong> untuk menandakan stok kritikal dalam Google Sheet.</p></div>
+  <div class="prompt-grid"><article class="prompt-card"><div class="prompt-head"><h3>Google Apps Script Penanda Stok Kritikal</h3></div><div class="prompt-body"><div class="prompt-box" id="prompt-apps-script">Tulis Google Apps Script ringkas untuk Google Sheet yang mengandungi data stok simulasi. Baca nilai dalam lajur “Kuantiti Stok”. Jika kuantiti kurang daripada 5, warnakan keseluruhan baris merah. Kira jumlah item kritikal dan paparkan ringkasan jumlah item kritikal. Skrip hanya membaca data; jangan hantar e-mel dan jangan akses servis luar. Berikan arahan pemasangan dan cara menjalankan skrip.</div><button class="copy-btn" data-copy-target="prompt-apps-script">📋 Salin Prompt</button></div></article></div>
+  <div class="card deliverable"><h3>Hasil Kumpulan & ujian minimum</h3><ul><li>Skrip membaca lajur “Kuantiti Stok”</li><li>Baris dengan kuantiti kurang daripada 5 berwarna merah</li><li>Jumlah item kritikal dikira dan dipaparkan</li><li>Arahan pemasangan dan cara menjalankan skrip disertakan</li><li>Tiada e-mel dihantar dan tiada servis luar diakses</li></ul></div>
+  <div class="live-demo-card"><div class="live-demo-bar"><span class="live-dot" aria-hidden="true"></span><span>CONTOH VISUAL FASILITATOR · BUKAN TUGASAN KUMPULAN</span><button class="refresh-btn" id="refresh-live" type="button">↻ Muat semula</button></div><div class="chart-frame"><canvas id="live-chart" aria-label="Carta stok data simulasi"></canvas></div><p class="live-status" id="live-status" role="status">Mencuba memuatkan Google Sheet simulasi…</p></div>
+  <div class="callout"><div class="icon">🔐</div><p>Terbitkan ke web hanya apabila data benar-benar <strong>simulasi dan tidak sensitif</strong>. Jika sumber langsung gagal, demo akan menyatakan dengan jelas bahawa Pilihan Sandaran CSV simulasi sedang digunakan.</p></div>
+  <aside class="nlm-mini" aria-labelledby="nlm-k4-title"><div class="nlm-head"><div><span class="eyebrow">Perbandingan platform</span><h3 id="nlm-k4-title">Mini Hands-On NotebookLM</h3></div><a class="nlm-link" href="https://notebooklm.google.com" target="_blank" rel="noopener">Buka NotebookLM ↗</a></div>
+    <div class="nlm-limits"><span>1 notebook</span><span>1 sumber simulasi</span><span>Maksimum 2 soalan</span><span>1 output ringkas</span><span>Tanpa Audio Overview</span></div>
+    <div class="nlm-source"><strong>Sumber tunggal:</strong> Satu dokumen simulasi yang mengandungi keperluan dan kod/mini-tool untuk disemak: kuantiti kurang daripada 5 dianggap kritikal; baris kritikal berwarna merah; sistem hanya membaca data; sistem tidak menghantar e-mel; paparkan jumlah item kritikal.</div>
+    <div class="nlm-grid"><div class="nlm-question"><strong>Soalan 1</strong>“Berdasarkan dokumen keperluan ini, senaraikan semua fungsi yang wajib ada.”</div><div class="nlm-question"><strong>Soalan 2</strong>“Semak kod atau mini-tool ini. Nyatakan fungsi yang sudah dipenuhi dan fungsi yang masih belum dipenuhi.”</div></div>
+    <div class="nlm-result"><strong>Hasil ringkas:</strong><ul><li>Checklist keperluan</li><li>Audit fungsi</li><li>Satu cadangan pembetulan</li></ul></div>
+    <div class="platform-compare"><h4>Bandingkan dan jawab</h4><ul><li>Apa yang ChatGPT hasilkan?</li><li>Apa yang NotebookLM sahkan berdasarkan sumber?</li><li>Adakah ChatGPT menambah fakta?</li><li>Platform mana lebih sesuai untuk tugasan ini?</li><li>Apa yang manusia masih perlu semak?</li></ul></div>
+    <div class="callout nlm-note"><div class="icon">🔍</div><p><strong>ChatGPT membantu menghasilkan. NotebookLM membantu menyemak berdasarkan sumber.</strong></p></div>
+  </aside>
+</div></section>
 
-<span class="nt">PERKARA PENTING:</span>
-- Sampel tanpa label lengkap TIDAK boleh diproses — kembalikan kepada penghantar
-- Laporkan sampel rosak atau mencurigakan kepada Penyelia dalam masa 1 jam
-- Semua penerimaan mesti dicatat dalam log harian dan sistem LIMS
-- Pakai PPE yang sesuai semasa mengendalikan semua spesimen</div>
-    </div>
+<section id="pembentangan"><div class="wrap"><div class="section-head"><span class="eyebrow">08 · Pembentangan</span><h2>Panduan pembentangan kumpulan · 5 minit</h2></div><div class="step-list"><div class="step"><span class="num">1</span><p><strong>Prompt utama:</strong> tunjukkan arahan asal.</p></div><div class="step"><span class="num">2</span><p><strong>Output pertama:</strong> tunjukkan hasil yang dijana.</p></div><div class="step"><span class="num">3</span><p><strong>Kelemahan yang ditemui:</strong> jelaskan kesilapan atau kekurangan.</p></div><div class="step"><span class="num">4</span><p><strong>Prompt pembetulan:</strong> tunjukkan cara arahan diperbaik.</p></div><div class="step"><span class="num">5</span><p><strong>Output akhir:</strong> tunjukkan versi yang lebih baik dan perkara yang masih perlu disahkan manusia.</p></div></div></div></section>
 
-    <!-- Prompt Templates -->
-    <div class="step-divider fade-up">Pilih output — copy prompt, paste ke AI pilihan anda</div>
+<section id="checklist"><div class="wrap"><div class="section-head"><span class="eyebrow">09 · Semak output</span><h2>Sembilan perkara sebelum guna</h2></div><div class="checklist"><div class="check-item"><span>✓</span>Fakta sepadan dengan sumber simulasi.</div><div class="check-item"><span>✓</span>Nombor dan tarikh dikira semula.</div><div class="check-item"><span>✓</span>Tiada nama, prosedur atau fakta direka.</div><div class="check-item"><span>✓</span>Fakta, inferens dan cadangan dipisahkan.</div><div class="check-item"><span>✓</span>Ketidakpastian dan maklumat kosong ditandakan.</div><div class="check-item"><span>✓</span>Format sesuai dengan pengguna sasaran.</div><div class="check-item"><span>✓</span>Bahasa jelas, neutral dan profesional.</div><div class="check-item"><span>✓</span>Tiada data sensitif dimuat naik atau didedahkan.</div><div class="check-item"><span>✓</span>Manusia yang sesuai meluluskan hasil akhir.</div></div><div class="callout"><div class="icon">👤</div><p><strong>ChatGPT menghasilkan draf. Manusia mengesahkan hasil.</strong></p></div></div></section>
 
-    <div class="prompt-grid">
+<section id="cabaran"><div class="wrap"><div class="section-head"><span class="eyebrow">10 · Selepas kursus</span><h2>Lima cabaran untuk terus mencuba</h2><span class="sim-label">⚠ Gunakan contoh atau data simulasi; jangan gunakan maklumat sensitif</span></div><div class="challenge-list">
+  <label class="challenge-card"><input class="challenge-cb" type="checkbox"><span class="challenge-inner"><span class="cb">✓</span><span><span class="challenge-title">Ringkaskan dokumen simulasi</span><span class="challenge-desc">Hasilkan ringkasan satu halaman dan semak setiap fakta.</span></span></span></label>
+  <label class="challenge-card"><input class="challenge-cb" type="checkbox"><span class="challenge-inner"><span class="cb">✓</span><span><span class="challenge-title">Baiki satu e-mel kerja</span><span class="challenge-desc">Gunakan konteks rekaan dan bandingkan sebelum/selepas.</span></span></span></label>
+  <label class="challenge-card"><input class="challenge-cb" type="checkbox"><span class="challenge-inner"><span class="cb">✓</span><span><span class="challenge-title">Cipta bahan pembelajaran</span><span class="challenge-desc">Tukar SOP simulasi kepada checklist atau kuiz.</span></span></span></label>
+  <label class="challenge-card"><input class="challenge-cb" type="checkbox"><span class="challenge-inner"><span class="cb">✓</span><span><span class="challenge-title">Analisis data CSV</span><span class="challenge-desc">Gunakan dataset simulasi dan sahkan setiap kiraan.</span></span></span></label>
+  <label class="challenge-card"><input class="challenge-cb" type="checkbox"><span class="challenge-inner"><span class="cb">✓</span><span><span class="challenge-title">Cabaran lanjutan selepas kursus</span><span class="challenge-desc">Bina dashboard HTML ringkas daripada data stok simulasi.</span></span></span></label>
+  </div></div></section>
 
-      <!-- Prompt 1: Infografik -->
-      <div class="prompt-card fade-up">
-        <div class="prompt-card-header">
-          <div class="prompt-card-icon">🎨</div>
-          <h3>Infografik Visual</h3>
-          <p class="prompt-desc">AI jana kod HTML lengkap untuk infografik — boleh terus guna sebagai slaid atau bahan cetak visual.</p>
-        </div>
-        <div class="prompt-card-body">
-          <div class="prompt-box" id="prompt-infografik">Saya ada nota SOP makmal berikut. Tolong tukar jadi infografik HTML yang visual dan menarik. Gunakan warna-warna cerah, icon emoji yang sesuai, dan susun atur yang mudah difahami. Pastikan teks ringkas — gunakan bullet point dan heading yang jelas.
-
-Format output: kod HTML lengkap dalam satu fail (boleh save sebagai .html dan buka terus dalam browser).
-
-Nota SOP:
-[tampal nota anda di sini]</div>
-          <button class="copy-btn" onclick="copyPrompt(this, 'prompt-infografik')">
-            <span class="ci">📋</span><span class="ct">Copy Prompt</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Prompt 2: Flashcard -->
-      <div class="prompt-card fade-up">
-        <div class="prompt-card-header">
-          <div class="prompt-card-icon">🃏</div>
-          <h3>Flashcard Ulang Kaji</h3>
-          <p class="prompt-desc">AI hasilkan set kad soal-jawab — sesuai untuk ulang kaji cepat atau kuiz sesama rakan sekerja.</p>
-        </div>
-        <div class="prompt-card-body">
-          <div class="prompt-box" id="prompt-flashcard">Tukar nota di bawah jadi set flashcard untuk ulang kaji. Setiap flashcard perlu ada:
-• Soalan (hadapan kad) — ringkas dan jelas
-• Jawapan (belakang kad) — 1-3 ayat, padat
-
-Buat minimum 6 flashcard yang meliputi konsep dan langkah paling penting. Format: senarai bernombor, label "S:" untuk soalan dan "J:" untuk jawapan. Bahasa: Bahasa Melayu.
-
-Nota:
-[tampal nota anda di sini]</div>
-          <button class="copy-btn" onclick="copyPrompt(this, 'prompt-flashcard')">
-            <span class="ci">📋</span><span class="ct">Copy Prompt</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Prompt 3: Quiz -->
-      <div class="prompt-card fade-up">
-        <div class="prompt-card-header">
-          <div class="prompt-card-icon">📝</div>
-          <h3>Kuiz Kefahaman</h3>
-          <p class="prompt-desc">AI buat soalan MCQ dengan kunci jawapan — sesuai untuk uji kefahaman pekerja baru atau semakan latihan.</p>
-        </div>
-        <div class="prompt-card-body">
-          <div class="prompt-box" id="prompt-kuiz">Berdasarkan nota di bawah, buat 5 soalan kuiz pelbagai pilihan (MCQ) untuk menguji kefahaman. Format setiap soalan:
-• Nombor soalan dan teks soalan
-• 4 pilihan jawapan (A, B, C, D)
-• [Jawapan: X] di akhir setiap soalan
-
-Pastikan soalan menguji pemahaman konsep, bukan hafalan semata. Aras kesukaran: sederhana. Bahasa: Bahasa Melayu formal.
-
-Nota:
-[tampal nota anda di sini]</div>
-          <button class="copy-btn" onclick="copyPrompt(this, 'prompt-kuiz')">
-            <span class="ci">📋</span><span class="ct">Copy Prompt</span>
-          </button>
-        </div>
-      </div>
-
-    </div><!-- end prompt-grid -->
-
-    <div class="callout fade-up">
-      <div class="icon">💡</div>
-      <p><strong>Pro tip:</strong> Selepas AI hasilkan output, cuba minta penambahbaikan: <em>"Boleh buat versi yang lebih ringkas?"</em> atau <em>"Tambah contoh berkaitan makmal haiwan?"</em> — AI akan ubah suai mengikut arahan anda.</p>
-    </div>
-
-  </div>
-</div>
-
-<!-- ================= BAHAGIAN B ================= -->
-<div id="bahagian-b">
-  <div class="section-wrap">
-
-    <div class="bahagian-header fade-up">
-      <div class="bahagian-letter">B</div>
-      <div class="bahagian-info">
-        <div class="bahagian-karat">Bahagian B — Aktiviti 2 &nbsp;·&nbsp; ±15 minit</div>
-        <h3>Main dengan Data Sendiri</h3>
-        <p>Bawa mana-mana fail data ringkas (Excel, CSV, atau senarai dalam teks biasa) dan biarkan AI analisa untuk anda — cari trend, anomali, dan buat carta tanpa perlu faham formula Excel yang rumit.</p>
-      </div>
-    </div>
-
-    <!-- Download + preview -->
-    <div class="sample-label fade-up">
-      📂 &nbsp;Guna data sendiri, atau muat turun dataset dummy makmal ini:
-    </div>
-
-    <div class="download-row fade-up">
-      <a class="download-btn" href="assets/dummy-data.csv" download="data-stok-reagen-makmal.csv">
-        ⬇️ &nbsp;Muat Turun Dataset Dummy (CSV)
-      </a>
-      <span class="download-note">data-stok-reagen-makmal.csv &nbsp;·&nbsp; 20 rekod &nbsp;·&nbsp; Stok reagen makmal ITU</span>
-    </div>
-
-    <div class="data-preview-wrap fade-up">
-      <div class="data-preview-bar">📊 &nbsp;PRATONTON DATA — 5 baris pertama (daripada 20)</div>
-      <table class="data-table">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Nama Reagen / Bahan</th>
-            <th>Kategori</th>
-            <th>Kuantiti</th>
-            <th>Unit</th>
-            <th>Tarikh Luput</th>
-            <th>Suhu Simpan</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>1</td><td>Sodium Chloride 0.9%</td><td>Larutan</td><td>12</td><td>botol</td><td>2026-12-31</td><td>Suhu Bilik</td><td class="tag-aktif">Aktif</td></tr>
-          <tr><td>2</td><td>Formalin 10%</td><td>Larutan Fiksatif</td><td>3</td><td>botol</td><td>2026-06-15</td><td>Suhu Bilik</td><td class="tag-aktif">Aktif</td></tr>
-          <tr><td>3</td><td>Antibodi Anti-Rabies</td><td>Kit Ujian</td><td>0</td><td>kit</td><td>2025-05-01</td><td>2–8°C</td><td class="tag-habis">Tamat Stok</td></tr>
-          <tr><td>4</td><td>ELISA Kit — Brucellosis</td><td>Kit Ujian</td><td>8</td><td>kit</td><td>2026-03-20</td><td>2–8°C</td><td class="tag-aktif">Aktif</td></tr>
-          <tr><td>5</td><td>Methanol</td><td>Pelarut</td><td>5</td><td>botol</td><td>2025-09-05</td><td>Suhu Bilik</td><td class="tag-akan">Akan Luput</td></tr>
-        </tbody>
-      </table>
-      <div class="data-more">… dan 15 rekod lagi. Muat turun CSV untuk data penuh.</div>
-    </div>
-
-    <!-- Prompt templates B -->
-    <div class="step-divider fade-up">3 prompt siap pakai — upload data + copy prompt ke AI pilihan anda</div>
-
-    <div class="prompt-grid">
-
-      <div class="prompt-card fade-up">
-        <div class="prompt-card-header">
-          <div class="prompt-card-icon">📈</div>
-          <h3>Ringkaskan &amp; Cari Trend</h3>
-          <p class="prompt-desc">Dapatkan gambaran besar data anda dalam satu jawapan — statistik asas dan corak utama.</p>
-        </div>
-        <div class="prompt-card-body">
-          <div class="prompt-box" id="pb-trend">Saya upload fail CSV yang mengandungi data [nyatakan jenis data anda]. Tolong:
-1. Buat ringkasan keseluruhan — berapa baris, apakah lajur utama, apa yang direkodkan
-2. Cari trend atau corak yang menonjol dalam data ini
-3. Nyatakan 3 penemuan paling penting dalam point form
-
-Format: ringkas dan terstruktur. Bahasa: Bahasa Melayu.</div>
-          <button class="copy-btn" onclick="copyPrompt(this, 'pb-trend')">
-            <span class="ci">📋</span><span class="ct">Copy Prompt</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="prompt-card fade-up">
-        <div class="prompt-card-header">
-          <div class="prompt-card-icon">🔍</div>
-          <h3>Highlight Anomali</h3>
-          <p class="prompt-desc">AI flag perkara yang luar biasa atau memerlukan tindakan segera dalam data anda.</p>
-        </div>
-        <div class="prompt-card-body">
-          <div class="prompt-box" id="pb-anomali">Berdasarkan fail CSV yang diupload, senaraikan semua ANOMALI atau perkara yang memerlukan perhatian:
-- Nilai yang luar julat normal atau tidak konsisten
-- Item kritikal yang perlu tindakan segera
-- Rekod yang mencurigakan atau tidak lengkap
-
-Susun mengikut keutamaan (paling kritikal dahulu). Cadangkan tindakan susulan untuk setiap isu. Bahasa: Bahasa Melayu.</div>
-          <button class="copy-btn" onclick="copyPrompt(this, 'pb-anomali')">
-            <span class="ci">📋</span><span class="ct">Copy Prompt</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="prompt-card fade-up">
-        <div class="prompt-card-header">
-          <div class="prompt-card-icon">📊</div>
-          <h3>Jana Carta Visual</h3>
-          <p class="prompt-desc">AI buat carta interaktif dalam satu fail HTML — boleh terus share atau cetak untuk laporan.</p>
-        </div>
-        <div class="prompt-card-body">
-          <div class="prompt-box" id="pb-carta">Berdasarkan data CSV yang diupload, buat kod HTML lengkap (satu fail) yang paparkan:
-1. Carta pai atau bar — pecahan mengikut kategori utama (gunakan Chart.js dari CDN)
-2. Jadual ringkasan yang kemas dengan label dan warna yang jelas
-3. Tajuk laporan dan tarikh di bahagian atas
-
-Warna: guna tema biru dan kuning. Bahasa label: Bahasa Melayu.</div>
-          <button class="copy-btn" onclick="copyPrompt(this, 'pb-carta')">
-            <span class="ci">📋</span><span class="ct">Copy Prompt</span>
-          </button>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="callout fade-up">
-      <div class="icon">💡</div>
-      <p><strong>Format fail yang disokong:</strong> CSV, Excel (.xlsx), PDF, Word, teks biasa, dan gambar — Claude, ChatGPT, Gemini dan NotebookLM semuanya boleh terima fail ini terus. Upload terus ke chat dan AI akan baca keseluruhan fail secara automatik tanpa perlu copy-paste kandungannya.</p>
-    </div>
-
-  </div>
-</div>
-
-<!-- ================= BONUS: LIVE DEMO ================= -->
-<div id="bahagian-live">
-  <div class="section-wrap">
-
-    <div class="bahagian-header fade-up" style="background: linear-gradient(135deg, #6A3FC4 0%, #9B6FE0 100%);">
-      <div class="bahagian-letter">🔄</div>
-      <div class="bahagian-info">
-        <div class="bahagian-karat">Bonus — Demo Live &nbsp;·&nbsp; ±5 minit</div>
-        <h3>Data Berubah, Carta Pun Berubah — Secara Live!</h3>
-        <p>Carta yang kita buat tadi adalah "gambar" data pada masa prompt dihantar — kalau data sumber bertukar esok, carta tu tak ikut. Tapi dengan sedikit setup, carta boleh "sambung terus" ke Google Sheet — setiap kali dibuka (atau ditekan Refresh), ia tunjuk data <strong>paling terkini</strong>.</p>
-      </div>
-    </div>
-
-    <div class="step-flow fade-up">
-      <div class="step-flow-item">
-        <div class="step-num">1</div>
-        <div>
-          <h4>Sediakan Google Sheet</h4>
-          <p>Buat Google Sheet dengan struktur lajur yang sama macam <code>dummy-data.csv</code> (atau ringkas: lajur "Kategori", "Kuantiti Stok" dan "Status" sahaja sudah cukup untuk carta di bawah).</p>
-        </div>
-      </div>
-      <div class="step-flow-item">
-        <div class="step-num">2</div>
-        <div>
-          <h4>Publish to Web sebagai CSV</h4>
-          <p>Dalam Google Sheets: <strong>File → Share → Publish to web</strong> → pilih sheet berkenaan → format <strong>CSV</strong> → Publish → copy link yang dihasilkan.</p>
-        </div>
-      </div>
-      <div class="step-flow-item">
-        <div class="step-num">3</div>
-        <div>
-          <h4>Tampal link & tekan Refresh</h4>
-          <p>Fasilitator tampal link CSV tu dalam kod halaman ni (lihat nota di bawah carta). Lepas itu — setiap kali Sheet dikemas kini & butang <strong>🔄 Refresh Data</strong> ditekan, carta terus berubah mengikut data terbaru.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="live-demo-card fade-up">
-      <div class="live-demo-bar">
-        <span class="live-dot"></span>
-        <span>LIVE — carta baca terus dari Google Sheet</span>
-        <button class="refresh-btn" onclick="loadLiveData()">🔄 &nbsp;Refresh Data</button>
-      </div>
-      <div class="live-demo-body">
-        <div style="position: relative; height: 520px;">
-          <canvas id="liveChart" role="img" aria-label="Carta bar kuantiti stok bagi setiap reagen/bahan, warna mengikut status, dibaca terus dari Google Sheet">Kuantiti stok bagi setiap reagen/bahan, warna mengikut status.</canvas>
-        </div>
-        <div class="live-legend" id="liveLegend"></div>
-      </div>
-      <div class="live-status" id="liveStatus">Memuatkan data…</div>
-    </div>
-
-    <div class="callout fade-up">
-      <div class="icon">⚙️</div>
-      <p><strong>Macam mana ni jadi?</strong> Carta di atas baca terus dari satu Google Sheet yang di-"Publish to web" sebagai CSV — bukan data ditaip terus dalam kod. Cuba sendiri: pergi ke Bahagian B, buat Google Sheet sendiri, publish jadi CSV, dan minta AI bina dashboard macam ni guna prompt yang sama. <strong>Nota privasi:</strong> "Publish to web" bermaksud sesiapa dengan link boleh akses — jangan guna data sulit/rasmi.</p>
-    </div>
-
-  </div>
-</div>
-
-<!-- ================= BAHAGIAN C ================= -->
-<div id="bahagian-c">
-  <div class="section-wrap">
-
-    <div class="bahagian-header fade-up" style="background: linear-gradient(135deg, #1a6e1a 0%, #2e9e2e 100%);">
-      <div class="bahagian-letter">C</div>
-      <div class="bahagian-info">
-        <div class="bahagian-karat">Bahagian C — Self-Challenge &nbsp;·&nbsp; Buat bila-bila masa</div>
-        <h3>5 Mini-Challenge untuk Dicuba</h3>
-        <p>Selesaikan lepas sesi atau dalam masa lapang — bermula dari yang paling mudah. Tandakan (✓) setiap cabaran yang berjaya diselesaikan!</p>
-      </div>
-    </div>
-
-    <div class="challenge-list">
-
-      <!-- Challenge 1 -->
-      <label class="challenge-card fade-up">
-        <input type="checkbox" class="challenge-cb">
-        <div class="challenge-inner">
-          <div class="cb-visual">✓</div>
-          <div class="challenge-content">
-            <div class="challenge-meta">
-              <span class="challenge-level level-mudah">Mudah</span>
-              <span class="challenge-num">Cabaran 1 / 5</span>
-            </div>
-            <div class="challenge-title">Tukar 1 emel tidak rasmi jadi emel rasmi</div>
-            <div class="challenge-desc">Ambil mana-mana emel atau WhatsApp mesej kerja yang anda tulis dalam bahasa santai, minta Claude tukar jadi emel rasmi yang sesuai dihantar kepada Ketua Jabatan atau pelanggan.</div>
-            <div class="challenge-hint">💬 Prompt: "Tolong tukar mesej ini jadi emel rasmi yang formal dan sopan untuk dihantar kepada Ketua Jabatan: [tampal mesej anda]"</div>
-          </div>
-        </div>
-      </label>
-
-      <!-- Challenge 2 -->
-      <label class="challenge-card fade-up">
-        <input type="checkbox" class="challenge-cb">
-        <div class="challenge-inner">
-          <div class="cb-visual">✓</div>
-          <div class="challenge-content">
-            <div class="challenge-meta">
-              <span class="challenge-level level-mudah">Mudah</span>
-              <span class="challenge-num">Cabaran 2 / 5</span>
-            </div>
-            <div class="challenge-title">Ringkaskan 1 dokumen panjang jadi 5 perkara penting</div>
-            <div class="challenge-desc">Pilih mana-mana dokumen kerja (laporan, surat pekeliling, SOP, minit mesyuarat) — upload ke Claude dan minta ringkasan dalam 5 perkara paling penting sahaja.</div>
-            <div class="challenge-hint">💬 Prompt: "Ringkaskan dokumen ini kepada 5 perkara penting sahaja, dalam Bahasa Melayu yang mudah difahami: [upload fail atau tampal teks]"</div>
-          </div>
-        </div>
-      </label>
-
-      <!-- Challenge 3 -->
-      <label class="challenge-card fade-up">
-        <input type="checkbox" class="challenge-cb">
-        <div class="challenge-inner">
-          <div class="cb-visual">✓</div>
-          <div class="challenge-content">
-            <div class="challenge-meta">
-              <span class="challenge-level level-sederhana">Sederhana</span>
-              <span class="challenge-num">Cabaran 3 / 5</span>
-            </div>
-            <div class="challenge-title">Tukar senarai nota jadi jadual perbandingan</div>
-            <div class="challenge-desc">Ada senarai bullet point atau nota yang sukar dibandingkan? Minta Claude susun semula jadi jadual yang kemas dengan lajur yang bermakna — sesuai untuk slaid taklimat atau laporan.</div>
-            <div class="challenge-hint">💬 Prompt: "Tukar senarai ini jadi jadual perbandingan yang kemas dalam Bahasa Melayu. Pilih lajur yang paling sesuai untuk membandingkan item-item ini: [tampal senarai anda]"</div>
-          </div>
-        </div>
-      </label>
-
-      <!-- Challenge 4 -->
-      <label class="challenge-card fade-up">
-        <input type="checkbox" class="challenge-cb">
-        <div class="challenge-inner">
-          <div class="cb-visual">✓</div>
-          <div class="challenge-content">
-            <div class="challenge-meta">
-              <span class="challenge-level level-sederhana">Sederhana</span>
-              <span class="challenge-num">Cabaran 4 / 5</span>
-            </div>
-            <div class="challenge-title">Analisis 1 dataset kecil milik anda</div>
-            <div class="challenge-desc">Guna data sebenar dari kerja anda — rekod sampel, jadual penggunaan peralatan, senarai inventori, atau apa-apa sahaja dalam Excel/CSV. Upload ke Claude dan minta analisis penuh dengan cadangan tindakan.</div>
-            <div class="challenge-hint">💬 Prompt: "Saya upload data [jenis data]. Tolong: (1) buat ringkasan, (2) cari trend atau anomali, (3) cadangkan 2-3 tindakan berdasarkan penemuan ini. Bahasa: Bahasa Melayu."</div>
-          </div>
-        </div>
-      </label>
-
-      <!-- Challenge 5 -->
-      <label class="challenge-card fade-up">
-        <input type="checkbox" class="challenge-cb">
-        <div class="challenge-inner">
-          <div class="cb-visual">✓</div>
-          <div class="challenge-content">
-            <div class="challenge-meta">
-              <span class="challenge-level level-mencabar">Mencabar</span>
-              <span class="challenge-num">Cabaran 5 / 5</span>
-            </div>
-            <div class="challenge-title">Bina 1 mini-tool automasi Google Sheets</div>
-            <div class="challenge-desc">Pilih satu tugasan berulang yang anda buat secara manual dalam spreadsheet — contoh: kira jumlah automatik, buat laporan bulanan dari data, atau hantar notifikasi bila stok rendah. Minta Claude tulis Apps Script untuk anda.</div>
-            <div class="challenge-hint">💬 Prompt: "Bantu saya bina skrip Google Apps Script untuk Google Sheets yang boleh [nyatakan fungsi yang dikehendaki]. Saya bukan programmer — berikan kod lengkap dan arahan langkah demi langkah cara pasang dan gunakannya."</div>
-          </div>
-        </div>
-      </label>
-
-    </div>
-
-    <div class="callout fade-up">
-      <div class="icon">🏆</div>
-      <p><strong>Dah siap semua 5 cabaran?</strong> Cuba kongsi hasil atau pengalaman anda dengan rakan sekerja — mungkin anda dah jumpa cara guna Claude yang boleh bantu seluruh unit! Boleh juga cuba cipta cabaran sendiri berdasarkan tugasan harian anda.</p>
-    </div>
-
-  </div>
-</div>
-
-<footer>
-  <div class="footer-brand">Workshop Hands-On 🧪</div>
-  Disediakan untuk taklimat PM &amp; PPS — Institut Teknologi Unggas, <span>Jabatan Perkhidmatan Veterinar</span>
-</footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<section id="penutup"><div class="wrap"><div class="closing"><span class="eyebrow" style="background:rgba(255,255,255,.12);color:var(--yellow)">11 · Penutup</span><h2>Mulakan kecil, semak teliti, kongsi dengan selamat</h2><p class="lede">Nilai A.I datang daripada gabungan arahan yang jelas, data yang sesuai dan pertimbangan manusia.</p><div class="grid three"><div class="card"><h3>1 · Pilih satu kerja</h3><p>Cari tugasan berulang yang rendah risiko.</p></div><div class="card"><h3>2 · Cuba T.K.T.F</h3><p>Simpan prompt utama dan prompt pembetulan.</p></div><div class="card"><h3>3 · Sahkan hasil</h3><p>Semak fakta, keselamatan dan pemilik keputusan.</p></div></div></div></div></section>
+</main>
+<footer><strong>Workshop A.I DVS</strong><br>Data latihan dalam halaman ini ialah simulasi · Semak sebelum guna</footer>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 <script>
-  // ===== LIVE DEMO: carta dari Google Sheet (Publish to web > CSV) =====
-  // Fasilitator: tukar nilai di bawah ke link "Publish to web > CSV" dari Google Sheet anda.
-  // Selagi kosong, carta papar data contoh dari dummy-data.csv sebagai fallback.
-  const LIVE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1kXX5CSBOHGttueKWyEpd2c0SINoq-NHKPVLiGz2Orwo/export?format=csv&gid=1933931771';
+(() => {
+  'use strict';
+  const menuButton=document.querySelector('.menu-toggle');
+  const nav=document.getElementById('workshop-nav');
+  const setMenu=open=>{if(!menuButton||!nav)return;nav.classList.toggle('open',open);menuButton.setAttribute('aria-expanded',String(open));menuButton.textContent=open?'✕ Tutup':'☰ Menu'};
+  menuButton?.addEventListener('click',()=>setMenu(menuButton.getAttribute('aria-expanded')!=='true'));
+  menuButton?.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();setMenu(menuButton.getAttribute('aria-expanded')!=='true')}});
+  nav?.querySelectorAll('a[href^="#"]').forEach(link=>link.addEventListener('click',()=>{if(window.matchMedia('(max-width: 920px)').matches)setMenu(false)}));
+  window.addEventListener('resize',()=>{if(window.innerWidth>920)setMenu(false)});
 
-  const LIVE_FALLBACK_CSV = `Nama Reagen/Bahan,Kategori,Kuantiti Stok,Status
-Sodium Chloride 0.9%,Larutan,12,Aktif
-Formalin 10%,Larutan Fiksatif,3,Aktif
-Antibodi Anti-Rabies,Kit Ujian,0,Tamat Stok
-ELISA Kit - Brucellosis,Kit Ujian,8,Aktif
-Methanol,Pelarut,5,Akan Luput
-Phosphate Buffer Saline (PBS),Larutan Penampan,20,Aktif
-Test Strip Glukosa,Kit Ujian,150,Aktif
-Antiserum Newcastle Disease,Reagen Diagnostik,2,Luput
-Etanol 70%,Pelarut,15,Aktif
-Agar Plate (Blood Agar),Media Kultur,30,Akan Luput
-Kit Ujian Avian Influenza (H5N1),Kit Ujian,4,Akan Luput
-Sarung Tangan Nitril (M),Bekalan Makmal,8,Stok Rendah
-Tabung Vacutainer EDTA,Bekalan Makmal,200,Aktif
-Reagen Hematology Diluent,Reagen,6,Aktif
-Kit Ujian Mastitis (CMT),Kit Ujian,1,Akan Luput
-Antibodi Anti-FMD,Kit Ujian,10,Aktif
-Iodine Tincture,Antiseptik,7,Aktif
-Hidrogen Peroksida 3%,Antiseptik,4,Luput
-Slaid Mikroskop,Bekalan Makmal,500,Aktif
-Kit Ujian PPR (Peste des Petits Ruminants),Kit Ujian,3,Aktif`;
+  const map=[['hero','arahan'],['arahan','arahan'],['tktf','tktf'],['kumpulan','tktf'],['kumpulan-1','kumpulan-1'],['kumpulan-2','kumpulan-2'],['kumpulan-3','kumpulan-3'],['kumpulan-4','kumpulan-4'],['pembentangan','pembentangan'],['checklist','pembentangan'],['cabaran','cabaran'],['penutup','cabaran']];
+  const navLinks=[...(nav?.querySelectorAll('a[href^="#"]')||[])];
+  if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(!entry.isIntersecting)return;const target=map.find(x=>x[0]===entry.target.id)?.[1];navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+target))})},{rootMargin:'-28% 0px -62% 0px'});map.forEach(([id])=>{const el=document.getElementById(id);if(el)observer.observe(el)})}
+  const fades=document.querySelectorAll('.fade-up');if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){fades.forEach(x=>x.classList.add('visible'))}else if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.08});fades.forEach(x=>io.observe(x))}
 
-  let liveChartInstance = null;
+  async function copyText(text){if(navigator.clipboard?.writeText){try{await navigator.clipboard.writeText(text);return true}catch(e){}}
+    const ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;opacity:0;pointer-events:none';document.body.appendChild(ta);ta.select();let ok=false;try{ok=document.execCommand('copy')}catch(e){}ta.remove();return ok}
+  document.querySelectorAll('[data-copy-target]').forEach(btn=>btn.addEventListener('click',async()=>{const source=document.getElementById(btn.dataset.copyTarget);if(!source)return;const old=btn.textContent;const ok=await copyText(source.innerText.trim());btn.textContent=ok?'✓ Disalin!':'Cuba lagi…';btn.classList.toggle('copied',ok);setTimeout(()=>{btn.textContent=old;btn.classList.remove('copied')},1800)}));
 
-  const STATUS_COLORS = {
-    'Aktif':       '#639922',
-    'Akan Luput':  '#BA7517',
-    'Luput':       '#E24B4A',
-    'Tamat Stok':  '#888780',
-    'Stok Rendah': '#D85A30'
-  };
-  const STATUS_FALLBACK_COLOR = '#9B6FE0';
-  const STATUS_ORDER = ['Aktif', 'Akan Luput', 'Stok Rendah', 'Tamat Stok', 'Luput'];
-
-  function renderLiveChart(rows) {
-    const labels = [];
-    const data = [];
-    const colors = [];
-    const statusesPresent = new Set();
-
-    rows.forEach(r => {
-      const nama = (r['Nama Reagen/Bahan'] || r['Nama'] || r['nama'] || '').trim();
-      const qtyRaw = r['Kuantiti Stok'] || r['kuantiti stok'] || r['Kuantiti'] || 0;
-      const qty = parseFloat(String(qtyRaw).replace(',', '.')) || 0;
-      const status = (r['Status'] || r['status'] || '').trim();
-      if (!nama) return;
-      labels.push(nama);
-      data.push(qty);
-      colors.push(STATUS_COLORS[status] || STATUS_FALLBACK_COLOR);
-      if (status) statusesPresent.add(status);
-    });
-
-    if (liveChartInstance) liveChartInstance.destroy();
-    liveChartInstance = new Chart(document.getElementById('liveChart'), {
-      type: 'bar',
-      data: { labels, datasets: [{ label: 'Kuantiti stok', data, backgroundColor: colors }] },
-      options: {
-        indexAxis: 'y',
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { beginAtZero: true, ticks: { precision: 0 } },
-          y: { ticks: { autoSkip: false, font: { size: 11 } } }
-        }
-      }
-    });
-
-    // Build status legend (hanya status yang wujud dalam data)
-    const legendEl = document.getElementById('liveLegend');
-    if (legendEl) {
-      const ordered = STATUS_ORDER.filter(s => statusesPresent.has(s));
-      Array.from(statusesPresent).forEach(s => { if (!ordered.includes(s)) ordered.push(s); });
-      legendEl.innerHTML = ordered.map(s =>
-        `<span class="live-legend-item"><span class="live-legend-dot" style="background:${STATUS_COLORS[s] || STATUS_FALLBACK_COLOR}"></span>${s}</span>`
-      ).join('');
-    }
-  }
-
-  function useLiveFallback(reason) {
-    const rows = Papa.parse(LIVE_FALLBACK_CSV, { header: true, skipEmptyLines: true }).data;
-    renderLiveChart(rows);
-    const now = new Date().toLocaleTimeString('ms-MY');
-    document.getElementById('liveStatus').innerHTML =
-      `Menggunakan <strong>data contoh (dummy-data.csv)</strong> — ${reason}. Dikemas kini: ${now}`;
-  }
-
-  function loadLiveData() {
-    const statusEl = document.getElementById('liveStatus');
-    statusEl.textContent = 'Memuatkan data…';
-
-    if (!LIVE_SHEET_CSV_URL) {
-      useLiveFallback('fasilitator belum tetapkan <code>LIVE_SHEET_CSV_URL</code>');
-      return;
-    }
-
-    const sep = LIVE_SHEET_CSV_URL.includes('?') ? '&' : '?';
-    fetch(LIVE_SHEET_CSV_URL + sep + 'cb=' + Date.now())
-      .then(res => { if (!res.ok) throw new Error('Network error'); return res.text(); })
-      .then(text => {
-        const rows = Papa.parse(text, { header: true, skipEmptyLines: true }).data;
-        renderLiveChart(rows);
-        const now = new Date().toLocaleTimeString('ms-MY');
-        statusEl.innerHTML = `Data dimuat terus dari Google Sheet. Dikemas kini: <strong>${now}</strong>`;
-      })
-      .catch(() => useLiveFallback('gagal capai Google Sheet (semak link "Publish to web")'));
-  }
-
-  loadLiveData();
+  const LIVE_SHEET_CSV_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vQCsVaIK_O-y63ZcaTfR6ArHhBoAeuLaiKXF1et3RME-XZFvOqdNx6RMYd5x0wPjH0zNPSdPTHzBq_u/pub?gid=0&single=true&output=csv';
+  const dataSandaran=`No,Nama Reagen/Bahan,Kategori,Kuantiti Stok,Unit,Tarikh Terima,Tarikh Luput,Lokasi Simpan,Suhu Simpan,Status
+1,Sodium Chloride 0.9%,Larutan,12,botol,2025-01-10,2026-12-31,Rak A1,Suhu Bilik,Aktif
+2,Formalin 10%,Larutan Fiksatif,3,botol,2024-06-15,2026-06-15,Rak A2,Suhu Bilik,Aktif
+3,Antibodi Anti-Rabies,Kit Ujian,0,kit,2024-11-01,2025-05-01,Peti Sejuk 1,2-8°C,Tamat Stok
+4,ELISA Kit - Brucellosis,Kit Ujian,8,kit,2025-03-20,2026-03-20,Peti Sejuk 1,2-8°C,Aktif
+5,Methanol,Pelarut,5,botol,2024-09-05,2025-09-05,Almari Kimia 1,Suhu Bilik,Akan Luput
+6,Phosphate Buffer Saline (PBS),Larutan Penampan,20,botol,2025-02-01,2027-02-01,Rak A1,Suhu Bilik,Aktif`;
+  let chart=null;const status=document.getElementById('live-status');const canvas=document.getElementById('live-chart');
+  function render(rows){if(!canvas||typeof window.Chart==='undefined')return false;const usable=rows.filter(r=>r['Nama Reagen/Bahan']);if(!usable.length)return false;chart?.destroy();chart=new Chart(canvas,{type:'bar',data:{labels:usable.map(r=>r['Nama Reagen/Bahan']),datasets:[{label:'Kuantiti stok (simulasi)',data:usable.map(r=>Number(r['Kuantiti Stok'])||0),backgroundColor:usable.map(r=>(Number(r['Kuantiti Stok'])||0)<5?'#d32f2f':'#1e4fa0'),borderRadius:7}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},title:{display:true,text:'Kuantiti Stok · Data Simulasi'}},scales:{y:{beginAtZero:true}}}});return true}
+  function gunaDataSandaran(reason){if(typeof window.Papa==='undefined'){if(status)status.textContent='Demo carta tidak dapat dimuatkan kerana pustaka data tidak tersedia.';return}const parsed=Papa.parse(dataSandaran,{header:true,skipEmptyLines:true});const ok=render(parsed.data);if(status)status.textContent=ok?`Pilihan Sandaran CSV simulasi sedang digunakan — ${reason}`:'Carta tidak dapat dipaparkan. Semak sambungan internet dan cuba lagi.'}
+  async function loadLive(){if(status)status.textContent='Mencuba memuatkan Google Sheet simulasi…';if(!canvas||typeof window.Chart==='undefined'||typeof window.Papa==='undefined'){gunaDataSandaran('pustaka carta atau data tidak tersedia.');return}try{const res=await fetch(LIVE_SHEET_CSV_URL,{cache:'no-store'});if(!res.ok)throw new Error('HTTP '+res.status);const text=await res.text();const parsed=Papa.parse(text,{header:true,skipEmptyLines:true});if(parsed.errors.length||!render(parsed.data))throw new Error('format data tidak sah');if(status)status.textContent='Data Google Sheet live berjaya dimuatkan. Semua nilai ialah data simulasi.'}catch(e){gunaDataSandaran('sumber langsung gagal dimuatkan.') } }
+  document.getElementById('refresh-live')?.addEventListener('click',loadLive);loadLive();
+})();
 </script>
-
-<script>
-  // ===== ACTIVE NAV ON SCROLL =====
-  const navLinks = document.querySelectorAll('.nav-link:not(.back)');
-  const anchors  = ['bahagian-a', 'bahagian-b', 'bahagian-c'];
-  window.addEventListener('scroll', () => {
-    let current = anchors[0];
-    anchors.forEach(id => {
-      const el = document.getElementById(id);
-      if (el && window.scrollY >= el.offsetTop - 130) current = id;
-    });
-    navLinks.forEach(l => {
-      l.classList.toggle('active', l.getAttribute('href') === '#' + current);
-    });
-  });
-
-  // ===== FADE-UP INTERSECTION OBSERVER =====
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!reduceMotion) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
-  } else {
-    document.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible'));
-  }
-
-  // ===== COPY PROMPT =====
-  function copyPrompt(btn, promptId) {
-    const text = document.getElementById(promptId).innerText.trim();
-    const icon = btn.querySelector('.ci');
-    const label = btn.querySelector('.ct');
-    navigator.clipboard.writeText(text).then(() => {
-      icon.textContent = '✓';
-      label.textContent = 'Disalin!';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        icon.textContent = '📋';
-        label.textContent = 'Copy Prompt';
-        btn.classList.remove('copied');
-      }, 2200);
-    }).catch(() => {
-      label.textContent = 'Cuba lagi…';
-      setTimeout(() => { label.textContent = 'Copy Prompt'; }, 1800);
-    });
-  }
-</script>
-
 </body>
 </html>
